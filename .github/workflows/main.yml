@@ -1,0 +1,24 @@
+name: Adaptive Digital Twin Framework CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate:
+    name: Validate Repository
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify repository structure
+        run: |
+          echo "Adaptive Digital Twin Framework validation"
+          echo "Repository checkout successful"
+          ls

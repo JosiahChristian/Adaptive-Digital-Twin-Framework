@@ -168,5 +168,181 @@ through observations, data assimilation, and learning algorithms.
 
 
 
+\## 3. State-Space Representation
+
+
+
+A central mathematical framework for adaptive digital twins is the state-space model.
+
+
+
+State-space representation provides a method for describing a system using internal states, external inputs, and measurable outputs.
+
+
+
+A general continuous-time state-space system is represented as:
+
+
+
+\\\[
+
+\\dot{x}(t)=Ax(t)+Bu(t)
+
+\\]
+
+
+
+\\\[
+
+y(t)=Cx(t)+Du(t)
+
+\\]
+
+
+
+where:
+
+
+
+\- \\(x(t)\\) represents the internal state vector
+
+\- \\(u(t)\\) represents system inputs
+
+\- \\(y(t)\\) represents measurable outputs
+
+\- \\(A\\) describes system dynamics
+
+\- \\(B\\) describes how inputs influence the system
+
+\- \\(C\\) maps internal states to observable measurements
+
+\- \\(D\\) represents direct input-output relationships
+
+
+
+The state vector contains the information necessary to describe the condition of the system.
+
+
+
+However, in real-world applications, the complete system state is rarely directly observable. Sensors provide incomplete and noisy measurements.
+
+
+
+Therefore, an adaptive digital twin must estimate hidden system states from available observations.
+
+
+
+\### Discrete-Time State-Space Model
+
+
+
+For computational simulation and machine learning applications, the discrete form is commonly used:
+
+
+
+\\\[
+
+x\_{k+1}=Ax\_k+Bu\_k+w\_k
+
+\\]
+
+
+
+\\\[
+
+y\_k=Cx\_k+v\_k
+
+\\]
+
+
+
+where:
+
+
+
+\- \\(w\_k\\) represents process uncertainty
+
+\- \\(v\_k\\) represents measurement uncertainty
+
+
+
+These uncertainty terms are essential because real systems contain:
+
+
+
+\- sensor noise
+
+\- environmental disturbances
+
+\- incomplete information
+
+\- model approximation errors
+
+
+
+\### State Estimation
+
+
+
+The objective of state estimation is to determine the most accurate representation of the hidden system state:
+
+
+
+\\\[
+
+\\hat{x}\_k \\approx x\_k
+
+\\]
+
+
+
+where:
+
+
+
+\- \\(\\hat{x}\_k\\) is the estimated state
+
+\- \\(x\_k\\) is the true but potentially unknown state
+
+
+
+State estimation creates the bridge between physical systems and computational intelligence.
+
+
+
+Techniques such as:
+
+
+
+\- Kalman filtering
+
+\- Bayesian inference
+
+\- neural state estimators
+
+\- physics-informed machine learning
+
+
+
+allow the digital twin to continuously update its internal representation.
+
+
+
+A fully adaptive digital twin therefore operates as a closed-loop mathematical system:
+
+
+
+1\. Observe the physical system
+
+2\. Estimate the current state
+
+3\. Predict future behavior
+
+4\. Update the internal model
+
+5\. Improve through learning
+
+
+
 The objective is to construct a framework capable of representing, predicting, and adapting to complex systems over time.
 

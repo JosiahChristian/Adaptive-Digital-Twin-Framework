@@ -2128,3 +2128,357 @@ growing alternating error
 
 experimental boundedness violation
 
+## Innovation-Driven Adaptive Uncertainty Management
+
+The experimental development of the adaptive digital twin motivates a more explicit mathematical connection between prediction error, statistical consistency, model mismatch, and uncertainty adaptation.
+
+For a predicted state estimate
+
+\[
+\hat{x}_{k|k-1},
+\]
+
+and a measurement
+
+\[
+y_k,
+\]
+
+define the innovation as
+
+\[
+\nu_k = y_k - \hat{x}_{k|k-1}.
+\]
+
+The innovation represents the discrepancy between the observation produced by the physical system and the observation predicted by the digital twin.
+
+A large innovation alone, however, does not necessarily imply model failure. Its magnitude must be interpreted relative to the uncertainty already predicted by the estimator.
+
+Let the innovation covariance be
+
+\[
+S_k = H P_{k|k-1} H^T + R,
+\]
+
+where \(P_{k|k-1}\) is the predicted state covariance, \(H\) is the measurement model, and \(R\) is the measurement-noise covariance.
+
+The normalized innovation squared is then
+
+\[
+\epsilon_k = \nu_k^T S_k^{-1}\nu_k.
+\]
+
+For the scalar system considered in the initial experiments,
+
+\[
+\epsilon_k = \frac{\nu_k^2}{S_k}.
+\]
+
+This normalization converts raw prediction error into a dimensionless statistical consistency signal. The estimator can therefore distinguish between an innovation that is large because uncertainty is already high and an innovation that is unexpectedly large relative to the uncertainty predicted by the model.
+
+Define excess normalized innovation as
+
+\[
+e_k = \max(0,\epsilon_k - \tau),
+\]
+
+where \(\tau\) is a consistency threshold. For the scalar Gaussian case, a natural nominal reference is
+
+\[
+\tau = 1.
+\]
+
+A recursively filtered mismatch indicator may then be defined as
+
+\[
+m_k = \beta m_{k-1} + (1-\beta)e_k,
+\]
+
+with
+
+\[
+0 \leq \beta < 1.
+\]
+
+The variable \(m_k\) acts as a memory-bearing estimate of persistent disagreement between the physical system and its digital representation.
+
+The mismatch estimate can be mapped into a dynamic uncertainty-inflation strength,
+
+\[
+\lambda_k
+=
+\lambda_{\min}
++
+(\lambda_{\max}-\lambda_{\min})
+\frac{m_k}{m_k+c},
+\]
+
+where \(c>0\) controls the sensitivity of the mapping.
+
+The effective process-noise covariance can then be adapted according to
+
+\[
+Q_k^{\mathrm{eff}}
+=
+Q_0 + \lambda_k m_k.
+\]
+
+Thus the estimator becomes more uncertain when statistically significant model mismatch persists and becomes more confident when the observations return to consistency with the model.
+
+This produces the feedback structure
+
+\[
+\text{prediction}
+\rightarrow
+\text{innovation}
+\rightarrow
+\text{normalized statistical evidence}
+\rightarrow
+\text{mismatch estimation}
+\rightarrow
+\text{uncertainty adaptation}
+\rightarrow
+\text{state correction}.
+\]
+
+The resulting architecture transforms uncertainty from a fixed modeling assumption into a dynamically managed state of the adaptive digital twin.
+
+### Persistence-Aware Consistency Detection
+
+A single statistically inconsistent observation should not necessarily cause the digital twin to conclude that its model has become inaccurate. Measurement noise, isolated disturbances, and transient events can all produce large innovations without representing persistent structural mismatch.
+
+To distinguish transient disagreement from sustained inconsistency, define the binary consistency indicator
+
+\[
+c_k =
+\begin{cases}
+1, & \epsilon_k \leq \tau_c, \\
+0, & \epsilon_k > \tau_c,
+\end{cases}
+\]
+
+where \(\tau_c\) defines the region considered statistically consistent with the predictive model.
+
+A persistence counter can then be introduced:
+
+\[
+p_k =
+\begin{cases}
+p_{k-1}+1, & c_k=1, \\
+0, & c_k=0.
+\end{cases}
+\]
+
+Let \(L\) denote the required number of consecutive consistent observations. The persistence gate is
+
+\[
+g_k =
+\begin{cases}
+1, & p_k \geq L, \\
+0, & p_k < L.
+\end{cases}
+\]
+
+The mismatch recursion can then respond differently depending on whether consistency has persisted:
+
+\[
+m_k =
+\begin{cases}
+\beta_{\mathrm{fast}}m_{k-1} + (1-\beta_{\mathrm{fast}})e_k,
+& g_k=1, \\
+\beta m_{k-1} + (1-\beta)e_k,
+& g_k=0,
+\end{cases}
+\]
+
+where
+
+\[
+0 \leq \beta_{\mathrm{fast}} < \beta < 1.
+\]
+
+When the persistence gate activates, the smaller memory coefficient causes previously accumulated mismatch evidence to decay more rapidly. The estimator therefore avoids maintaining unnecessarily inflated process uncertainty after the physical system has demonstrated sustained agreement with the digital model.
+
+This creates two distinct temporal behaviors:
+
+\[
+\text{persistent inconsistency}
+\Rightarrow
+\text{retain or increase uncertainty},
+\]
+
+and
+
+\[
+\text{persistent consistency}
+\Rightarrow
+\text{reduce uncertainty more rapidly}.
+\]
+
+The distinction is important because innovation statistics contain information on multiple time scales. An isolated residual may indicate measurement noise or a transient disturbance, whereas sustained residual behavior may indicate parameter drift, an abrupt system change, or structural model error.
+
+Consequently, uncertainty adaptation can be interpreted as a sequential inference problem. The digital twin is continually evaluating competing explanations for prediction error:
+
+\[
+\mathcal{H}_0:
+\text{the model remains statistically consistent},
+\]
+
+versus
+
+\[
+\mathcal{H}_1:
+\text{persistent model mismatch is present}.
+\]
+
+This interpretation provides a bridge from adaptive filtering toward formal change detection and regime identification.
+
+### Residual Attribution and Competing Explanations
+
+Prediction disagreement does not uniquely identify its underlying cause. A statistically significant innovation may arise from several distinct mechanisms, including measurement noise, process disturbances, parameter mismatch, or structural changes in the physical system.
+
+The innovation may therefore be interpreted as the observable consequence of several latent uncertainty sources:
+
+\[
+\nu_k
+=
+\nu_k^{(m)}
++
+\nu_k^{(p)}
++
+\nu_k^{(\theta)}
++
+\nu_k^{(s)},
+\]
+
+where
+
+\[
+\nu_k^{(m)}
+\]
+
+represents measurement-driven discrepancy,
+
+\[
+\nu_k^{(p)}
+\]
+
+represents process-driven discrepancy,
+
+\[
+\nu_k^{(\theta)}
+\]
+
+represents parameter mismatch, and
+
+\[
+\nu_k^{(s)}
+\]
+
+represents structural or regime-dependent model mismatch.
+
+This decomposition should be interpreted conceptually rather than as a directly observable additive separation. The individual components are latent causes that must be inferred from temporal and statistical properties of the innovation sequence.
+
+The adaptive digital twin may therefore consider a set of competing hypotheses:
+
+\[
+\mathcal{H}_M:
+\text{measurement uncertainty dominates},
+\]
+
+\[
+\mathcal{H}_P:
+\text{process uncertainty dominates},
+\]
+
+\[
+\mathcal{H}_\Theta:
+\text{parameter mismatch dominates},
+\]
+
+and
+
+\[
+\mathcal{H}_S:
+\text{structural or regime change dominates}.
+\]
+
+The objective is no longer merely to determine whether prediction mismatch exists. Instead, the twin seeks to estimate the most plausible source of that mismatch.
+
+This distinction is critical because different causes imply different corrective actions:
+
+\[
+\mathcal{H}_M
+\Rightarrow
+\text{modify measurement confidence},
+\]
+
+\[
+\mathcal{H}_P
+\Rightarrow
+\text{increase process uncertainty},
+\]
+
+\[
+\mathcal{H}_\Theta
+\Rightarrow
+\text{increase or modify parameter adaptation},
+\]
+
+and
+
+\[
+\mathcal{H}_S
+\Rightarrow
+\text{consider model or regime transition}.
+\]
+
+Consequently, a more general adaptive uncertainty architecture may be represented by a latent attribution variable
+
+\[
+z_k \in
+\{
+M,P,\Theta,S
+\},
+\]
+
+with posterior attribution probabilities
+
+\[
+\pi_k^{(j)}
+=
+P(z_k=j \mid \mathcal{I}_k),
+\]
+
+where \(\mathcal{I}_k\) represents the information available to the digital twin through time \(k\).
+
+The uncertainty-management problem can then be expressed as
+
+\[
+(Q_k,R_k,\gamma_k,\mathcal{M}_k)
+=
+\Phi(\pi_k^{(M)},
+\pi_k^{(P)},
+\pi_k^{(\Theta)},
+\pi_k^{(S)}),
+\]
+
+where \(Q_k\) represents process uncertainty, \(R_k\) represents measurement uncertainty, \(\gamma_k\) represents parameter-adaptation strength, and \(\mathcal{M}_k\) represents the active model or dynamical regime.
+
+This produces a broader adaptive architecture:
+
+\[
+\text{observe}
+\rightarrow
+\text{predict}
+\rightarrow
+\text{measure disagreement}
+\rightarrow
+\text{attribute cause}
+\rightarrow
+\text{select adaptation}
+\rightarrow
+\text{update the digital twin}.
+\]
+
+Under this interpretation, an adaptive digital twin does not respond identically to every prediction error. It attempts to infer the origin of disagreement and modifies the component of the digital representation most likely responsible for that disagreement.

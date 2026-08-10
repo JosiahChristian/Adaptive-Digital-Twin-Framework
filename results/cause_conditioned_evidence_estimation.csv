@@ -1,0 +1,9 @@
+cause,rule_type,feature_1,direction_1,threshold_1,feature_2,direction_2,threshold_2,accuracy,balanced_accuracy,precision,recall,specificity,tp,tn,fp,fn
+measurement_noise,single,score_spread,>=,1.219487620518167,,,,0.675,0.675,0.7868852459016393,0.48,0.87,48,87,13,52
+measurement_noise,pair,classification_margin,>=,0.5162128944351736,post_cumulative_abs_parameter_update,>=,0.09534309010684958,0.715,0.7150000000000001,0.7311827956989247,0.68,0.75,68,75,25,32
+process_disturbance,single,recovery_ratio_nis,<=,0.34013237768129045,,,,0.65,0.65,0.625,0.75,0.55,75,55,45,25
+process_disturbance,pair,classification_margin,>=,0.4550719030077377,recovery_ratio_nis,<=,0.34013237768129045,0.67,0.6699999999999999,0.646551724137931,0.75,0.59,75,59,41,25
+parameter_mismatch,single,classification_margin,>=,0.5733833425128738,,,,0.67,0.67,0.67,0.67,0.67,67,67,33,33
+parameter_mismatch,pair,classification_margin,>=,0.5733833425128738,score_spread,>=,0.749801445105992,0.675,0.675,0.6767676767676768,0.67,0.68,67,68,32,33
+structural_change,single,parameter_shift_post_vs_pre,<=,-0.049260128858973906,,,,0.995,0.995,0.9900990099009901,1.0,0.99,100,99,1,0
+structural_change,pair,parameter_shift_post_vs_pre,<=,-0.049260128858973906,score_spread,>=,0.7259603453517403,0.995,0.995,0.9900990099009901,1.0,0.99,100,99,1,0

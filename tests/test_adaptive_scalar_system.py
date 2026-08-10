@@ -9,6 +9,53 @@ from simulation.adaptive_scalar_system import (
 
 class AdaptiveScalarSystemTests(unittest.TestCase):
 
+    def test_parameter_error_recursion_matches_theory(self):
+        records = run_experiment(
+            noise_std_dev=0.0,
+            learning_rate=0.08,
+            random_seed=42,
+        )
+
+        epsilon = 1.0
+
+        for index in range(1, len(records)):
+            previous_record = records[index - 1]
+            current_record = records[index]
+
+            previous_parameter_error = (
+                TRUE_A
+                - previous_record["estimated_a"]
+            )
+
+            previous_state = (
+                previous_record["observation"]
+            )
+
+            gamma = (
+                previous_state ** 2
+                / (
+                    epsilon
+                    + previous_state ** 2
+                )
+            )
+
+            predicted_parameter_error = (
+                1.0
+                - 0.08 * gamma
+            ) * previous_parameter_error
+
+            actual_parameter_error = (
+                TRUE_A
+                - current_record["estimated_a"]
+            )
+
+            self.assertAlmostEqual(
+                actual_parameter_error,
+                predicted_parameter_error,
+                places=10,
+            )
+
+
     def test_experiment_produces_expected_number_of_records(self):
         records = run_experiment()
 

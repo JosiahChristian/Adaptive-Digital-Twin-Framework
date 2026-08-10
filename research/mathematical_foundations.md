@@ -2482,3 +2482,413 @@ This produces a broader adaptive architecture:
 \]
 
 Under this interpretation, an adaptive digital twin does not respond identically to every prediction error. It attempts to infer the origin of disagreement and modifies the component of the digital representation most likely responsible for that disagreement.
+
+## Causal Identifiability and Evidence Sufficiency
+
+Residual attribution introduces a distinction between classification confidence
+and causal identifiability.
+
+Suppose the adaptive digital twin considers a set of mismatch hypotheses
+
+\[
+\mathcal{Z}
+=
+\{M,P,\Theta,S\},
+\]
+
+representing measurement mismatch, process disturbance, parameter mismatch, and
+structural mismatch.
+
+Let
+
+\[
+s_k^{(j)}
+\]
+
+denote the attribution score associated with hypothesis \(j\).
+
+A hard causal estimate may be written as
+
+\[
+\hat z_k
+=
+\arg\max_{j\in\mathcal{Z}}
+s_k^{(j)}.
+\]
+
+If \(s_k^{(1)}\) and \(s_k^{(2)}\) denote the largest and second-largest
+attribution scores, respectively, a classification margin can be defined as
+
+\[
+m_k
+=
+s_k^{(1)}-s_k^{(2)}.
+\]
+
+A large value of \(m_k\) indicates that the attribution mechanism strongly
+prefers one explanation over its alternatives.
+
+However, this preference does not by itself establish that the underlying
+mismatch mechanism is identifiable from the available observations.
+
+### Confidence Versus Identifiability
+
+Classification confidence describes separation within the attribution model.
+
+Causal identifiability describes separation within the observable evidence.
+
+These concepts are related but not equivalent.
+
+A classifier may produce
+
+\[
+m_k \gg 0
+\]
+
+even when the available residual sequence contains insufficient information to
+distinguish the true mismatch mechanism from competing explanations.
+
+Therefore,
+
+\[
+\boxed{
+\text{high attribution confidence}
+\not\Rightarrow
+\text{causal identifiability}
+}
+\]
+
+in general.
+
+This distinction becomes especially important when the physical mismatch is
+weak relative to stochastic variation.
+
+### Mismatch-Dependent Identifiability
+
+Let
+
+\[
+\delta_j
+\]
+
+denote the magnitude of mismatch mechanism \(j\).
+
+Define attribution accuracy as
+
+\[
+A_j(\delta_j)
+=
+P(
+\hat z=j
+\mid
+z=j,\delta_j
+).
+\]
+
+For a confidence threshold \(\tau\), define selective coverage as
+
+\[
+C_j(\delta_j)
+=
+P(
+m\ge\tau
+\mid
+z=j,\delta_j
+),
+\]
+
+and selective attribution accuracy as
+
+\[
+A_j^{\mathrm{sel}}(\delta_j)
+=
+P(
+\hat z=j
+\mid
+z=j,
+m\ge\tau,
+\delta_j
+).
+\]
+
+These functions characterize how diagnostic reliability changes with mismatch
+strength.
+
+An operationally identifiable region may then be defined by performance
+requirements
+
+\[
+A_j(\delta_j)\ge A_{\min},
+\]
+
+\[
+C_j(\delta_j)\ge C_{\min},
+\]
+
+and
+
+\[
+A_j^{\mathrm{sel}}(\delta_j)
+\ge
+A_{\min}^{\mathrm{sel}}.
+\]
+
+The corresponding empirical detectability boundary may be written as
+
+\[
+\delta_j^*
+=
+\inf
+\left\{
+\delta_j:
+A_j(\delta_j)\ge A_{\min},
+\;
+C_j(\delta_j)\ge C_{\min},
+\;
+A_j^{\mathrm{sel}}(\delta_j)
+\ge
+A_{\min}^{\mathrm{sel}}
+\right\}.
+\]
+
+Because experimental evaluation generally occurs on a finite grid, the exact
+value of \(\delta_j^*\) may not be observable directly.
+
+Instead, if the criterion fails at \(\delta_j^{-}\) and succeeds at the next
+tested value \(\delta_j^{+}\), then the experiment supports the interval
+
+\[
+\delta_j^{-}
+<
+\delta_j^*
+\le
+\delta_j^{+}.
+\]
+
+Thus detectability boundaries should be interpreted as experimentally bounded
+regions rather than universal constants.
+
+### Mechanism-Specific Detectability
+
+Different mismatch mechanisms need not share the same detectability boundary.
+
+In general,
+
+\[
+\delta_M^*
+\neq
+\delta_P^*
+\neq
+\delta_\Theta^*
+\neq
+\delta_S^*.
+\]
+
+This occurs because measurement corruption, transient process disturbances,
+parameter mismatch, and structural change generate different temporal and
+statistical signatures in the residual sequence.
+
+Consequently, causal identifiability is jointly determined by
+
+\[
+\text{mismatch mechanism},
+\]
+
+\[
+\text{mismatch magnitude},
+\]
+
+\[
+\text{stochastic environment},
+\]
+
+\[
+\text{available observation window},
+\]
+
+and
+
+\[
+\text{diagnostic feature representation}.
+\]
+
+### Evidence Sufficiency
+
+This motivates an additional internal quantity representing whether the
+available observations contain sufficient evidence for causal attribution.
+
+Let
+
+\[
+e_k
+=
+\Psi(
+\mathcal{R}_k,
+\mathcal{U}_k,
+\mathcal{A}_k
+),
+\]
+
+where
+
+\[
+\mathcal{R}_k
+\]
+
+represents residual history,
+
+\[
+\mathcal{U}_k
+\]
+
+represents uncertainty and consistency statistics, and
+
+\[
+\mathcal{A}_k
+\]
+
+represents recent adaptive response.
+
+The scalar or vector quantity \(e_k\) represents evidence sufficiency rather
+than causal class.
+
+An attribution decision should then be permitted to influence adaptation only
+when evidence sufficiency exceeds an appropriate criterion:
+
+\[
+e_k
+\ge
+e_{\min}.
+\]
+
+The resulting architecture becomes
+
+\[
+\text{observe}
+\rightarrow
+\text{predict}
+\rightarrow
+\text{measure disagreement}
+\rightarrow
+\text{evaluate evidence sufficiency}
+\rightarrow
+\text{attribute cause}
+\rightarrow
+\text{evaluate attribution confidence}
+\rightarrow
+\text{select adaptation}.
+\]
+
+This introduces two distinct safeguards.
+
+The evidence-sufficiency layer asks whether causal attribution is justified by
+the observations.
+
+The confidence layer asks whether one causal explanation is sufficiently
+preferred once attribution is justified.
+
+### Diagnostic Epistemic States
+
+The adaptive digital twin may therefore occupy several distinct diagnostic
+states.
+
+A weak mismatch may satisfy
+
+\[
+e_k < e_{\min},
+\]
+
+in which case causal attribution should be withheld.
+
+An observable but ambiguous mismatch may satisfy
+
+\[
+e_k \ge e_{\min}
+\]
+
+while
+
+\[
+m_k < \tau,
+\]
+
+indicating that sufficient abnormal structure exists but its cause remains
+uncertain.
+
+A reliably attributable mismatch satisfies
+
+\[
+e_k \ge e_{\min}
+\]
+
+and
+
+\[
+m_k \ge \tau.
+\]
+
+Thus the diagnostic state space contains at least
+
+\[
+\boxed{
+\text{non-identifiable}
+}
+\]
+
+\[
+\boxed{
+\text{identifiable but ambiguous}
+}
+\]
+
+and
+
+\[
+\boxed{
+\text{confidently attributable}
+}.
+\]
+
+These states should not trigger identical adaptive responses.
+
+### Implication for Adaptive Digital Twins
+
+A digital twin that adapts directly from prediction error assumes that
+disagreement itself determines the appropriate response.
+
+A digital twin that adapts directly from causal classification assumes that the
+predicted cause is sufficiently identifiable.
+
+The experimental results motivate a stronger architecture in which adaptation
+depends on both the inferred cause and the epistemic quality of that inference.
+
+Conceptually,
+
+\[
+u_k^{\mathrm{adapt}}
+=
+\Gamma(
+\hat z_k,
+m_k,
+e_k,
+\mathcal{I}_k
+),
+\]
+
+where \(u_k^{\mathrm{adapt}}\) represents the selected adaptive action and
+\(\mathcal{I}_k\) represents the information available to the digital twin.
+
+Under this formulation, the digital twin is permitted to conclude not only
+
+\[
+\text{“the model appears wrong,”}
+\]
+
+but also
+
+\[
+\text{“the available evidence is insufficient to determine why.”}
+\]
+
+That distinction is essential for preventing aggressive adaptation from being
+driven by weak, ambiguous, or causally non-identifiable disagreement.

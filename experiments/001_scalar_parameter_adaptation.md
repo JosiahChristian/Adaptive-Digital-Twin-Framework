@@ -226,3 +226,111 @@ The parameter estimate initially moved toward the true value:
 
 0.8916
 
+---
+
+# Multi-Seed Measurement Noise Robustness
+
+## Objective
+
+The initial measurement-noise sweep used a single random seed (`42`).
+
+Although the single-seed experiment remained bounded across all tested noise levels, the final parameter estimate appeared to improve as measurement noise increased through approximately:
+
+\[
+\sigma = 0.50
+\]
+
+A single realization of random measurement noise is insufficient to determine whether that behavior represents a systematic effect or an artifact of the selected noise sequence.
+
+A multi-seed robustness experiment was therefore performed.
+
+---
+
+## Experimental Protocol
+
+The normalized adaptive law was evaluated across six measurement-noise conditions:
+
+\[
+\sigma \in
+\{
+0.00,\,
+0.05,\,
+0.15,\,
+0.30,\,
+0.50,\,
+1.00
+\}
+\]
+
+For each noise level, the experiment was repeated across:
+
+\[
+50
+\]
+
+independent random seeds.
+
+This produced:
+
+\[
+6 \times 50 = 300
+\]
+
+total adaptive-system runs.
+
+All other primary model parameters were held constant.
+
+The experiment recorded:
+
+- mean final parameter estimate,
+- standard deviation of the final parameter estimate,
+- mean absolute parameter error,
+- standard deviation of absolute parameter error,
+- mean prediction RMSE,
+- standard deviation of prediction RMSE, and
+- number of bounded runs.
+
+---
+
+## Results
+
+| Noise Std. Dev. | Mean Final \(\hat{a}\) | Std. Dev. \(\hat{a}\) | Mean \(|a-\hat{a}|\) | Mean Prediction RMSE | Bounded Runs |
+|---:|---:|---:|---:|---:|---:|
+| 0.00 | 0.916510 | 0.000000 | 0.003490 | 0.807599 | 50 / 50 |
+| 0.05 | 0.916533 | 0.000350 | 0.003467 | 0.809810 | 50 / 50 |
+| 0.15 | 0.916667 | 0.001054 | 0.003333 | 0.829806 | 50 / 50 |
+| 0.30 | 0.917089 | 0.002126 | 0.003095 | 0.895842 | 50 / 50 |
+| 0.50 | 0.918058 | 0.003597 | 0.003349 | 1.038405 | 50 / 50 |
+| 1.00 | 0.922586 | 0.007628 | 0.006270 | 1.549402 | 50 / 50 |
+
+Raw aggregate results:
+
+`results/scalar_noise_multiseed.csv`
+
+---
+
+## Observations
+
+### 1. Boundedness
+
+All:
+
+\[
+300 / 300
+\]
+
+runs remained within the experiment's boundedness criterion.
+
+This provides substantially stronger empirical evidence for numerical robustness than the original single-seed experiment, although it does not constitute a general proof of stability.
+
+---
+
+### 2. Prediction Error
+
+Mean prediction RMSE increased as measurement noise increased:
+
+```text
+σ = 0.00  -> RMSE ≈ 0.808
+σ = 0.15  -> RMSE ≈ 0.830
+σ = 0.50  -> RMSE ≈ 1.038
+σ = 1.00  -> RMSE ≈ 1.549

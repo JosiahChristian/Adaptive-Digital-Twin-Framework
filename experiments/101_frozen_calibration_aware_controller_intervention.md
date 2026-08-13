@@ -1404,3 +1404,101 @@ The central question is:
 
 \\]
 
+---
+
+# Frozen Historical Threshold Selection Result
+
+The preregistered historical threshold-selection procedure was executed before any Experiment 101 prospective seed was evaluated.
+
+Historical seeds:
+
+\[
+44001\text{–}44090.
+\]
+
+Historical out-of-fold population:
+
+\[
+22{,}275
+\]
+
+action-context observations.
+
+Severe-underestimation events:
+
+\[
+1{,}966.
+\]
+
+Nonsevere events:
+
+\[
+20{,}309.
+\]
+
+Historical out-of-fold ROC AUC:
+
+\[
+0.758.
+\]
+
+The threshold sweep evaluated:
+
+\[
+22{,}275
+\]
+
+distinct out-of-fold probability boundaries.
+
+The preregistered minimum severe-recall constraint was:
+
+\[
+\ge 80\%.
+\]
+
+The selected primary calibration-risk intervention threshold is:
+
+\[
+\boxed{
+\tau_{\mathrm{cal}}
+=
+0.468010308717.
+}
+\]
+
+Historical out-of-fold performance at this frozen threshold:
+
+- severe-underestimation recall: `80.010%`
+- nonsevere specificity: `57.905%`
+- severe precision: `15.540%`
+- balanced accuracy: `68.958%`
+- flagged fraction: `45.441%`
+
+Confusion counts:
+
+- TP = `1573`
+- FP = `8549`
+- FN = `393`
+- TN = `11760`
+
+This threshold was selected exclusively from historical out-of-fold predictions according to the preregistered procedure.
+
+No seed from:
+
+\[
+44091\text{–}44110
+\]
+
+was evaluated before this value was frozen.
+
+Therefore:
+
+\[
+\boxed{
+\tau_{\mathrm{cal}}
+=
+0.468010308717
+}
+\]
+
+is the immutable primary Experiment 101 controller-intervention threshold.

@@ -1,0 +1,8 @@
+model,feature,folds,mean_coefficient,mean_absolute_coefficient,sign_stability
+error_std_only,local_error_std,2,1.200566232592736,1.200566232592736,1
+two_feature_compact,local_error_std,2,1.258431571881997,1.258431571881997,1
+two_feature_compact,local_underestimate_fraction,2,0.44428455446880866,0.5052632849311062,0.5
+two_feature_interaction,error_std_x_underestimate_fraction,2,0.11597182443621193,0.11597182443621193,1
+two_feature_interaction,local_error_std,2,1.2191106816608352,1.2191106816608352,1
+two_feature_interaction,local_underestimate_fraction,2,0.3672329071934608,0.5245097208335011,0.5
+underestimate_fraction_only,local_underestimate_fraction,2,0.9475207146735226,0.9475207146735226,1

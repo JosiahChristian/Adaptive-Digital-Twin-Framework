@@ -1,0 +1,4 @@
+record_type,action,rows,harmful,beneficial,harmful_rate,harmful_rate_ci_low,harmful_rate_ci_high,harmful_seed_count,harmful_seeds,seed_min,seed_max,action1_harmful_rate,action2_harmful_rate,harmful_rate_difference_action1_minus_action2,fisher_odds_ratio,fisher_two_sided_p,directional_replication_status,action2_zero_harmful_events
+action_summary,1,19,7,12,0.3684210526315789,0.19149512745135072,0.5896046683519693,7,44001|44003|44004|44005|44006|44007|44008,,,,,,,,,
+action_summary,2,46,8,38,0.17391304347826086,0.09085791702246311,0.30723353716378493,4,44003|44004|44006|44007,,,,,,,,,
+replication_summary,,65,,,,,,,,44001,44010,0.3684210526315789,0.17391304347826086,0.19450800915331806,2.7708333333333335,0.11220192260739136,replicated,0

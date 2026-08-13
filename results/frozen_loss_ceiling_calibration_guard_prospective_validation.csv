@@ -1,0 +1,4 @@
+policy,seeds,mean_regret,mean_under,mean_over,mean_entropy,mean_retention,mean_beneficial,mean_harmful,mean_veto,total_baseline_harmful_vetoed,total_baseline_beneficial_vetoed,total_baseline_severe,total_baseline_severe_vetoed
+support_baseline,20,0.019546538000608488,29.05,6.9,0.5187186421068023,0.978413621539082,0.4,0.05,0.0,0,0,1,0
+ceiling_guard_0.155,20,0.019543236649571312,29.05,7.1,0.5196660874341645,0.9801193729974041,0.2,0.0,0.25,1,4,1,1
+ceiling_guard_0.135_sensitivity,20,0.019543236649571312,29.05,7.1,0.5205911681665996,0.9806940856410824,0.15,0.0,0.3,1,5,1,1

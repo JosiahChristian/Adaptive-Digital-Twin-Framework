@@ -1,0 +1,1123 @@
+# Experiment 076 — Calibrated Asymmetric Safe-Action Expansion
+
+## Objective
+
+Experiment 075 established that the dominant remaining responsiveness problem is a safe-action-set recall failure.
+
+The primary learned gate achieved:
+
+\[
+\text{mean safe-action recall}
+=
+80.000\%
+\]
+
+with
+
+\[
+\text{mean safe-action precision}
+=
+96.889\%.
+\]
+
+The true responsive action was excluded in
+
+\[
+37.333\%
+\]
+
+of held-out contexts.
+
+At the same time, downstream selection failure occurred in only
+
+\[
+1.333\%
+\]
+
+of contexts.
+
+This established that the controller does not primarily need a better tie-breaker.
+
+It needs a mechanism for recovering safe actions that the conservative primary gate excludes.
+
+Experiment 076 therefore introduces calibrated action-level safe-set expansion.
+
+The primary consequence gate remains unchanged.
+
+For actions outside the primary safe set, a new action-level classifier estimates
+
+\[
+\hat p_t^{\text{safe}}(a)
+=
+P
+\left(
+a\in A_t^*
+\mid
+x_t
+\right).
+\]
+
+An excluded action is added when
+
+\[
+\hat p_t^{\text{safe}}(a)
+\geq
+\tau.
+\]
+
+The expanded safe set is therefore
+
+\[
+\hat A_t^{\text{expanded}}(\tau)
+=
+\hat A_t^{\text{primary}}
+\cup
+\left\{
+a:
+\hat p_t^{\text{safe}}(a)
+\geq
+\tau
+\right\}.
+\]
+
+The central question is
+
+\[
+\boxed{
+\text{Can action-level expansion recover missed responsive actions}
+\atop
+\text{without admitting dangerous false-safe actions?}
+}
+\]
+
+---
+
+## Experimental Design
+
+The experiment used generation seed
+
+\[
+44000
+\]
+
+and generated
+
+\[
+249
+\]
+
+decision contexts.
+
+The data partition remained:
+
+| Partition | Contexts |
+|---|---:|
+| Base-model training | 121 |
+| Expansion-model training | 53 |
+| Held-out testing | 75 |
+
+The primary regret tolerance remained
+
+\[
+\boxed{
+\epsilon_{\text{primary}}
+=
+0.0005.
+}
+\]
+
+This preserves direct comparability with Experiments 071–075.
+
+---
+
+## Primary Safe-Action Gate
+
+The primary gate produced the following held-out performance:
+
+\[
+\text{recall}
+=
+80.000\%,
+\]
+
+\[
+\text{precision}
+=
+96.889\%,
+\]
+
+\[
+\text{responsive retention}
+=
+62.667\%.
+\]
+
+Its final policy performance was:
+
+\[
+R
+=
+0.003148,
+\]
+
+\[
+N_{\text{under}}
+=
+5,
+\]
+
+\[
+N_{\text{over}}
+=
+55,
+\]
+
+and
+
+\[
+H
+=
+0.784.
+\]
+
+This primary gate serves as the baseline for evaluating safe-action expansion.
+
+---
+
+## Action-Level Expansion Model
+
+The new expansion model is trained directly in persistence-action space.
+
+For each action
+
+\[
+a
+\in
+\{1,2,3\},
+\]
+
+the model estimates whether the action belongs to the true minimum-regret safe-action set:
+
+\[
+y_t(a)
+=
+\mathbf{1}
+\left[
+a\in A_t^*
+\right].
+\]
+
+The learned quantity is
+
+\[
+\hat p_t^{\text{safe}}(a).
+\]
+
+Only actions excluded by the primary gate are candidates for expansion.
+
+This preserves the original high-precision set and attempts to recover false-negative safe actions selectively.
+
+---
+
+## Expansion Thresholds
+
+The tested safety-confidence thresholds were
+
+\[
+\tau
+\in
+\{
+0.50,\,
+0.60,\,
+0.70,\,
+0.80,\,
+0.90,\,
+0.95
+\}.
+\]
+
+Lower thresholds favor recall.
+
+Higher thresholds favor precision and safety.
+
+The experiment therefore directly measures the recall–precision–regret frontier.
+
+---
+
+## Expansion Results
+
+| Threshold | Recall | Precision | Responsive Retention | Mean Regret | Under | Over | Entropy |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| Primary | 80.000% | 96.889% | 62.667% | 0.003148 | 5 | 55 | 0.784 |
+| 0.50 | 97.111% | 89.556% | 96.000% | 0.011426 | 16 | 32 | 0.966 |
+| 0.60 | 95.111% | 92.889% | 92.000% | 0.008010 | 12 | 35 | 0.998 |
+| 0.70 | 89.778% | 94.889% | 82.667% | 0.004892 | 8 | 43 | 0.975 |
+| 0.80 | 86.000% | 95.556% | 74.667% | 0.004084 | 7 | 49 | 0.927 |
+| 0.90 | 80.000% | 96.889% | 62.667% | 0.003148 | 5 | 55 | 0.784 |
+| 0.95 | 80.000% | 96.889% | 62.667% | 0.003148 | 5 | 55 | 0.784 |
+
+This produces a clear monotonic structure.
+
+Lower thresholds substantially improve recall and responsiveness, but increasingly degrade consequence performance.
+
+---
+
+## Threshold \(\tau=0.50\)
+
+At the most permissive tested threshold,
+
+\[
+\tau=0.50,
+\]
+
+mean safe-action recall increased to
+
+\[
+\boxed{
+97.111\%
+}.
+\]
+
+Responsive-action retention increased dramatically:
+
+\[
+62.667\%
+\rightarrow
+96.000\%.
+\]
+
+The controller recovered
+
+\[
+25
+\]
+
+previously excluded responsive actions.
+
+However, this expansion produced substantial safety degradation.
+
+Mean regret increased from
+
+\[
+0.003148
+\]
+
+to
+
+\[
+0.011426.
+\]
+
+Under-persistence increased from
+
+\[
+5
+\]
+
+to
+
+\[
+16.
+\]
+
+False-safe actions appeared in
+
+\[
+20.000\%
+\]
+
+of contexts.
+
+There were
+
+\[
+12
+\]
+
+harmful expansion contexts.
+
+Thus the high recall was purchased at an unacceptable consequence cost.
+
+---
+
+## Threshold \(\tau=0.60\)
+
+At
+
+\[
+\tau=0.60,
+\]
+
+recall remained very high:
+
+\[
+95.111\%.
+\]
+
+Responsive retention reached
+
+\[
+92.000\%.
+\]
+
+The controller recovered
+
+\[
+22
+\]
+
+responsive actions.
+
+However, mean regret remained elevated:
+
+\[
+R=0.008010.
+\]
+
+Under-persistence increased to
+
+\[
+12.
+\]
+
+False-safe contexts decreased to
+
+\[
+13.333\%,
+\]
+
+but the consequence cost remained substantial.
+
+---
+
+## Threshold \(\tau=0.70\)
+
+At
+
+\[
+\tau=0.70,
+\]
+
+the controller achieved:
+
+\[
+\text{recall}=89.778\%,
+\]
+
+\[
+\text{precision}=94.889\%,
+\]
+
+and
+
+\[
+\text{responsive retention}=82.667\%.
+\]
+
+It recovered
+
+\[
+15
+\]
+
+previously excluded responsive actions.
+
+Only
+
+\[
+3
+\]
+
+new harmful expansion contexts occurred.
+
+However, policy regret increased to
+
+\[
+0.004892
+\]
+
+and under-persistence increased from
+
+\[
+5
+\]
+
+to
+
+\[
+8.
+\]
+
+This represents a more balanced but still nonzero safety cost.
+
+---
+
+## Threshold \(\tau=0.80\)
+
+The most conservative threshold that still meaningfully expanded the gate was
+
+\[
+\boxed{
+\tau=0.80.
+}
+\]
+
+At this point:
+
+\[
+\text{recall}
+=
+86.000\%,
+\]
+
+\[
+\text{precision}
+=
+95.556\%,
+\]
+
+and
+
+\[
+\text{responsive retention}
+=
+74.667\%.
+\]
+
+The model recovered
+
+\[
+\boxed{
+9
+}
+\]
+
+previously excluded responsive actions.
+
+Only
+
+\[
+2
+\]
+
+harmful expansion contexts were introduced.
+
+The false-safe context rate was
+
+\[
+6.667\%.
+\]
+
+This is a substantial improvement in responsiveness relative to the primary gate.
+
+However, regret increased from
+
+\[
+0.003148
+\]
+
+to
+
+\[
+0.004084,
+\]
+
+and under-persistence increased from
+
+\[
+5
+\]
+
+to
+
+\[
+7.
+\]
+
+Thus even the most promising expansion point incurs measurable consequence cost.
+
+---
+
+## Thresholds \(\tau=0.90\) and \(\tau=0.95\)
+
+At
+
+\[
+\tau=0.90
+\]
+
+and
+
+\[
+\tau=0.95,
+\]
+
+the expansion model added no actions.
+
+Therefore both thresholds exactly reproduced the primary gate:
+
+\[
+\text{recall}
+=
+80.000\%,
+\]
+
+\[
+\text{precision}
+=
+96.889\%,
+\]
+
+\[
+\text{responsive retention}
+=
+62.667\%,
+\]
+
+\[
+R
+=
+0.003148,
+\]
+
+and
+
+\[
+N_{\text{under}}
+=
+5.
+\]
+
+These thresholds are effectively too strict to recover the missing responsive actions.
+
+---
+
+## Expansion Efficiency
+
+The expansion statistics reveal how efficiently each threshold converts additional gate width into useful responsive recovery.
+
+### \(\tau=0.50\)
+
+Expanded contexts:
+
+\[
+37
+\]
+
+Recovered responsive contexts:
+
+\[
+25
+\]
+
+Harmful expansion contexts:
+
+\[
+12
+\]
+
+### \(\tau=0.60\)
+
+Expanded:
+
+\[
+29
+\]
+
+Recovered:
+
+\[
+22
+\]
+
+Harmful:
+
+\[
+7
+\]
+
+### \(\tau=0.70\)
+
+Expanded:
+
+\[
+18
+\]
+
+Recovered:
+
+\[
+15
+\]
+
+Harmful:
+
+\[
+3
+\]
+
+### \(\tau=0.80\)
+
+Expanded:
+
+\[
+11
+\]
+
+Recovered:
+
+\[
+9
+\]
+
+Harmful:
+
+\[
+2
+\]
+
+Thus higher thresholds improve expansion efficiency.
+
+At
+
+\[
+\tau=0.80,
+\]
+
+approximately
+
+\[
+\frac{9}{11}
+\approx
+81.8\%
+\]
+
+of expansion contexts recover a previously excluded responsive action.
+
+However, the remaining harmful expansions are sufficiently costly to worsen aggregate policy regret.
+
+---
+
+## False-Safe Regret
+
+The central limitation of probability-only expansion is revealed by the regret associated with false-safe actions.
+
+At
+
+\[
+\tau=0.50,
+\]
+
+mean false-safe regret was
+
+\[
+0.050869.
+\]
+
+At
+
+\[
+\tau=0.60,
+\]
+
+it was
+
+\[
+0.049790.
+\]
+
+At
+
+\[
+\tau=0.70,
+\]
+
+it remained
+
+\[
+0.044001.
+\]
+
+At
+
+\[
+\tau=0.80,
+\]
+
+it was still
+
+\[
+\boxed{
+0.040687.
+}
+\]
+
+Across the active expansion thresholds, maximum false-safe regret remained
+
+\[
+\boxed{
+0.095188.
+}
+\]
+
+Therefore higher safety probability does not imply low downside when the prediction is wrong.
+
+This is the decisive result of Experiment 076.
+
+---
+
+## Probability Is Not Enough
+
+The expansion model asks
+
+\[
+P
+\left(
+a\in A_t^*
+\mid
+x_t
+\right).
+\]
+
+This captures likelihood of safety.
+
+It does not capture the magnitude of the mistake when an unsafe action is admitted.
+
+Two candidate actions may have identical estimated safe probabilities while having radically different false-inclusion consequences.
+
+Therefore:
+
+\[
+\boxed{
+P(\text{safe})
+\text{ alone is not an adequate expansion criterion}.
+}
+\]
+
+The expansion decision must become cost-aware.
+
+---
+
+## Recall–Precision–Regret Frontier
+
+Experiment 076 demonstrates a three-dimensional frontier.
+
+Lower thresholds increase:
+
+\[
+\text{recall}
+\]
+
+and
+
+\[
+\text{responsive retention}.
+\]
+
+But they reduce:
+
+\[
+\text{precision}
+\]
+
+and increase:
+
+\[
+\text{regret}
+\]
+
+and
+
+\[
+\text{under-persistence}.
+\]
+
+This means the safe-action problem cannot be optimized as a conventional binary classification task.
+
+The relevant objective is asymmetric decision quality.
+
+---
+
+## Candidate Expansion Utility
+
+For an excluded action \(a\), define:
+
+\[
+p_t(a)
+=
+P(a\in A_t^*).
+\]
+
+Now define the expected downside if it is not safe:
+
+\[
+d_t(a)
+=
+\mathbb{E}
+\left[
+R_t(a)
+\mid
+a\notin A_t^*
+\right].
+\]
+
+A more meaningful expansion score would combine both quantities.
+
+For example:
+
+\[
+U_t(a)
+=
+p_t(a)
+-
+\gamma
+\left[
+1-p_t(a)
+\right]
+d_t(a).
+\]
+
+Alternatively, expansion could require both:
+
+\[
+p_t(a)\geq\tau_p
+\]
+
+and
+
+\[
+\hat d_t(a)\leq\tau_d.
+\]
+
+This allows high-confidence but high-downside actions to remain excluded.
+
+---
+
+## Comparison With the Primary Gate
+
+The primary gate achieves relatively low regret because it is highly conservative.
+
+Its weakness is safe-action recall.
+
+The expansion model demonstrates that this conservatism can be reduced.
+
+However, removing it indiscriminately exposes the controller to a small number of severe errors.
+
+Thus the goal is not simply:
+
+\[
+\text{increase recall}.
+\]
+
+It is:
+
+\[
+\boxed{
+\text{recover safe false negatives while rejecting high-cost false positives}.
+}
+\]
+
+---
+
+## Structural Interpretation
+
+Experiments 075 and 076 together now fully characterize the gate problem.
+
+### Experiment 075
+
+The gate is high-precision but low-recall.
+
+Most responsive errors are false negatives.
+
+### Experiment 076
+
+Action-level probability models can recover those false negatives.
+
+However, probability-only expansion admits rare but expensive false positives.
+
+Therefore the remaining problem is not whether safe actions can be recovered.
+
+They can.
+
+The remaining problem is determining which expansions are worth the asymmetric downside risk.
+
+---
+
+## Principal Conclusion
+
+Experiment 076 successfully demonstrates calibrated action-level safe-set expansion.
+
+The expansion model can raise responsive-action retention from
+
+\[
+62.667\%
+\]
+
+to as high as
+
+\[
+96.000\%.
+\]
+
+At the more conservative operating point
+
+\[
+\tau=0.80,
+\]
+
+responsive retention improves to
+
+\[
+74.667\%,
+\]
+
+while recall rises from
+
+\[
+80.000\%
+\]
+
+to
+
+\[
+86.000\%.
+\]
+
+Nine previously excluded responsive actions are recovered with only two harmful expansion contexts.
+
+However, mean regret still increases:
+
+\[
+0.003148
+\rightarrow
+0.004084.
+\]
+
+The reason is that false-safe actions, though rare, carry substantial downside.
+
+At
+
+\[
+\tau=0.80,
+\]
+
+mean false-safe regret remains
+
+\[
+0.040687
+\]
+
+and maximum false-safe regret remains
+
+\[
+0.095188.
+\]
+
+Therefore:
+
+\[
+\boxed{
+\text{action-level safe probability improves recall}
+}
+\]
+
+but
+
+\[
+\boxed{
+\text{probability-only expansion is not sufficiently consequence-aware}.
+}
+\]
+
+---
+
+## Next Research Direction
+
+Experiment 077 should introduce cost-aware safe-action expansion.
+
+For each excluded action, the controller should estimate both:
+
+\[
+\hat p_t^{\text{safe}}(a)
+\]
+
+and a downside estimate such as
+
+\[
+\hat d_t(a)
+=
+\widehat{
+\mathbb{E}
+\left[
+R_t(a)
+\mid
+a\notin A_t^*
+\right]
+}.
+\]
+
+Expansion should then depend on both confidence and consequence.
+
+A two-threshold rule could be:
+
+\[
+a
+\in
+\hat A_t^{\text{expanded}}
+\]
+
+only when
+
+\[
+\hat p_t^{\text{safe}}(a)
+\geq
+\tau_p
+\]
+
+and
+
+\[
+\hat d_t(a)
+\leq
+\tau_d.
+\]
+
+Alternatively, a unified cost-aware score could be defined as
+
+\[
+S_t(a)
+=
+\hat p_t^{\text{safe}}(a)
+-
+\gamma
+\left(
+1-\hat p_t^{\text{safe}}(a)
+\right)
+\hat d_t(a).
+\]
+
+Experiment 077 should evaluate whether cost-aware filtering can preserve the responsive-action recoveries achieved by Experiment 076 while eliminating the high-regret harmful expansions.
+
+The primary metrics should include:
+
+- safe-action recall,
+- safe-action precision,
+- responsive-action retention,
+- recovered responsive contexts,
+- harmful expansion contexts,
+- mean and maximum false-safe regret,
+- policy mean regret,
+- under-persistence,
+- over-persistence,
+- action entropy,
+- and expansion efficiency.
+
+The central question becomes
+
+\[
+\boxed{
+\text{Can the controller recover missed safe actions selectively}
+\atop
+\text{by accounting for both safety probability and false-inclusion cost?}
+}
+\]

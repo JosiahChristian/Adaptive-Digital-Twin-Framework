@@ -1,0 +1,15 @@
+record_type,generation_seed,action,raw_var_action,raw_var_action_minus_1,raw_var_3_minus_action,scaled_var_action,scaled_var_action_minus_1,scaled_var_3_minus_action,metric,contexts,nonzero_action_separation_contexts,nonzero_action_separation_fraction,mean_max_pairwise_difference,maximum_pairwise_difference
+current_action_coordinate_variance,44000,1,0.0,0.0,0.0,0.0,0.0,0.0,,,,,,
+current_action_coordinate_variance,44000,2,0.0,0.0,0.0,0.0,0.0,0.0,,,,,,
+current_action_coordinate_variance,44000,3,0.0,0.0,0.0,0.0,0.0,0.0,,,,,,
+shared_action_coordinate_variance,44000,all,0.6666666666666666,0.6666666666666666,0.6666666666666666,0.9999999999999998,0.9999999999999998,0.9999999999999998,,,,,,
+current_action_coordinate_variance,44011,1,0.0,0.0,0.0,0.0,0.0,0.0,,,,,,
+current_action_coordinate_variance,44011,2,0.0,0.0,0.0,0.0,0.0,0.0,,,,,,
+current_action_coordinate_variance,44011,3,0.0,0.0,0.0,0.0,0.0,0.0,,,,,,
+shared_action_coordinate_variance,44011,all,0.6666666666666666,0.6666666666666666,0.6666666666666666,0.9999999999999998,0.9999999999999998,0.9999999999999998,,,,,,
+current_action_coordinate_variance,44031,1,0.0,0.0,0.0,0.0,0.0,0.0,,,,,,
+current_action_coordinate_variance,44031,2,0.0,0.0,0.0,0.0,0.0,0.0,,,,,,
+current_action_coordinate_variance,44031,3,0.0,0.0,0.0,0.0,0.0,0.0,,,,,,
+shared_action_coordinate_variance,44031,all,0.6666666666666666,0.6666666666666666,0.6666666666666666,0.9999999999999999,0.9999999999999999,0.9999999999999999,,,,,,
+distance_summary,,,,,,,,,current,237,0,0.0,0.0,0.0
+distance_summary,,,,,,,,,shared,237,0,0.0,0.0,0.0

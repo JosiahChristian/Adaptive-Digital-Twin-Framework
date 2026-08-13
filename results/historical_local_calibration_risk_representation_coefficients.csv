@@ -1,0 +1,15 @@
+model,feature,folds,mean_coefficient,mean_absolute_coefficient,dominant_sign_fraction
+predicted_loss_only,predicted_action_loss,70,-0.8184418453003472,0.8184418453003472,1.0
+local_mean_error_only,local_mean_error,70,-1.764872549032383,1.764872549032383,1.0
+local_underestimate_fraction_only,local_underestimate_fraction,70,0.8181842066619396,0.8181842066619396,1.0
+local_severe_fraction_only,local_severe_underestimate_fraction,70,0.595525159138497,0.595525159138497,1.0
+local_error_std_only,local_error_std,70,-0.011006257892995232,0.011550749743172694,0.9428571428571428
+local_calibration_compact,local_mean_error,70,-1.8218545400836996,1.8218545400836996,1.0
+local_calibration_compact,local_error_std,70,0.1439130367231725,0.1439130367231725,1.0
+local_calibration_compact,local_underestimate_fraction,70,0.2646514574704014,0.2646514574704014,1.0
+local_calibration_compact,local_severe_underestimate_fraction,70,-0.3034660558893233,0.3034660558893233,1.0
+loss_plus_local_calibration,predicted_action_loss,70,0.43142754546603335,0.43142754546603335,1.0
+loss_plus_local_calibration,local_mean_error,70,-2.285345383843345,2.285345383843345,1.0
+loss_plus_local_calibration,local_error_std,70,0.05436300173766995,0.05436300173766995,1.0
+loss_plus_local_calibration,local_underestimate_fraction,70,0.18085119530782115,0.18085119530782115,1.0
+loss_plus_local_calibration,local_severe_underestimate_fraction,70,-0.33362318687517817,0.33362318687517817,1.0

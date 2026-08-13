@@ -1,0 +1,16 @@
+model,feature,folds,mean_coefficient,mean_absolute_coefficient,positive_fraction,negative_fraction,dominant_sign_fraction
+predicted_action_loss,predicted_action_loss,9,0.8094550181331394,0.8094550181331394,1.0,0.0,1.0
+predicted_loss_floor,predicted_loss_floor,9,0.8096260592354048,0.8096260592354048,1.0,0.0,1.0
+predicted_loss_mean,predicted_loss_mean,9,0.9278383445749516,0.9278383445749516,1.0,0.0,1.0
+predicted_loss_ceiling,predicted_loss_ceiling,9,0.990752348239252,0.990752348239252,1.0,0.0,1.0
+predicted_loss_spread,predicted_loss_spread,9,0.705008108665063,0.705008108665063,1.0,0.0,1.0
+floor_plus_spread,predicted_loss_floor,9,0.7387514698463762,0.7387514698463762,1.0,0.0,1.0
+floor_plus_spread,predicted_loss_spread,9,0.6585226356160746,0.6585226356160746,1.0,0.0,1.0
+floor_plus_action_loss,predicted_loss_floor,9,0.4274099107008502,0.4274099107008502,1.0,0.0,1.0
+floor_plus_action_loss,predicted_action_loss,9,0.42562402361112855,0.42562402361112855,1.0,0.0,1.0
+surface_compact,predicted_loss_floor,9,0.3912606506684754,0.3912606506684754,1.0,0.0,1.0
+surface_compact,predicted_loss_spread,9,0.6587684708613156,0.6587684708613156,1.0,0.0,1.0
+surface_compact,predicted_action_loss,9,0.38993010653507254,0.38993010653507254,1.0,0.0,1.0
+calibration_compact,predicted_loss_floor,9,0.50340579910477,0.50340579910477,1.0,0.0,1.0
+calibration_compact,loss_floor_error,9,0.5069712932087569,0.5069712932087569,1.0,0.0,1.0
+calibration_compact,expanded_action_loss_error,9,-2.5928100270138628,2.5928100270138628,0.0,1.0,1.0

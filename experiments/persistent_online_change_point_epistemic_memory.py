@@ -957,8 +957,9 @@ def estimate_target(
     )
 
 
-def generate_trajectories() -> list[dict]:
-
+def generate_trajectories(
+    base_seed: int = BASE_SEED,
+) -> list[dict]:
     rows = []
 
     for (
@@ -979,7 +980,7 @@ def generate_trajectories() -> list[dict]:
         ):
 
             seed = (
-                BASE_SEED
+                base_seed
                 + condition_index
                 * RUNS_PER_CONDITION
                 + run_index

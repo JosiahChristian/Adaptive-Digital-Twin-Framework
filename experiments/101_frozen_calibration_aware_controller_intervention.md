@@ -1502,3 +1502,133 @@ Therefore:
 \]
 
 is the immutable primary Experiment 101 controller-intervention threshold.
+
+---
+
+## Prospective Results
+
+Experiment 101 was executed on the frozen prospective seed block:
+
+44091-44110
+
+using the preregistered calibration-risk threshold:
+
+tau_cal = 0.468010308717
+
+The threshold was selected exclusively from leave-one-generation-seed-out historical predictions on seeds 44001-44090 before any Experiment 101 prospective outcome was evaluated.
+
+### Prospective Policy Summary
+
+Support baseline:
+
+- mean regret: 0.017001
+- mean under-persistence: 11.25
+- mean over-persistence: 27.60
+- mean harmful-expansion metric: 1.421
+- responsive retention: 78.386%
+- mean beneficial expansions: 2.15
+- mean harmful expansions: 0.30
+
+Calibration-aware guard:
+
+- mean regret: 0.016694
+- mean under-persistence: 11.00
+- mean over-persistence: 28.10
+- mean harmful-expansion metric: 1.407
+- responsive retention: 77.636%
+- mean beneficial expansions: 1.30
+- mean harmful expansions: 0.05
+- mean vetoes: 1.10
+
+Across the prospective block, the calibration-aware guard vetoed:
+
+- 5 harmful expansions
+- 17 beneficial expansions
+
+Severe-underestimation veto recall was:
+
+80.000%
+
+---
+
+## Primary Preregistered Comparison
+
+Relative to the support baseline, the frozen calibration-aware guard produced:
+
+- mean change in harmful expansions: -0.250
+- harmful improved / unchanged / degraded seeds: 5 / 15 / 0
+- mean change in regret: -0.000306
+- median change in regret: +0.000000
+- regret range: [-0.001565, +0.000000]
+- regret improved / unchanged / degraded seeds: 5 / 15 / 0
+- mean change in under-persistence: -0.250
+- mean change in beneficial expansions: -0.850
+- mean change in responsive retention: -0.750%
+
+The intervention therefore reduced harmful adaptive expansions on five prospective seeds while producing no seed-level degradation in harmful-expansion count.
+
+The same five-versus-fifteen-versus-zero pattern was observed for regret improvement, with no prospective seed exhibiting increased regret relative to the support baseline.
+
+---
+
+## Interpretation
+
+The primary Experiment 101 result supports the preregistered hypothesis that historically learned local calibration-risk information can improve prospective adaptive-controller decisions.
+
+The intervention was frozen before the prospective seed block was evaluated. Its calibration-risk model was trained from historical seeds 44001-44090, and its decision threshold was selected from leave-one-generation-seed-out historical predictions before seeds 44091-44110 were exposed.
+
+The prospective result therefore extends the Experiment 099-100 sequence:
+
+1. Experiment 099 identified historical local calibration structure associated with severe consequence underestimation.
+2. Experiment 100 demonstrated that the frozen representation generalized prospectively to unseen action-context outcomes.
+3. Experiment 101 demonstrates that the resulting frozen calibration-risk signal can be used prospectively as a controller intervention and can reduce harmful adaptive expansions and regret.
+
+The result is not cost-free.
+
+The calibration-aware guard reduced mean beneficial expansions from 2.15 to 1.30 and reduced responsive retention by 0.750 percentage points. It also increased mean over-persistence from 27.60 to 28.10.
+
+Thus, the experiment does not establish perfect discrimination between beneficial and harmful adaptation. Instead, it identifies a measurable safety-responsiveness tradeoff: historical calibration-risk information substantially reduced harmful expansion while suppressing some beneficial adaptation.
+
+---
+
+## Primary Conclusion
+
+Experiment 101 provides prospective intervention evidence that a digital twin can use historical information about its own local predictive reliability to improve adaptive control decisions.
+
+Under the frozen experimental conditions, the calibration-aware controller:
+
+- reduced mean harmful expansions from 0.30 to 0.05 per seed,
+- vetoed 5 harmful prospective expansions,
+- achieved 80.000% severe-underestimation veto recall,
+- reduced mean regret from 0.017001 to 0.016694,
+- improved harmful-expansion and regret outcomes on 5 of 20 seeds,
+- degraded neither metric on any prospective seed,
+- and incurred a measurable reduction in beneficial adaptation and responsive retention.
+
+These findings support historical calibration state as a prospective control-relevant representation rather than merely a retrospective correlate of model failure.
+
+---
+
+## Scientific Limitations
+
+Experiment 101 establishes prospective evidence only within the present simulation and controller architecture.
+
+It does not establish:
+
+- universal generalization beyond the simulated system,
+- causal identification of calibration failure as the sole mechanism of harmful adaptation,
+- optimality of the selected calibration-risk threshold,
+- perfect separation of beneficial and harmful expansions,
+- or deployability under partial-feedback conditions in which counterfactual action consequences are unavailable.
+
+In particular, the historical calibration representation currently depends on consequence information available within the experimental simulation framework. Establishing whether comparable calibration memory can be constructed from executed-action feedback alone remains a separate research question.
+
+---
+
+## Experiment 101 Status
+
+**Primary prospective intervention result: supported.**
+
+The frozen calibration-aware intervention reduced harmful adaptive expansion and regret on the untouched prospective seed block without degradation on either metric at the seed level, while introducing a measurable responsiveness cost.
+
+No post hoc threshold alteration is used to replace the preregistered primary result.

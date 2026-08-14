@@ -123,7 +123,7 @@ def generate_seed_dataset(
         seed
     )
 
-    rows = generate_analysis_rows()
+    rows = generate_analysis_rows(base_seed=seed)
 
     fingerprint = (
         dataset_fingerprint(

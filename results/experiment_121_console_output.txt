@@ -1,0 +1,31 @@
+====================================================================================================================================================================================
+EXPERIMENT 121 - POPULATION-STRATIFIED BOOTSTRAP HARM UNCERTAINTY
+====================================================================================================================================================================================
+paired stratified bootstrap replicates=5000
+LATE BROADER-STATE SOURCE DISCOVERY
+candidate=results/absolute_loss_floor_harmful_expansion_analysis_events.csv
+candidate=results/broader_controller_state_action_harm_decomposition_events.csv
+candidate=results/cross_seed_harmful_expansion_feature_decomposition_events.csv
+candidate=results/cross_seed_harmful_expansion_feature_decomposition_events_071_110.csv
+candidate=results/harmful_expansion_action_conditioned_epistemic_excess_analysis_events.csv
+candidate=results/independent_historical_action_harm_replication_events.csv
+candidate=results/pre_action_consequence_underestimation_risk_analysis_events.csv
+  matched=0/88
+  matched=88/88
+  matched=0/88
+  matched=88/88
+  matched=0/88
+  matched=0/88
+  matched=0/88
+
+selected later state source=results/broader_controller_state_action_harm_decomposition_events.csv
+coverage=88/88
+
+RECIPROCAL MEAN PAIRED DIFFERENCES
+full_minus_full_state_only                              observed=+0.108 95%CI=[+0.029, +0.191] P(full>comparison)=0.996
+full_minus_action_only                                  observed=+0.116 95%CI=[+0.027, +0.198] P(full>comparison)=0.995
+full_minus_leave_predicted_risk_regret_out              observed=+0.059 95%CI=[-0.016, +0.149] P(full>comparison)=0.927
+full_minus_leave_temporal_support_context_out           observed=+0.033 95%CI=[-0.002, +0.068] P(full>comparison)=0.969
+
+saved=results/population_stratified_bootstrap_harm_uncertainty.csv
+saved=results/population_stratified_bootstrap_harm_uncertainty_predictions.csv

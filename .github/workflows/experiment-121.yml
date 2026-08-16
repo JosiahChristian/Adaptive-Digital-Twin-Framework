@@ -1,0 +1,63 @@
+name: Experiment 121 Bootstrap Uncertainty
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - experiments/population_stratified_bootstrap_harm_uncertainty.py
+      - .github/workflows/experiment-121.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: experiment-121-main
+  cancel-in-progress: false
+
+jobs:
+  run-experiment:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip && pip install -r requirements.txt
+
+      - name: Run Experiment 121
+        run: |
+          python -m experiments.population_stratified_bootstrap_harm_uncertainty             2>&1 | tee results/experiment_121_console_output.txt
+
+      - name: Upload result artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: experiment-121-results
+          path: |
+            results/population_stratified_bootstrap_harm_uncertainty*.csv
+            results/experiment_121_console_output.txt
+
+      - name: Commit synchronized results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add results/population_stratified_bootstrap_harm_uncertainty*.csv
+          git add results/experiment_121_console_output.txt
+          if git diff --cached --quiet; then
+            echo "No result changes to commit."
+          else
+            git commit -m "Run Experiment 121 bootstrap uncertainty analysis"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi

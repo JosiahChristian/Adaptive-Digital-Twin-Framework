@@ -1,0 +1,20 @@
+                      model                                                               features  train_rows  train_unsafe  test_rows  test_unsafe  test_safe  roc_auc  balanced_accuracy_at_frozen_0_5  unsafe_recall_at_frozen_0_5  unsafe_precision_at_frozen_0_5
+       context_support_only                                               context_support_distance        7881          1640       8211         1209       7002 0.571620                         0.466307                     0.043011                        0.063030
+        action_support_only                                                action_support_distance        7881          1640       8211         1209       7002 0.558484                         0.465935                     0.043838                        0.063321
+        predicted_loss_only                                                  predicted_action_loss        7881          1640       8211         1209       7002 0.468348                         0.476013                     0.618693                        0.138109
+          context_plus_loss                         context_support_distance|predicted_action_loss        7881          1640       8211         1209       7002 0.454548                         0.449783                     0.199338                        0.102991
+context_plus_action_support                       context_support_distance|action_support_distance        7881          1640       8211         1209       7002 0.568758                         0.466093                     0.043011                        0.062802
+context_loss_action_support context_support_distance|predicted_action_loss|action_support_distance        7881          1640       8211         1209       7002 0.451764                         0.451298                     0.198511                        0.103806
+
+                                                     contrast  estimate    ci_2_5   ci_97_5 probability_positive  bootstrap_samples
+                                         context_support_only  0.571620  0.556189  0.586881                                    5000
+                                          action_support_only  0.558484  0.542771  0.574330                                    5000
+                                          predicted_loss_only  0.468348  0.450526  0.486098                                    5000
+                                            context_plus_loss  0.454548  0.437631  0.471010                                    5000
+                                  context_plus_action_support  0.568758  0.553103  0.584570                                    5000
+                                  context_loss_action_support  0.451764  0.435008  0.468146                                    5000
+       context_loss_action_support_minus_context_support_only -0.119856 -0.138162 -0.102178                  0.0               5000
+        context_loss_action_support_minus_action_support_only -0.106720 -0.127387 -0.086175                  0.0               5000
+        context_loss_action_support_minus_predicted_loss_only -0.016584 -0.026611 -0.006016               0.0014               5000
+          context_loss_action_support_minus_context_plus_loss -0.002784 -0.004027 -0.001565                  0.0               5000
+context_loss_action_support_minus_context_plus_action_support -0.116994 -0.136720 -0.097771                  0.0               5000

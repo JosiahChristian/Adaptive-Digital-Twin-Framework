@@ -1,0 +1,17 @@
+record_type,model,mean_auc,min_auc,max_auc,action2_sign_stability,held_out_population,features,feature_count,training_rows,training_harmful,test_rows,test_harmful,roc_auc,action2_coefficient,delta_mean_auc_vs_reduced_state,delta_min_auc_vs_reduced_state,delta_mean_auc_vs_full_combined
+model_summary,action_only,0.7285416666666666,0.6133333333333334,0.84375,1,,,,,,,,,,,,
+model_summary,full_state_only,0.7362604166666666,0.6053333333333333,0.8671875,,,,,,,,,,,,,
+model_summary,full_state_plus_action,0.8446666666666667,0.7893333333333334,0.9,1,,,,,,,,,,,,
+model_summary,reduced_state_only,0.538671875,0.5,0.57734375,,,,,,,,,,,,,
+model_summary,reduced_state_plus_action,0.631828125,0.616,0.6476562499999999,1,,,,,,,,,,,,
+fold,action_only,,,,,population_001_010,action2_indicator,1,88,8,65,15,0.6133333333333334,-1.8959772446889958,,,
+fold,full_state_only,,,,,population_001_010,context_benefit_probability|context_release_probability|context_anchor_age|context_trigger_score|context_feature_distance|context_current_mismatch_indicator|context_current_parameter_estimate|predicted_under_risk|predicted_primary_regret|predicted_expanded_regret|predicted_regret_margin,11,88,8,65,15,0.6053333333333333,,,,
+fold,full_state_plus_action,,,,,population_001_010,context_benefit_probability|context_release_probability|context_anchor_age|context_trigger_score|context_feature_distance|context_current_mismatch_indicator|context_current_parameter_estimate|predicted_under_risk|predicted_primary_regret|predicted_expanded_regret|predicted_regret_margin|action2_indicator,12,88,8,65,15,0.7893333333333334,-1.7362448171471816,,,
+fold,reduced_state_only,,,,,population_001_010,context_benefit_probability|context_current_parameter_estimate|predicted_primary_regret,3,88,8,65,15,0.5,,,,
+fold,reduced_state_plus_action,,,,,population_001_010,context_benefit_probability|context_current_parameter_estimate|predicted_primary_regret|action2_indicator,4,88,8,65,15,0.616,-1.5224885344345866,,,
+fold,action_only,,,,,population_071_110,action2_indicator,1,65,15,88,8,0.84375,-0.4369231929975003,,,
+fold,full_state_only,,,,,population_071_110,context_benefit_probability|context_release_probability|context_anchor_age|context_trigger_score|context_feature_distance|context_current_mismatch_indicator|context_current_parameter_estimate|predicted_under_risk|predicted_primary_regret|predicted_expanded_regret|predicted_regret_margin,11,65,15,88,8,0.8671875,,,,
+fold,full_state_plus_action,,,,,population_071_110,context_benefit_probability|context_release_probability|context_anchor_age|context_trigger_score|context_feature_distance|context_current_mismatch_indicator|context_current_parameter_estimate|predicted_under_risk|predicted_primary_regret|predicted_expanded_regret|predicted_regret_margin|action2_indicator,12,65,15,88,8,0.9,-0.4023752309700662,,,
+fold,reduced_state_only,,,,,population_071_110,context_anchor_age|context_current_mismatch_indicator,2,65,15,88,8,0.57734375,,,,
+fold,reduced_state_plus_action,,,,,population_071_110,context_anchor_age|context_current_mismatch_indicator|action2_indicator,3,65,15,88,8,0.6476562499999999,-0.16793527513125858,,,
+falsification_summary,reduced_state_plus_action,0.631828125,0.616,,1,,,,,,,,,,0.09315624999999994,0.11599999999999999,-0.21283854166666671

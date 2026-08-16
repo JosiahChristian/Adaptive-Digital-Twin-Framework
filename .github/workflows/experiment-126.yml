@@ -1,0 +1,43 @@
+name: Experiment 126 Fourth-Population Reconstruction
+on:
+  push:
+    branches: [main]
+    paths:
+      - "experiments/prospective_support_reconstruction_151_190.py"
+      - ".github/workflows/experiment-126.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  experiment-126:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install --upgrade pip numpy scikit-learn
+      - name: Reconstruct fourth population
+        run: python -m experiments.prospective_support_reconstruction_151_190 2>&1 | tee results/experiment_126_console_output.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: experiment-126-fourth-population
+          path: |
+            results/prospective_action_conditioned_support_representation_151_190.csv
+            results/prospective_action_conditioned_support_representation_folds_151_190.csv
+            results/prospective_action_conditioned_support_representation_actions_151_190.csv
+            results/prospective_action_conditioned_support_representation_coefficients_151_190.csv
+            results/experiment_126_console_output.txt
+      - name: Commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add results/prospective_action_conditioned_support_representation_151_190.csv
+          git add results/prospective_action_conditioned_support_representation_folds_151_190.csv
+          git add results/prospective_action_conditioned_support_representation_actions_151_190.csv
+          git add results/prospective_action_conditioned_support_representation_coefficients_151_190.csv
+          git add results/experiment_126_console_output.txt
+          git diff --cached --quiet || git commit -m "Run Experiment 126 fourth-population reconstruction"
+          git pull --rebase origin main
+          git push

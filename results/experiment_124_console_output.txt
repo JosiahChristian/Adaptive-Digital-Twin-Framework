@@ -1,0 +1,15 @@
+Train unsafe prevalence: 0.208095419363025
+Test unsafe prevalence: 0.14724150529777127
+                     feature  train_mean  test_mean  standardized_mean_shift_test_minus_train  wasserstein_distance  ks_statistic    ks_pvalue  train_point_biserial  test_point_biserial  correlation_sign_reversal  train_univariate_auc  test_univariate_auc  auc_direction_reversal
+    context_support_distance    4.206314   3.127176                                 -0.179674              1.129968      0.138917 4.225655e-68              0.238840            -0.064969                          1              0.688660             0.571620                       0
+     action_support_distance    4.744244   3.762239                                 -0.166675              1.062506      0.119527 1.718793e-50              0.237804            -0.061519                          1              0.678215             0.558484                       0
+action_support_minus_context    0.537930   0.635062                                  0.223286              0.097133      0.117869 4.138258e-49             -0.085673             0.054815                          1              0.419140             0.557232                       1
+       predicted_action_loss    0.180936   0.152616                                 -0.419328              0.028321      0.119331 2.506781e-50             -0.104432             0.037498                          1              0.447696             0.531652                       1
+     predicted_relative_loss    0.030285   0.016682                                 -0.376211              0.013602      0.117017 2.087124e-48             -0.107025            -0.062618                          0              0.428148             0.393831                       0
+   population  action  rows  row_fraction  unsafe_rows  unsafe_prevalence  mean_realized_regret  mean_predicted_loss  mean_context_support  mean_action_support
+train_071_110       1  2627      0.333333          987           0.375714              0.029315             0.155831              4.206314             4.702673
+train_071_110       2  2627      0.333333          374           0.142368              0.006524             0.186167              4.206314             4.715524
+train_071_110       3  2627      0.333333          279           0.106205              0.002939             0.200811              4.206314             4.814534
+ test_111_150       1  2737      0.333333          955           0.348922              0.023713             0.142571              3.127176             3.730074
+ test_111_150       2  2737      0.333333          179           0.065400              0.002984             0.151936              3.127176             3.700092
+ test_111_150       3  2737      0.333333           75           0.027402              0.000475             0.163341              3.127176             3.856550

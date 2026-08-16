@@ -1,0 +1,36 @@
+name: Experiment 125 Action-Aware Transfer Diagnostic
+on:
+  push:
+    branches: [main]
+    paths:
+      - "experiments/diagnostic_action_identity_transfer.py"
+      - ".github/workflows/experiment-125.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  experiment-125:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install --upgrade pip numpy pandas scikit-learn
+      - name: Run diagnostic
+        run: python -m experiments.diagnostic_action_identity_transfer 2>&1 | tee results/experiment_125_console_output.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: experiment-125-action-aware-transfer
+          path: |
+            results/diagnostic_action_identity_transfer.csv
+            results/diagnostic_action_identity_transfer_bootstrap.csv
+            results/experiment_125_console_output.txt
+      - name: Commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add results/diagnostic_action_identity_transfer.csv results/diagnostic_action_identity_transfer_bootstrap.csv results/experiment_125_console_output.txt
+          git diff --cached --quiet || git commit -m "Run Experiment 125 action-aware transfer diagnostic"
+          git push

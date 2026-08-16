@@ -1,0 +1,6 @@
+model,features,train_rows,test_rows,roc_auc,balanced_accuracy_at_frozen_0_5,unsafe_recall_at_frozen_0_5,unsafe_precision_at_frozen_0_5
+action_identity_only,action_2|action_3,7881,8211,0.784517551289257,0.7677051505312555,0.7899090157154673,0.34892217756667887
+action_plus_context_support,action_2|action_3|context_support_distance,7881,8211,0.7933625959167048,0.7529146227628689,0.8023159636062862,0.3184504267892318
+action_plus_support_geometry,action_2|action_3|context_support_distance|action_support_distance,7881,8211,0.7916476185818585,0.7532002554392471,0.8023159636062862,0.31886916502301116
+action_plus_predicted_loss,action_2|action_3|predicted_action_loss,7881,8211,0.7562980351354182,0.7677051505312555,0.7899090157154673,0.34892217756667887
+action_plus_full_geometry,action_2|action_3|context_support_distance|predicted_action_loss|action_support_distance,7881,8211,0.7934241404263795,0.7532002554392471,0.8023159636062862,0.31886916502301116

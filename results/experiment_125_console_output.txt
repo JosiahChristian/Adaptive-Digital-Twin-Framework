@@ -1,0 +1,16 @@
+                       model                                                                                 features  train_rows  test_rows  roc_auc  balanced_accuracy_at_frozen_0_5  unsafe_recall_at_frozen_0_5  unsafe_precision_at_frozen_0_5
+        action_identity_only                                                                        action_2|action_3        7881       8211 0.784518                         0.767705                     0.789909                        0.348922
+ action_plus_context_support                                               action_2|action_3|context_support_distance        7881       8211 0.793363                         0.752915                     0.802316                        0.318450
+action_plus_support_geometry                       action_2|action_3|context_support_distance|action_support_distance        7881       8211 0.791648                         0.753200                     0.802316                        0.318869
+  action_plus_predicted_loss                                                  action_2|action_3|predicted_action_loss        7881       8211 0.756298                         0.767705                     0.789909                        0.348922
+   action_plus_full_geometry action_2|action_3|context_support_distance|predicted_action_loss|action_support_distance        7881       8211 0.793424                         0.753200                     0.802316                        0.318869
+                                               contrast  estimate    ci_2_5   ci_97_5 probability_positive
+                                   action_identity_only  0.784518  0.772270  0.796336                     
+                            action_plus_context_support  0.793363  0.781359  0.805013                     
+ action_plus_context_support_minus_action_identity_only  0.008845  0.002041  0.015522               0.9952
+                           action_plus_support_geometry  0.791648  0.779883  0.803047                     
+action_plus_support_geometry_minus_action_identity_only  0.007130  0.000395  0.013850               0.9814
+                             action_plus_predicted_loss  0.756298  0.740849  0.770899                     
+  action_plus_predicted_loss_minus_action_identity_only -0.028220 -0.034049 -0.022313                  0.0
+                              action_plus_full_geometry  0.793424  0.781845  0.804613                     
+   action_plus_full_geometry_minus_action_identity_only  0.008907  0.002110  0.015695               0.9954

@@ -66,6 +66,10 @@ For Experiment 166 and its later audits, the generation seed is the inferential 
 
 For harmful expansion, seed-held-out cross-validation controls reuse across generated populations but does not repair feature-timing violations. Prospective validity therefore requires both held-out evaluation and a feature set computable at the intended decision time.
 
+### 2.5 Artifact provenance and discoverability
+
+The original Experiment 166 preregistration and primary result summary are committed directly in the repository. The stronger label-preserving control also has a prospectively frozen committed protocol. Its final numerical adjudication is preserved in the later committed claim-reconciliation record and associated CI provenance, but a standalone stronger-control result file is not present on `main` at the analogous `research/audit/..._result.md` or `results/audit/..._result.*` path. The manuscript therefore cites the frozen protocol and the committed reconciliation separately rather than implying that a standalone result artifact exists where it does not. This is a documentation/discoverability limitation, not a reason to regenerate or alter the experiment.
+
 ## 3. Results
 
 ### 3.1 Near-cutoff localization exists in the tested pipeline
@@ -85,6 +89,19 @@ The downstream-specificity analysis further opposed the proposed preferential-ne
 The compact model's approximately 0.979 ROC AUC shows high outcome-informed retrospective discrimination in the documented event set. It does not demonstrate genuine pre-decision prediction because two residual features require post-outcome information. Cross-validation across seeds does not resolve this temporal mismatch.
 
 Temporally legitimate loss-surface-only models showed weaker exploratory discrimination. These results are consistent with possible pre-decision signal in the documented event population, but the current analyses do not establish prospective or population-generalizable predictive performance.
+
+### 3.4 Balanced claim-adjudication summary
+
+| Claim or signal | Original/favorable evidence | Later discriminating evidence | Current manuscript status |
+|---|---|---|---|
+| Near-cutoff localization | MH OR 10.567477, 95% CI [8.345537, 13.380992] | Adequately matched non-poison control reproduced near-minus-far enrichment | Supported as a phenomenon within the tested fixed-budget pipeline |
+| Poisoning specificity | Localization first observed under poisoning | Poison-control difference 0.001845, 95% seed-bootstrap CI [0.0000, 0.00554] | Not established / specificity unresolved |
+| Criterion-2 mechanism evidence | Spearman rho -0.873179, bootstrap 95% CI [-0.946362, -0.735018] | Bookkeeping-preserving null reproduced the association; one-sided null probability 0.53315 | Not valid as independent mechanistic evidence |
+| Preferential downstream role of near-only switches | Proposed boundary-mechanism interpretation | Near-only action-change rate 0.63871 vs far-only 0.95425; difference -0.31554, 95% CI [-0.40818, -0.23161] | Falsified in the tested downstream-specificity analysis |
+| Compact harmful-expansion prediction | ROC AUC ~0.97867; balanced accuracy ~0.95 | Two residual features require post-outcome information | Retrospective discrimination only; invalid as pre-decision evidence |
+| Temporally legitimate harmful-expansion features | Pooled ROC AUC ~0.683-0.711 | Small/imbalanced event population; some folds lack harmful events | Exploratory pre-decision discrimination only |
+
+Table 1 intentionally places the original positive signal and the later falsification/adjudication evidence side by side; it is not a new analysis.
 
 ## 4. Negative and Failed Results
 
@@ -120,7 +137,7 @@ The adaptive-digital-twin literature demonstrates that digital twins are being u
 
 ## 6. Limitations
 
-Several limitations remain. The matched-control result constrains poisoning specificity but does not prove the universal absence of poisoning-specific effects. The cutoff-localization finding may be partly or substantially induced by fixed-budget ranking geometry and requires variation of ranking rules or intervention budgets before broader generalization. The harmful-expansion event population is small and imbalanced, and some seed folds lack harmful events. The non-leaking models therefore require stronger prospective evaluation before predictive claims are warranted. Finally, the present work is simulation-based and does not establish real-world operational validity.
+Several limitations remain. The matched-control result constrains poisoning specificity but does not prove the universal absence of poisoning-specific effects. The cutoff-localization finding may be partly or substantially induced by fixed-budget ranking geometry and requires variation of ranking rules or intervention budgets before broader generalization. The harmful-expansion event population is small and imbalanced, and some seed folds lack harmful events. The non-leaking models therefore require stronger prospective evaluation before predictive claims are warranted. The stronger-control result is less directly discoverable than the original Experiment 166 result because its current manuscript-level numerical provenance is routed through the committed reconciliation rather than a standalone result file on `main`. Finally, the present work is simulation-based and does not establish real-world operational validity.
 
 ## 7. Conclusion
 
@@ -135,7 +152,8 @@ The principal manuscript claims are anchored to the following committed records:
 - Original Experiment 166 preregistered numerical results: `results/preregistered_cutoff_geometry_mechanism.csv`.
 - Experiment 166 chronology and preregistration ordering: `research/decision_aware_experiment_chronology.md` and `research/experiment_166_preregistration.md`; historical mechanism wording in the chronology is superseded for current interpretation by the later adjudication below.
 - Experiment 166 stronger matched-control prospective protocol: `research/audit/experiment_166_stronger_label_preserving_control_plan.md`.
-- Experiment 166 structural-null, downstream-specificity, and matched-control reconciliation: `research/prequadrangulation_claim_reconciliation_2026-08-17.md` and its referenced committed result artifacts.
+- Experiment 166 structural-null, downstream-specificity, and stronger matched-control numerical reconciliation: `research/prequadrangulation_claim_reconciliation_2026-08-17.md` and its referenced CI evidence/provenance.
+- Earlier weaker matched-control failure is separately preserved in `research/audit/experiment_166_matched_nonpoison_control_result.md` and `results/audit/experiment_166_matched_nonpoison_control_result.json`; it must not be confused with the stronger control used for the final specificity adjudication.
 - Harmful-expansion event count, performance, feature timing, and leakage adjudication: `research/harmful_expansion_timing_leakage_audit_2026-08-17.md` and the primary result/event/coefficient/fold artifacts listed there.
 - Current publication claim boundaries: `research/publication_claim_matrix_2026-08-17.md`.
 - Closed-evidence external adjudication: the preserved 2026-08-17 Genspark/Luna review record in `research/`.

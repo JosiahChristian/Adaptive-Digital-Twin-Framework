@@ -1,0 +1,8 @@
+  block  contexts  delta_auc_poison_minus_clean  delta_ap  delta_excluded_unsafe_recall  delta_unsafe_selected  delta_regret  clean_unsafe_selected  poison_unsafe_selected  clean_regret  poison_regret
+511_550      3015                     -0.022850 -0.004725                     -0.057079                     69      1.045851                    323                     392     15.161576      16.207427
+551_590      2799                     -0.002356  0.000530                     -0.000701                    -19     -0.900242                    236                     217     11.520736      10.620495
+591_630      2330                      0.001834  0.002475                     -0.002517                    -24     -0.922157                    371                     347     16.160316      15.238159
+631_670      2573                     -0.025575 -0.014263                     -0.023086                     -3      0.539997                    357                     354     12.859264      13.399262
+
+Sign counts:
+{'poison_better_unsafe': 3, 'poison_worse_unsafe': 1, 'poison_better_regret': 2, 'poison_worse_regret': 2, 'auc_improves': 1, 'auc_degrades': 3}

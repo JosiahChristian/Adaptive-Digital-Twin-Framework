@@ -1,0 +1,4 @@
+model,features,train_rows,train_unsafe,test_rows,test_unsafe,test_safe,roc_auc,balanced_accuracy_at_frozen_0_5,unsafe_recall_at_frozen_0_5,unsafe_precision_at_frozen_0_5
+primary_action_plus_context_support,action_2|action_3|context_support_distance,7881,1640,9435,1841,7594,0.8292176404454358,0.7620261686339469,0.7724063009234112,0.42986698911729143
+comparator_action_identity_only,action_2|action_3,7881,1640,9435,1841,7594,0.7811941501030645,0.7504877489118099,0.7365562194459533,0.4311605723370429
+comparator_context_support_only,context_support_distance,7881,1640,9435,1841,7594,0.6142257309688872,0.5273973048564455,0.11787072243346007,0.3117816091954023

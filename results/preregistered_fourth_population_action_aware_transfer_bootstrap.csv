@@ -1,0 +1,6 @@
+contrast,estimate,ci_2_5,ci_97_5,probability_positive
+primary_action_plus_context_support,0.8292176404454358,0.8206588630178747,0.8378298814195775,
+comparator_action_identity_only,0.7811941501030645,0.7712882756648985,0.7912393707717161,
+primary_action_plus_context_support_minus_comparator_action_identity_only,0.0480234903423713,0.0416430296682091,0.05446658623113221,1.0
+comparator_context_support_only,0.6142257309688872,0.6000279727827666,0.6283951551562262,
+primary_action_plus_context_support_minus_comparator_context_support_only,0.21499190947654856,0.2003824633844981,0.2297436612669282,1.0

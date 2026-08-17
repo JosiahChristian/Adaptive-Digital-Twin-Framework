@@ -1,0 +1,10 @@
+                              model                                   features  train_rows  train_unsafe  test_rows  test_unsafe  test_safe  roc_auc  balanced_accuracy_at_frozen_0_5  unsafe_recall_at_frozen_0_5  unsafe_precision_at_frozen_0_5
+primary_action_plus_context_support action_2|action_3|context_support_distance        7881          1640       9435         1841       7594 0.829218                         0.762026                     0.772406                        0.429867
+    comparator_action_identity_only                          action_2|action_3        7881          1640       9435         1841       7594 0.781194                         0.750488                     0.736556                        0.431161
+    comparator_context_support_only                   context_support_distance        7881          1640       9435         1841       7594 0.614226                         0.527397                     0.117871                        0.311782
+                                                                 contrast  estimate   ci_2_5  ci_97_5 probability_positive
+                                      primary_action_plus_context_support  0.829218 0.820659 0.837830                     
+                                          comparator_action_identity_only  0.781194 0.771288 0.791239                     
+primary_action_plus_context_support_minus_comparator_action_identity_only  0.048023 0.041643 0.054467                  1.0
+                                          comparator_context_support_only  0.614226 0.600028 0.628395                     
+primary_action_plus_context_support_minus_comparator_context_support_only  0.214992 0.200382 0.229744                  1.0

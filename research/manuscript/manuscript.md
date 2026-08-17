@@ -143,7 +143,7 @@ The principal manuscript claims are anchored to the following committed records:
 ## 9. References
 
 1. Qiu H, Al-Nussairi AKJ, Chevinli ZS, et al. Integrating digital twins with neural networks for adaptive control of automotive suspension systems. *Scientific Reports*. 2025;15:11078. doi:10.1038/s41598-025-91243-1.
-2. Niemeyer C, et al. Self-adaptive digital twin reference architecture to improve process quality. *Procedia CIRP*. 2023;119:867-872. doi:10.1016/j.procir.2023.03.131.
+2. Splettstößer A-K, Ellwein C, Wortmann A. Self-adaptive digital twin reference architecture to improve process quality. *Procedia CIRP*. 2023;119:867-872. doi:10.1016/j.procir.2023.03.131.
 3. Builes-Montaño CE, Lema-Perez L, Ramírez-Rincón A, et al. A digital twin-enhanced decision support system improves time-in-range in type 1 diabetes: a randomized clinical trial. *Scientific Reports*. 2025;15:39738. doi:10.1038/s41598-025-23165-x.
 4. Elmachtoub AN, Grigas P. Smart "Predict, then Optimize". *Management Science*. 2022;68(1):9-26. doi:10.1287/mnsc.2020.3922.
 5. Elmachtoub AN, Liang JCN, McNellis R. Decision Trees for Decision-Making under the Predict-then-Optimize Framework. *Proceedings of the 37th International Conference on Machine Learning*. PMLR 119:2858-2867, 2020.

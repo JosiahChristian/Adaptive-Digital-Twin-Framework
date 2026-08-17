@@ -51,7 +51,19 @@ Experiment 156 then repeated the frozen clean model, targeted attack, interventi
 Primary result note: [`research/experiment_154_result.md`](experiment_154_result.md)  
 Prospective replication artifact: [`results/prospective_poisoning_boundary_replication.csv`](../results/prospective_poisoning_boundary_replication.csv)
 
-## Resolved prospective claim
+### C5 — Prediction degradation does not imply a consistent fixed-budget decision direction
+
+**Status:** supported negative/falsification result from Experiment 158.
+
+On the prospectively reconstructed target population, poisoning degraded global predictive metrics: ROC AUC fell from 0.794692 to 0.769117, average precision from 0.409900 to 0.395638, and excluded-unsafe recall from 0.780680 to 0.757594. Yet the downstream decision outcome was mixed rather than a clean directional reversal: selected unsafe actions changed only from 358 to 354 while total regret worsened from 12.865555 to 13.399262. The preregistered divergence indicators were both false (`prediction_decision_divergence = 0`, `strong_divergence = 0`).
+
+**Permitted wording:** measurable prediction degradation can coexist with small or mixed changes in a fixed-budget downstream intervention, so predictive and decision metrics must be evaluated separately.
+
+**Do not claim:** a general prediction-decision divergence phenomenon from this experiment; the preregistered divergence criterion did not fire.
+
+Primary artifact: [`results/preregistered_prediction_decision_divergence.csv`](../results/preregistered_prediction_decision_divergence.csv)
+
+## Resolved prospective claims
 
 ### P1 — The Experiment 153 intervention reversal is purely target-population-specific
 
@@ -61,6 +73,12 @@ Experiment 156 reproduced the same directional fixed-budget intervention effect 
 
 The remaining scientific question is narrower: under which budgets, attack strengths, model classes, and target-population shifts does this boundary-reordering effect persist, reverse, or disappear?
 
+### P2 — Prediction degradation will produce a preregistered prediction-decision divergence on the Experiment 158 population
+
+**Status:** not supported.
+
+Experiment 158 produced clear degradation in global prediction metrics, but the preregistered divergence and strong-divergence flags remained false. This is retained as a negative result. It narrows the useful claim to the need for separate predictive and downstream decision evaluation rather than establishing a general divergence law.
+
 ## Claims currently prohibited by the evidence
 
 - The adaptive-digital-twin problem has been solved.
@@ -68,6 +86,7 @@ The remaining scientific question is narrower: under which budgets, attack stren
 - The current predictors generalize to real-world cyber-physical or biomedical systems.
 - Poisoning is beneficial or acts as reliable regularization.
 - The replicated intervention effect means the poisoned hazard model is globally better.
+- A general prediction-decision divergence phenomenon has been established.
 - High pooled discrimination alone establishes transferable hazard prediction.
 - Support distance alone provides a reliable unsafe-action detector.
 - Any biomedical interpretation constitutes clinical validation.

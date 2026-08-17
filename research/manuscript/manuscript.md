@@ -22,13 +22,19 @@ The analyses reported here are interpreted according to the committed experiment
 
 ### 2.2 Experiment 166: fixed-budget ranking and cutoff localization
 
-Experiment 166 evaluated changes in exclusion membership within a fixed top-N ranking/intervention pipeline. The original preregistered analysis tested whether membership switches were enriched in a frozen closest-10% cutoff band and whether a seed-level switch-related quantity was associated with downstream unsafe-selection change.
+Experiment 166 used the frozen source population, feature set (`action_2`, `action_3`, and `context_support_distance`), class-balanced logistic-regression hazard model, and 20% targeted unsafe-to-safe source-label concealment procedure documented in its preregistration. Intervention coverage was derived from the clean source model using the frozen 80% source-unsafe-recall rule, and clean and perturbed models received the same exclusion count within each target seed. The untouched prospective target population comprised 40 generation seeds, 44791 through 44830.
+
+For every target candidate, the preregistered record included clean and poisoned hazard scores, clean and poisoned exclusion membership, the clean cutoff score, absolute clean-cutoff margin, unsafe-action label, realized action regret, generation seed, context/test index, and action identifier. A membership switch was defined as a candidate excluded by exactly one of the clean and poisoned models. The primary near-cutoff band was frozen before target generation as the 10% of candidate rows within each seed having the smallest absolute clean-cutoff margins.
+
+The original Criterion-1 analysis formed seed-stratified 2x2 counts for membership switching in the near 10% band versus the remaining 90% and estimated a Mantel-Haenszel common odds ratio with a two-sided Cochran-Mantel-Haenszel test. Criterion 1 required an odds ratio above 1, a 95% interval entirely above 1, and p < 0.05. Criterion 2 computed, for each of the 40 seeds, `net_unsafe_crossing = unsafe_poison_only_exclusions - unsafe_clean_only_exclusions` and `delta_unsafe_selected = poisoned_unsafe_selected - clean_unsafe_selected`; the frozen directional prediction was a negative Spearman association. Its interval used 10,000 paired seed-level bootstrap resamples.
 
 The poisoning condition had mean exclusion-set Jaccard overlap 0.923823 and 308 membership switches. The original cutoff-band analysis yielded a Mantel-Haenszel common odds ratio of 10.567477 with 95% CI [8.345537, 13.380992]. The seed-level association had Spearman rho -0.873179 with bootstrap 95% CI [-0.946362, -0.735018]. Both original preregistered co-primary criteria passed.
 
-Subsequent audits tested whether those results uniquely supported the proposed mechanism. A bookkeeping-preserving permutation null was used to test whether the Criterion-2 association could arise from the structure of the recorded quantities. A downstream-specificity analysis compared selected-action-change rates for near-only and far-only switched contexts. Finally, a prospectively frozen label-preserving non-poison perturbation was selected to match the poisoning condition in ranking perturbation magnitude. The matched control had mean exclusion-set Jaccard overlap 0.924853 and 304 membership switches.
+Subsequent audits tested whether those results uniquely supported the proposed mechanism. A bookkeeping-preserving permutation null tested whether the Criterion-2 association could arise from the structure of the recorded quantities. A downstream-specificity analysis compared selected-action-change rates for near-only and far-only switched contexts.
 
-The poisoning-specificity comparison used the frozen near-minus-far switch-enrichment statistic. Poison enrichment was 0.13623 and matched-control enrichment was 0.13438, producing a paired poison-minus-control difference of 0.001845 and a 95% seed-bootstrap CI [0.0000, 0.00554]. The frozen rule required a lower confidence bound above zero for poisoning-specific support.
+A later, separately frozen label-preserving control perturbed only the continuous source-training covariate `context_support_distance` with zero-mean Gaussian noise while retaining all source rows and original labels; target features were never perturbed. Before outcome generation, the audit froze 16 noise levels with 16 independently seeded candidates at each level (256 candidates total), together with a lexicographic matching rule based first on absolute mean-Jaccard difference from the historical poisoning condition and then on total switch-count difference. Candidate selection was prohibited from using target unsafe outcomes, realized regret, selected-action changes, near/far localization, or the primary endpoint. The selected control had mean exclusion-set Jaccard overlap 0.924853 and 304 membership switches, satisfying the frozen adequacy requirements of Jaccard mismatch <= 0.010 and switch-count mismatch <= 30.8.
+
+For poisoning specificity, near/far membership remained frozen from the original clean model. Within each seed, `D` was defined as near membership-switch rate minus far membership-switch rate, and the paired estimand was `S = D_poison - D_control`. Inference used 10,000 bootstrap resamples of whole generation seeds; action rows were not treated as independent inferential units. Poison enrichment was 0.13623 and matched-control enrichment was 0.13438, producing a mean paired difference of 0.001845 and a 95% seed-bootstrap CI [0.0000, 0.00554]. The frozen rule required the entire interval to be strictly above zero for poisoning-specific support; otherwise an interval overlapping zero yielded `specificity_unresolved` after a successful magnitude match.
 
 ### 2.3 Harmful-expansion discrimination and prediction-time audit
 
@@ -41,6 +47,14 @@ The headline compact harmful-expansion model used `predicted_loss_floor`, `loss_
 The documented event population contained 65 events, including 15 harmful and 50 beneficial outcomes. The compact model reported approximately 0.95 balanced accuracy, 1.00 harmful-event recall, 0.75 harmful-event precision, and approximately 0.97867 ROC AUC under seed-held-out cross-validation.
 
 A later prediction-time audit established that `true_best_loss` and `realized_expanded_action_loss` are known only after the relevant outcome/evaluation. Seed holdout therefore separates observations but does not make these residual variables available before the decision. Models restricted to temporally legitimate loss-surface information were evaluated separately and showed weaker pooled discrimination, with ROC AUC approximately 0.683-0.711 and balanced accuracy approximately 0.663-0.763 in the documented analyses. Some seed folds contained no harmful events, making fold-level AUC or balanced accuracy undefined.
+
+### 2.4 Inferential units and reproducibility boundaries
+
+Generation seed is the inferential unit for the Experiment 166 paired specificity analysis and for its seed-level correlation/bootstrap procedures. Candidate/action rows contribute to within-seed counts and rates but are not treated as independent units for the paired seed bootstrap. The stronger non-poison control reuses the same 40 target seeds and frozen clean cutoff geometry so the poison-control comparison is paired by seed.
+
+For the harmful-expansion analysis, seed-held-out evaluation controls observation reuse across generation seeds but does not repair feature-timing leakage. The current event population is small and imbalanced, and folds without harmful events make some fold-level discrimination metrics undefined. Accordingly, the manuscript reports pooled non-leaking performance only as exploratory and does not convert the number of event rows into a claim of independent prospective replications.
+
+Reproduction of the historical Experiment 166 analysis is governed by its committed preregistration and result artifact. Reproduction of the stronger matched control is governed by the separately committed prospective audit plan, including its fixed noise grid, deterministic candidate seeds, matching rule, adequacy gate, endpoint, and bootstrap seeds. The manuscript does not substitute prose for those machine- and protocol-level records; the evidence map below identifies the controlling files.
 
 ## 3. Results
 
@@ -100,9 +114,11 @@ No new experiment is required solely to report these narrowed findings. Stronger
 
 The principal manuscript claims are anchored to the following committed records:
 
-- Original Experiment 166 preregistered numerical results: `results/preregistered_cutoff_geometry_mechanism.csv`.
-- Experiment 166 chronology and preregistration ordering: `research/decision_aware_experiment_chronology.md` and `research/experiment_166_preregistration.md`; historical mechanism wording in the chronology is superseded for current interpretation by the later adjudication below.
-- Experiment 166 structural-null, downstream-specificity, and matched-control reconciliation: `research/prequadrangulation_claim_reconciliation_2026-08-17.md` and its referenced committed result artifacts.
+- Original Experiment 166 preregistration and numerical results: `research/experiment_166_preregistration.md` and `results/preregistered_cutoff_geometry_mechanism.csv`.
+- Experiment 166 chronology: `research/decision_aware_experiment_chronology.md`; historical mechanism wording there is superseded for current interpretation by the later adjudications below.
+- Existing-artifact structural and unit-of-analysis audit: `research/audit/experiment_166_existing_artifact_adjudication_result.md`.
+- Stronger label-preserving control protocol: `research/audit/experiment_166_stronger_label_preserving_control_plan.md`; its prospective status, fixed candidate family, matching rule, inferential unit, and decision rule govern interpretation of the later matched-control result.
+- Experiment 166 structural-null, downstream-specificity, and matched-control reconciliation: `research/prequadrangulation_claim_reconciliation_2026-08-17.md` and the committed audit/result evidence referenced there.
 - Harmful-expansion event count, performance, feature timing, and leakage adjudication: `research/harmful_expansion_timing_leakage_audit_2026-08-17.md` and the primary result/event/coefficient/fold artifacts listed there.
 - Current publication claim boundaries: `research/publication_claim_matrix_2026-08-17.md`.
 - Closed-evidence external adjudication: the preserved 2026-08-17 Genspark/Luna review record in `research/`.

@@ -1,0 +1,2 @@
+target_rows,target_contexts,target_exclusion_count,clean_auc,poison_auc,clean_ap,poison_ap,clean_excluded_unsafe_recall,poison_excluded_unsafe_recall,clean_unsafe_selected,poison_unsafe_selected,clean_total_regret,poison_total_regret,prediction_direction,decision_direction,prediction_decision_divergence,strong_divergence
+7719,2573,3012,0.7946915204821693,0.7691166946340784,0.40990022900780515,0.39563766633956093,0.7806804374240583,0.7575941676792224,358,354,12.865554738657908,13.399261561518374,prediction_degrades,decision_mixed,0,0

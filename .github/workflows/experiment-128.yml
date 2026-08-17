@@ -1,0 +1,42 @@
+name: Experiment 128 Seed-Cluster Robustness
+on:
+  push:
+    branches: [main]
+    paths:
+      - "experiments/fourth_population_seed_cluster_robustness.py"
+      - ".github/workflows/experiment-128.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  experiment-128:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install --upgrade pip numpy pandas scikit-learn
+      - name: Run seed-cluster robustness audit
+        run: python -m experiments.fourth_population_seed_cluster_robustness 2>&1 | tee results/experiment_128_console_output.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: experiment-128-seed-cluster-robustness
+          path: |
+            results/fourth_population_seed_cluster_robustness.csv
+            results/fourth_population_seed_level_performance.csv
+            results/fourth_population_calibration.csv
+            results/fourth_population_seed_cluster_bootstrap.csv
+            results/fourth_population_seed_cluster_bootstrap_summary.csv
+            results/experiment_128_console_output.txt
+      - name: Commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add results/fourth_population_seed_cluster_robustness.csv results/fourth_population_seed_level_performance.csv
+          git add results/fourth_population_calibration.csv results/fourth_population_seed_cluster_bootstrap.csv
+          git add results/fourth_population_seed_cluster_bootstrap_summary.csv results/experiment_128_console_output.txt
+          git diff --cached --quiet || git commit -m "Run Experiment 128 seed-cluster robustness audit"
+          git pull --rebase origin main
+          git push

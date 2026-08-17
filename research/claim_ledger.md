@@ -63,6 +63,20 @@ On the prospectively reconstructed target population, poisoning degraded global 
 
 Primary artifact: [`results/preregistered_prediction_decision_divergence.csv`](../results/preregistered_prediction_decision_divergence.csv)
 
+### C6 — An intervention-aligned metric can track downstream effects more strongly than global discrimination metrics, but superiority over all global metrics is not yet established
+
+**Status:** partially supported by the preregistered Experiment 163 evaluation.
+
+Across 40 fresh generation seeds, the change in excluded-unsafe recall had a strong association with downstream unsafe-selection change (Spearman rho = -0.907622) and regret change (rho = -0.804072). The corresponding AUC associations were weaker (rho = -0.498384 with unsafe selections; -0.355226 with regret), and AP was intermediate (rho = -0.771977 with unsafe selections; -0.457497 with regret).
+
+The absolute correlation advantage of excluded-unsafe recall over AUC for unsafe selections was 0.409238, with a bootstrap interval of approximately [0.134358, 0.706060], which stayed above zero. Its advantage over AP was smaller at 0.135645, with bootstrap interval approximately [-0.012068, 0.309136], which crossed zero. Therefore the preregistered `primary_metric_superiority_pass` remained false.
+
+**Permitted wording:** in this fresh seeded evaluation, a decision-aligned recall metric tracked downstream intervention effects substantially more strongly than ROC AUC and numerically more strongly than AP, but the preregistered claim of superiority over both global metrics was not confirmed.
+
+**Do not claim:** universal superiority of intervention-aligned metrics, causal sufficiency, or that excluded-unsafe recall is the optimal decision metric across budgets, populations, attacks, or model classes.
+
+Primary artifact: [`results/preregistered_intervention_aligned_metric_superiority.csv`](../results/preregistered_intervention_aligned_metric_superiority.csv)
+
 ## Resolved prospective claims
 
 ### P1 — The Experiment 153 intervention reversal is purely target-population-specific
@@ -79,6 +93,12 @@ The remaining scientific question is narrower: under which budgets, attack stren
 
 Experiment 158 produced clear degradation in global prediction metrics, but the preregistered divergence and strong-divergence flags remained false. This is retained as a negative result. It narrows the useful claim to the need for separate predictive and downstream decision evaluation rather than establishing a general divergence law.
 
+### P3 — The intervention-aligned metric is prospectively superior to both AUC and AP for tracking unsafe-selection changes
+
+**Status:** not supported in the preregistered strong form.
+
+Experiment 163 showed a clear and bootstrap-supported advantage over AUC, but not a bootstrap-supported advantage over AP. The observed ordering was recall > AP > AUC in absolute correlation with unsafe-selection change, yet the recall-versus-AP superiority interval crossed zero. The strong preregistered superiority criterion therefore failed and must remain a negative/partial result.
+
 ## Claims currently prohibited by the evidence
 
 - The adaptive-digital-twin problem has been solved.
@@ -87,6 +107,7 @@ Experiment 158 produced clear degradation in global prediction metrics, but the 
 - Poisoning is beneficial or acts as reliable regularization.
 - The replicated intervention effect means the poisoned hazard model is globally better.
 - A general prediction-decision divergence phenomenon has been established.
+- Intervention-aligned metrics have been shown to universally outperform global prediction metrics.
 - High pooled discrimination alone establishes transferable hazard prediction.
 - Support distance alone provides a reliable unsafe-action detector.
 - Any biomedical interpretation constitutes clinical validation.

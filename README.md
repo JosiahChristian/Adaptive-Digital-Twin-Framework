@@ -20,6 +20,25 @@ The research focuses on the interaction between:
 
 The central question is how a computational twin can reconcile prior models with new observations, detect meaningful changes in system behavior, update its internal representation, and preserve predictive usefulness under nonstationary conditions.
 
+## Current Experimental Evidence
+
+This repository contains executed experiments and tracked result artifacts; the research program is not only a methodological scaffold.
+
+One current analysis examines whether compact pre-decision loss-surface features distinguish harmful from beneficial action-space expansion events. In the tracked `absolute_loss_floor_harmful_expansion_analysis.csv` result, the compact calibration model was evaluated on 65 events (15 harmful, 50 beneficial) and produced:
+
+- balanced accuracy: **0.950**
+- harmful-event recall: **1.000**
+- harmful-event precision: **0.750**
+- ROC AUC: **0.979**
+- mean fold balanced accuracy: **0.939**
+- mean fold ROC AUC: **0.913**
+
+[Inspect the tracked result artifact](results/absolute_loss_floor_harmful_expansion_analysis.csv)
+
+These values apply only to the documented generated population, feature construction, and evaluation procedure. They are evidence for a specific experimental result, not evidence that the broader adaptive-digital-twin problem has been solved. Ongoing experiments test robustness, alternative explanations, held-out populations, action-conditioned effects, calibration, persistence, and failure cases before broader claims are considered.
+
+The `results/` directory contains the tracked outputs used to inspect and challenge current claims, while `experiments/` contains the corresponding experimental programs.
+
 ## Research Philosophy
 
 The repository is developed as a research program rather than as a single demonstration.
@@ -152,7 +171,6 @@ The framework is still under development, and individual experiments should be i
 
 ## Related Software
 
-- **AeroDigitalTwin** — compact Python prototype for constrained degradation modeling
 - **AeroCPSSimulation** — C++ cyber-physical flight simulation
 - **BiomedicalSystemsSolver** — numerical cardiovascular and neural system modeling
 

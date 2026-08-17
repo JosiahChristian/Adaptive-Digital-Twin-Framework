@@ -2,6 +2,10 @@
 
 Frozen before seeds 44351-44390 are generated. Compares a source-trained action-only
 logistic model with an action+context model at identical unlabeled target coverage.
+
+Schema repair note: source/result tables identify the seed as ``generation_seed``.
+This repair changes only that identifier reference; models, features, thresholds,
+bootstrap count, endpoints, and preregistered success criteria are unchanged.
 """
 from pathlib import Path
 import numpy as np
@@ -27,7 +31,7 @@ def prep(path):
     d["action_2"] = (d.action.astype(int) == 2).astype(int)
     d["action_3"] = (d.action.astype(int) == 3).astype(int)
     d["unsafe_action"] = d.unsafe_action.astype(int)
-    return d.dropna(subset=CONTEXT_FEATURES + ["unsafe_action", "seed"]).copy()
+    return d.dropna(subset=CONTEXT_FEATURES + ["unsafe_action", "generation_seed"]).copy()
 
 def fit(features, tr):
     m = make_pipeline(StandardScaler(), LogisticRegression(class_weight="balanced", max_iter=5000, random_state=RNG_SEED))
@@ -62,7 +66,7 @@ def main():
     action_auc, context_auc = float(roc_auc_score(y, action_scores)), float(roc_auc_score(y, context_scores))
     rows=[]
     temp=te.assign(action_alert=action_alert, context_alert=context_alert)
-    for seed,g in temp.groupby("seed"):
+    for seed,g in temp.groupby("generation_seed"):
         gy,aa,ca=g.unsafe_action.to_numpy(),g.action_alert.to_numpy(),g.context_alert.to_numpy()
         atp=int(np.sum((aa==1)&(gy==1))); ctp=int(np.sum((ca==1)&(gy==1)))
         rows.append({"seed":int(seed),"rows":len(g),"unsafe_rows":int(gy.sum()),"action_true_positives":atp,"context_true_positives":ctp,"delta_true_positives":ctp-atp})

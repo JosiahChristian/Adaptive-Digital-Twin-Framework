@@ -1,0 +1,37 @@
+name: Experiment 131 Preregistered Fifth-Population Calibration
+on:
+  push:
+    branches: [main]
+    paths:
+      - "results/prospective_action_conditioned_support_representation_actions_191_230.csv"
+      - ".github/workflows/experiment-131.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  experiment-131:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install --upgrade pip numpy pandas scikit-learn
+      - name: Run calibration confirmation
+        run: python -m experiments.preregistered_fifth_population_calibration 2>&1 | tee results/experiment_131_console_output.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: experiment-131-calibration
+          path: |
+            results/preregistered_fifth_population_calibration.csv
+            results/preregistered_fifth_population_calibration_bins.csv
+            results/experiment_131_console_output.txt
+      - name: Commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add results/preregistered_fifth_population_calibration.csv results/preregistered_fifth_population_calibration_bins.csv results/experiment_131_console_output.txt
+          git diff --cached --quiet || git commit -m "Run Experiment 131 fifth-population calibration"
+          git pull --rebase origin main
+          git push

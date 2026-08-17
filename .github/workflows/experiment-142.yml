@@ -17,7 +17,7 @@ jobs:
       - uses: actions/setup-python@v5
         with: {python-version: "3.11"}
       - run: python -m pip install --upgrade pip numpy pandas scikit-learn
-      - run: python -m experiments.142_preregistered_ninth_population_incremental_context 2>&1 | tee results/experiment_142_console_output.txt
+      - run: python -m experiments.preregistered_ninth_population_incremental_context 2>&1 | tee results/experiment_142_console_output.txt
       - uses: actions/upload-artifact@v4
         with:
           name: experiment-142-incremental-context

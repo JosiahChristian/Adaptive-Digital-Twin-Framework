@@ -6,34 +6,43 @@ Does the *correct row-level pairing* of `context_support_distance` with an actio
 
 ## Frozen design
 
-This protocol and its analysis code are committed before tenth-population seeds 44391–44430 are generated.
+This protocol and its analysis code were committed before tenth-population seeds 44391–44430 were generated.
 
-The source-trained action-plus-context model remains frozen to the same source population used in Experiments 140 and 142:
+The source-trained action-plus-context model remained frozen to the same source population used in Experiments 140 and 142:
 
 `results/action_conditioned_support_representation_analysis_actions_071_110.csv`
 
-Features remain:
+Features remained `action_2`, `action_3`, and `context_support_distance`. The alert budget remained the unlabeled fixed-coverage budget implied by the established 0.80 source unsafe-recall target.
 
-- `action_2`
-- `action_3`
-- `context_support_distance`
+On the untouched tenth population, the primary rule ranked rows with their correctly paired context values. The negative control performed 5,000 conditional permutations. Within every `generation_seed × action` stratum, `context_support_distance` values were randomly reassigned among rows while action identity, seed membership, unsafe labels, the stratum-level context distribution, and the total alert count remained fixed. Unsafe labels were never used to construct rankings.
 
-The alert budget remains the unlabeled fixed-coverage budget implied by the established 0.80 source unsafe-recall target.
+## Primary criterion
 
-On the untouched tenth population, the primary rule ranks rows with their correctly paired context values. The negative control performs 5,000 conditional permutations. Within every `generation_seed × action` stratum, `context_support_distance` values are randomly reassigned among rows while action identity, seed membership, unsafe labels, the stratum-level context distribution, and the total alert count remain fixed. Unsafe labels are never used to construct rankings.
+The row-pairing claim passed only if the correctly paired context rule captured more unsafe actions than the 99th percentile of the 5,000 conditional-permutation controls.
 
-## Primary endpoint and criterion
+## Results
 
-Primary endpoint: number of unsafe actions captured at the frozen alert budget.
+The untouched tenth population contained 10,704 rows and 2,495 unsafe actions (23.309% prevalence). The frozen alert coverage was 39.018%, corresponding to 4,176 alerts.
 
-The row-pairing claim passes only if the correctly paired context rule captures more unsafe actions than the 99th percentile of the 5,000 conditional-permutation controls. The empirical fraction of permutations equaling or exceeding the primary result is also reported.
+| Endpoint | Correct context pairing | Conditional permutations |
+|---|---:|---:|
+| Unsafe actions captured | **2,004** | mean 1,880.34 |
+| Unsafe recall | **0.8032** | — |
+| Unsafe precision | **0.4799** | — |
+| Balanced accuracy | **0.7693** | — |
+| Permutation 95% TP interval | — | [1,866, 1,895] |
+| Permutation 99th percentile TP | — | 1,898 |
 
-Because alert count and class totals are fixed, recall, precision, specificity, and balanced accuracy are monotonic functions of the same true-positive count; they are reported descriptively rather than treated as independent primary criteria.
+The correctly paired rule captured approximately **123.66 more unsafe actions** than the conditional-permutation mean. None of 5,000 permutations equaled or exceeded the primary result (`P_perm >= primary = 0.0`). The preregistered criterion passed.
 
-## Interpretation boundaries
+## Conclusion
 
-A pass would support a simulation-specific claim that row-level context correspondence carries prospective ranking information beyond action identity, seed-level environment, and marginal context distributions.
+This result prospectively supports a simulation-specific row-correspondence claim: the performance gain is not explained merely by action identity, seed-level environment, alert budget, or the marginal distribution of context-support distances. Correct row-level pairing of context support with the candidate action carries decision-relevant ranking information.
 
-A failure will be retained and will narrow the claim. No tuning on the tenth-population outcomes will be used to rescue the preregistered test.
+The result does not establish causal intervention benefit, deployment safety, clinical applicability, or universal cross-domain transfer. Those remain separate questions.
 
-This experiment does not establish causal intervention benefit, deployment safety, clinical applicability, or cross-domain transfer.
+## Artifacts
+
+- `results/preregistered_tenth_population_conditional_context_permutation.csv`
+- `results/preregistered_tenth_population_conditional_context_permutation_trials.csv`
+- `results/experiment_144_console_output.txt`

@@ -38,23 +38,28 @@ Primary artifact: [`results/action_conditioned_severe_proxy_harm_analysis.csv`](
 
 ### C4 — The Experiment 153 apparent poisoning benefit is not evidence that poisoning globally improves the hazard model
 
-**Status:** mechanism diagnosis supported; prospective replication is still active.
+**Status:** mechanism diagnosis supported and prospectively replicated as a fixed-budget intervention effect.
 
 Experiment 154 found nearly unchanged global ranking performance between clean and poisoned models (ROC AUC 0.833773 versus 0.831417) and high overlap between exclusion sets (Jaccard 0.924229). The observed intervention difference was concentrated near a fixed top-N decision boundary. At the context level, 220 of 2,799 selected actions changed, including 41 unsafe-to-safe and 22 safe-to-unsafe transitions.
 
-**Permitted wording:** the observed reversal is consistent with a local intervention-boundary reordering rather than a global improvement in hazard ranking.
+Experiment 156 then repeated the frozen clean model, targeted attack, intervention budget, and diagnostic endpoints on a fresh reconstructed target population. The same directional intervention effect replicated: poison-selected unsafe actions fell from 371 to 346, total regret fell from 16.160316 to 15.206882, and 37 unsafe-to-safe versus 12 safe-to-unsafe transitions occurred among changed contexts. Global ranking metrics again remained nearly unchanged, with clean versus poisoned ROC AUC 0.763685 versus 0.765520 and average precision 0.441181 versus 0.443655. The exclusion-set Jaccard overlap was 0.912342.
 
-**Do not claim yet:** that the effect is definitively population-specific or that its sign will fail to replicate. Experiment 156 is explicitly testing that prospective question.
+**Permitted wording:** a small poisoning-induced score perturbation can reproducibly change fixed-budget intervention outcomes by reordering candidates near the decision boundary, even when global ranking metrics remain essentially unchanged.
 
-Primary result note: [`research/experiment_154_result.md`](experiment_154_result.md)
+**Do not claim:** that poisoning improves the underlying hazard model, that poisoning is beneficial in general, that the effect constitutes useful regularization, or that it will persist under different attack mechanisms, budgets, model classes, or domains.
 
-## Active claims under prospective test
+Primary result note: [`research/experiment_154_result.md`](experiment_154_result.md)  
+Prospective replication artifact: [`results/prospective_poisoning_boundary_replication.csv`](../results/prospective_poisoning_boundary_replication.csv)
 
-### P1 — The Experiment 153 intervention reversal is a target-population-specific boundary effect
+## Resolved prospective claim
 
-**Status:** unresolved / prospectively testing.
+### P1 — The Experiment 153 intervention reversal is purely target-population-specific
 
-Experiment 156 freezes the clean model, targeted attack, intervention budget, and diagnostic endpoints on a fresh reconstructed target population. No synthesis document should promote P1 to a supported claim until that prospective result is committed and interpreted.
+**Status:** falsified in its strong form.
+
+Experiment 156 reproduced the same directional fixed-budget intervention effect on a fresh reconstructed target population. The evidence therefore no longer supports describing the Experiment 153 reversal as merely a one-population accident. What replicated, however, was the **boundary-sensitive intervention effect**, not a meaningful improvement in global hazard ranking.
+
+The remaining scientific question is narrower: under which budgets, attack strengths, model classes, and target-population shifts does this boundary-reordering effect persist, reverse, or disappear?
 
 ## Claims currently prohibited by the evidence
 
@@ -62,6 +67,7 @@ Experiment 156 freezes the clean model, targeted attack, intervention budget, an
 - The framework has demonstrated deployment-ready safety or control performance.
 - The current predictors generalize to real-world cyber-physical or biomedical systems.
 - Poisoning is beneficial or acts as reliable regularization.
+- The replicated intervention effect means the poisoned hazard model is globally better.
 - High pooled discrimination alone establishes transferable hazard prediction.
 - Support distance alone provides a reliable unsafe-action detector.
 - Any biomedical interpretation constitutes clinical validation.

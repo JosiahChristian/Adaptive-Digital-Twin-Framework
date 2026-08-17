@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - "results/prospective_action_conditioned_support_representation_actions_151_190.csv"
+      - ".github/workflows/experiment-127.yml"
   workflow_dispatch:
 permissions:
   contents: write

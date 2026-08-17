@@ -6,6 +6,10 @@
 
 Translate the reconciled hostile-review and closed-evidence quadrangulation findings into sentence-level manuscript guidance without strengthening claims beyond the committed evidence.
 
+## Cross-repository non-conflation rule
+
+The findings in this repository must be interpreted independently of the Adversarial-RL-Data-Poisoning-Thesis results. Similar vocabulary such as poisoning, pre-decision/pre-failure evaluation, detector limitations, or decision consequences does **not** constitute evidence of a shared causal mechanism, common latent phenomenon, cross-domain replication, or general adaptive-system law. Results from the adversarial-RL program may motivate separate questions, but they must not be used as corroborating evidence for ADT claims unless a separately specified cross-repository validation study directly tests that relationship.
+
 ## Abstract — proposed boundaries
 
 ### Permitted core result
@@ -20,7 +24,8 @@ Translate the reconciled hostile-review and closed-evidence quadrangulation find
 - that the approximately 0.979-AUC compact model predicts harmful expansion before the decision;
 - that the non-leaking loss-surface-only models establish prospective predictive validity;
 - that the ADT framework has solved harmful adaptation prediction generally;
-- that these findings establish deployment, cross-domain, aerospace, or biomedical validity.
+- that these findings establish deployment, cross-domain, aerospace, or biomedical validity;
+- that findings in the separate adversarial-RL repository independently corroborate an ADT mechanism or establish cross-domain replication.
 
 ## Results — Experiment 166
 
@@ -63,6 +68,8 @@ The Discussion should distinguish four levels explicitly:
 
 For harmful expansion, distinguish retrospective discrimination from prospective prediction and make the confirmed timing leakage a central limitation rather than a footnote.
 
+Any discussion of the adversarial-RL research should be contextual only. It must not imply mechanistic triangulation, statistical pooling, cross-domain validation, or independent replication of the ADT findings.
+
 ## Negative results that must remain visible
 
 The manuscript should preserve, not bury:
@@ -82,4 +89,4 @@ The manuscript should preserve, not bury:
 
 ## Publication-readiness consequence
 
-The closed-evidence adjudication supports **READY AFTER DOCUMENTATION CORRECTION** for these narrowed claims. This means no new scientific experiment is required solely to report these bounded findings accurately. It does not imply that stronger poisoning-specific, causal, prospective-prediction, or broad-generalization claims are ready; those would require new evidence. Final submission readiness also depends on completing the actual manuscript corrections and preserving the negative/adjudication record in the manuscript-facing materials.
+The closed-evidence adjudication supports **READY AFTER DOCUMENTATION CORRECTION** for these narrowed claims. This means no new scientific experiment is required solely to report these bounded findings accurately. It does not imply that stronger poisoning-specific, causal, prospective-prediction, cross-repository, or broad-generalization claims are ready; those would require new evidence. Final submission readiness also depends on completing the actual manuscript corrections and preserving the negative/adjudication record in the manuscript-facing materials.

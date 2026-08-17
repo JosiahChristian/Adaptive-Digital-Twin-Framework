@@ -1,0 +1,9 @@
+experiment,population_or_unit,design,status,key_prediction_result,key_decision_result,claim_role
+153,44551-44590,preregistered constrained audit,failed,partial poison-label recovery did not imply utility gain,audit unsafe=218 regret=10.642 vs poisoned unsafe=217 regret=10.620,falsifies simple repair-improves-utility claim
+154,44551-44590,boundary mechanism diagnostic,diagnostic,clean AUC=0.83377 poisoned AUC=0.83142,41 unsafe-to-safe vs 22 safe-to-unsafe decision changes,supports local boundary-reordering hypothesis
+156,44591-44630,prospective poisoning boundary replication,passed,clean AUC=0.76369 poisoned AUC=0.76552,clean unsafe=371 regret=16.1603 vs poisoned unsafe=346 regret=15.2069,replicates favorable decision sign without implying poisoning benefit generally
+158,44631-44670,preregistered prediction-decision divergence,failed,ROC AUC 0.7947->0.7691 and AP 0.4099->0.3956,unsafe 358->354 while regret 12.87->13.40,shows endpoint-specific mixed decision response
+159,four untouched populations,cross-population synthesis,descriptive,global metric direction varied by population,decision effects included harm benefit benefit and mixed,establishes heterogeneity as central observation
+161,44671-44710 seed-level,preregistered weak-coupling test,failed,intervention-aligned recall retained meaningful association,rho recall-vs-unsafe approximately -0.546,rejects broad weak-coupling claim
+163,44711-44750 seed-level,preregistered metric-superiority test,partial,rho recall=-0.9076 AP=-0.772 AUC=-0.498 for unsafe change,recall-over-AUC supported but recall-over-AP bootstrap crossed zero,supports population-specific value of intervention alignment
+165,44751-44790 seed-level,preregistered hierarchy replication,failed,rho recall=-0.5342 AP=0.1347 AUC=0.2445 for unsafe change; superiority intervals crossed zero,rho regret recall=-0.2907 AP=0.3695 AUC=0.4814,falsifies stable recall>AP>AUC hierarchy

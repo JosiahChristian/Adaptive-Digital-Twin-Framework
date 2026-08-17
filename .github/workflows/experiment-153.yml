@@ -1,0 +1,40 @@
+name: Experiment 153 Frozen Constrained Context-Tail Audit
+on:
+  workflow_run:
+    workflows: ["Experiment 152 Frozen Fourteenth Population Reconstruction"]
+    types: [completed]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  experiment-153:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: python -m pip install --upgrade pip numpy pandas scikit-learn
+      - name: Run frozen constrained-audit evaluation
+        shell: bash
+        run: |
+          set -o pipefail
+          python -m experiments.preregistered_constrained_context_tail_audit 2>&1 | tee results/experiment_153_console_output.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: experiment-153-constrained-audit
+          path: |
+            results/preregistered_constrained_context_tail_audit.csv
+            results/preregistered_constrained_context_tail_audit_random_trials.csv
+            results/experiment_153_console_output.txt
+      - name: Commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add results/preregistered_constrained_context_tail_audit.csv results/preregistered_constrained_context_tail_audit_random_trials.csv results/experiment_153_console_output.txt
+          git diff --cached --quiet || git commit -m "Run Experiment 153 constrained context-tail audit"
+          git pull --rebase origin main
+          git push

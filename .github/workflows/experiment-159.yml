@@ -1,0 +1,35 @@
+name: Experiment 159 Cross-Population Poisoning Decision Synthesis
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/experiment-159.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  experiment-159:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: python -m pip install --upgrade pip numpy pandas scikit-learn
+      - name: Run cross-population synthesis
+        shell: bash
+        run: |
+          set -o pipefail
+          python -m experiments.cross_population_poisoning_decision_synthesis 2>&1 | tee results/experiment_159_console_output.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: experiment-159-synthesis
+          path: |
+            results/cross_population_poisoning_decision_synthesis.csv
+            results/experiment_159_console_output.txt
+      - name: Commit results
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/cross_population_poisoning_decision_synthesis.csv results/experiment_159_console_output.txt
+          git diff --cached --quiet || git commit -m 'Run Experiment 159 cross-population synthesis'
+          git pull --rebase origin main
+          git push

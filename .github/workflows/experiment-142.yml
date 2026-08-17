@@ -17,7 +17,11 @@ jobs:
       - uses: actions/setup-python@v5
         with: {python-version: "3.11"}
       - run: python -m pip install --upgrade pip numpy pandas scikit-learn
-      - run: python -m experiments.preregistered_ninth_population_incremental_context 2>&1 | tee results/experiment_142_console_output.txt
+      - name: Run frozen Experiment 142 analysis
+        shell: bash
+        run: |
+          set -o pipefail
+          python -m experiments.preregistered_ninth_population_incremental_context 2>&1 | tee results/experiment_142_console_output.txt
       - uses: actions/upload-artifact@v4
         with:
           name: experiment-142-incremental-context
@@ -34,3 +38,4 @@ jobs:
           git diff --cached --quiet || git commit -m "Run Experiment 142 incremental-context ablation"
           git pull --rebase origin main
           git push
+# Rearmed after schema-only generation_seed identifier repair; preregistered analysis criteria unchanged.

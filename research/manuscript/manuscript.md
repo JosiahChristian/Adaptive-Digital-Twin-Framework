@@ -4,11 +4,11 @@
 
 ## Abstract
 
-Adaptive decision pipelines can exhibit strong statistical patterns that do not necessarily identify the mechanism that produced them or provide information available at decision time. We examine two such problems in a simulated adaptive digital-twin pipeline: localization of ranking changes near a fixed top-N cutoff and prediction of harmful action-space expansion. In Experiment 166, exclusion-membership changes were strongly concentrated near the cutoff in the poisoning condition, but a prospectively frozen label-preserving non-poison perturbation matched the ranking perturbation magnitude and reproduced essentially the same localization pattern. The poison-minus-control localization difference was 0.001845 with a 95% seed-bootstrap interval of [0.0000, 0.00554], so the frozen poisoning-specificity criterion was not met. A separate compact harmful-expansion model achieved approximately 0.979 ROC AUC retrospectively, but two of its three features incorporate post-outcome quantities and therefore cannot support a pre-decision prediction claim. Models restricted to temporally legitimate loss-surface information showed weaker exploratory discrimination. Together, the results support a pipeline-specific cutoff-localization phenomenon and motivate strict separation of observed association, perturbation specificity, causal mechanism, and prediction-time validity.
+Adaptive decision pipelines can exhibit strong statistical patterns that do not necessarily identify the mechanism that produced them or provide information available at decision time. We examine two such problems in a simulated adaptive digital-twin pipeline: localization of ranking changes near a fixed top-N cutoff and discrimination of harmful action-space expansion outcomes. In Experiment 166, exclusion-membership changes were strongly concentrated near the cutoff in the poisoning condition, but a prospectively frozen label-preserving non-poison perturbation matched the ranking perturbation magnitude and reproduced essentially the same localization pattern. The poison-minus-control localization difference was 0.001845 with a 95% seed-bootstrap interval of [0.0000, 0.00554], so the frozen poisoning-specificity criterion was not met. A separate compact harmful-expansion model achieved approximately 0.979 ROC AUC retrospectively, but two of its three features incorporate post-outcome quantities and therefore cannot support a pre-decision prediction claim. Models restricted to temporally legitimate loss-surface information showed weaker exploratory discrimination. Together, the results support a pipeline-specific cutoff-localization phenomenon and motivate strict separation of observed association, perturbation specificity, causal mechanism, and prediction-time validity.
 
 ## 1. Introduction
 
-Adaptive digital twins combine state estimation, prediction, ranking, and intervention under changing system conditions. Such pipelines create a methodological challenge: a result can be numerically strong while its scientific interpretation remains limited by the construction of the decision rule or by the time at which predictor information becomes available. Fixed-budget ranking is particularly susceptible to changes in membership near a selection boundary, while retrospective residual features can make an outcome appear highly predictable even when the required information would not exist at the intended decision time.
+Adaptive digital twins combine state estimation, prediction, ranking, and intervention under changing system conditions. Such pipelines create a methodological challenge: a result can be numerically strong while its scientific interpretation remains limited by the construction of the decision rule or by the time at which predictor information becomes available. Fixed-budget ranking can concentrate membership changes near a selection boundary, while retrospective residual features can make an outcome appear highly predictable even when the required information would not exist at the intended decision time.
 
 This study therefore focuses on claim validity rather than maximizing favorable metrics. The experimental record includes preregistered positive findings, failed prospective replications, null or negative mechanism tests, matched non-poison controls, and a later timing-leakage audit. Those findings are preserved together rather than allowing later positive results to erase earlier failures.
 
@@ -18,7 +18,7 @@ The present manuscript addresses two questions. First, does the near-cutoff loca
 
 ### 2.1 Evidence and claim-governance approach
 
-The analyses reported here are interpreted according to the committed experimental chronology. Preregistered criteria are reported as originally evaluated, and later structural or falsification analyses are presented as subsequent adjudications rather than retroactively changing the historical result. Negative and failed findings are retained as constraints on interpretation.
+The analyses reported here are interpreted according to the committed experimental chronology. Preregistered criteria are reported as originally evaluated, and later structural or falsification analyses are presented as subsequent adjudications rather than retroactively changing the historical result. Negative and failed findings are retained as constraints on interpretation. Where the historical chronology contains stronger pre-audit mechanism wording, the later committed reconciliation and leakage audits govern the present manuscript interpretation.
 
 ### 2.2 Experiment 166: fixed-budget ranking and cutoff localization
 
@@ -46,7 +46,7 @@ A later prediction-time audit established that `true_best_loss` and `realized_ex
 
 ### 3.1 Near-cutoff localization exists in the tested pipeline
 
-The original Experiment 166 poisoning analysis showed strong enrichment of exclusion-membership switches near the frozen cutoff band. This establishes that the localization phenomenon was present under the tested poisoning condition.
+The original Experiment 166 poisoning analysis showed strong enrichment of exclusion-membership switches near the frozen cutoff band. This supports the presence of a localization phenomenon under the tested poisoning condition.
 
 The later matched-control comparison materially changes the specificity interpretation. The non-poison perturbation closely matched the poisoning condition in exclusion-set overlap and total membership switching, and it reproduced nearly the same near-minus-far enrichment. Under the prospectively frozen specificity rule, the lower bootstrap confidence bound did not exceed zero. Accordingly, poisoning specificity was **not established**. This result should not be interpreted as proof that poisoning-specific effects are universally absent; it means the present experiment does not distinguish the observed localization from a sufficiently matched non-poison ranking perturbation.
 
@@ -54,13 +54,13 @@ The later matched-control comparison materially changes the specificity interpre
 
 The observed Criterion-2 correlation was reproduced by a bookkeeping-preserving permutation null. The observed rho of approximately -0.87318 had a one-sided null probability of 0.53315. Thus, although the historical preregistered association remains part of the experimental record, it cannot be used as independent evidence that boundary composition mechanistically drives downstream unsafe-selection change.
 
-The downstream-specificity analysis further opposed the proposed preferential-near-switch interpretation. Selected-action-change rate was 0.63871 for near-only switched contexts and 0.95425 for far-only switched contexts, a near-minus-far difference of -0.31554 with seed-bootstrap 95% CI [-0.40818, -0.23161]. These results do not establish that near-cutoff switches preferentially drive downstream selected-action changes.
+The downstream-specificity analysis further opposed the proposed preferential-near-switch interpretation. Selected-action-change rate was 0.63871 for near-only switched contexts and 0.95425 for far-only switched contexts, a near-minus-far difference of -0.31554 with seed-bootstrap 95% CI [-0.40818, -0.23161]. These results do not support the claim that near-cutoff switches preferentially drive downstream selected-action changes.
 
 ### 3.3 The strongest harmful-expansion model is retrospective, not pre-decision
 
-The compact model's approximately 0.979 ROC AUC demonstrates strong outcome-informed retrospective discrimination in the documented event set. It does not demonstrate genuine pre-decision prediction because two residual features require post-outcome information. Cross-validation across seeds does not resolve this temporal mismatch.
+The compact model's approximately 0.979 ROC AUC shows high outcome-informed retrospective discrimination in the documented event set. It does not demonstrate genuine pre-decision prediction because two residual features require post-outcome information. Cross-validation across seeds does not resolve this temporal mismatch.
 
-Temporally legitimate loss-surface-only models showed weaker exploratory discrimination. These results are compatible with predictive information being present in pre-decision loss-surface features, but the current analyses do not establish prospective or population-generalizable predictive performance.
+Temporally legitimate loss-surface-only models showed weaker exploratory discrimination. These results are consistent with possible pre-decision signal in the documented event population, but the current analyses do not establish prospective or population-generalizable predictive performance.
 
 ## 4. Negative and Failed Results
 
@@ -80,7 +80,7 @@ The original strong Criterion-2 correlation cannot be treated as independent mec
 
 ### 5.3 Retrospective discrimination versus prospective prediction
 
-The harmful-expansion analysis illustrates a separate validity problem. Strong retrospective discrimination can coexist with invalid pre-decision interpretation when predictor construction incorporates quantities realized only after the outcome. The temporally legitimate models are therefore the relevant evidence for prospective usefulness, and their current performance should remain exploratory until evaluated under a design that preserves decision-time availability and adequate seed-level outcome variation.
+The harmful-expansion analysis illustrates a separate validity problem. High retrospective discrimination can coexist with invalid pre-decision interpretation when predictor construction incorporates quantities realized only after the outcome. The temporally legitimate models are therefore the relevant evidence for prospective usefulness, and their current performance should remain exploratory until evaluated under a design that preserves decision-time availability and adequate seed-level outcome variation.
 
 ### 5.4 Scope and generalization
 
@@ -95,6 +95,17 @@ Several limitations remain. The matched-control result constrains poisoning spec
 The current evidence supports two deliberately narrow conclusions. First, the tested fixed-budget adaptive digital-twin ranking pipeline exhibits robust near-cutoff localization of membership changes, but available structural and matched-control tests do not establish poisoning specificity or an independent causal boundary-composition mechanism. Second, the documented event population shows exploratory discrimination from temporally legitimate loss-surface information, while the strongest compact harmful-expansion result is retrospective because it incorporates post-outcome residuals. These findings demonstrate the importance of separating ranking geometry from perturbation specificity and retrospective discrimination from information genuinely available at decision time.
 
 No new experiment is required solely to report these narrowed findings. Stronger claims of poisoning specificity, causal mechanism, validated prospective prediction, or broad generalization would require new discriminating evidence.
+
+## 8. Primary evidence map
+
+The principal manuscript claims are anchored to the following committed records:
+
+- Original Experiment 166 preregistered numerical results: `results/preregistered_cutoff_geometry_mechanism.csv`.
+- Experiment 166 chronology and preregistration ordering: `research/decision_aware_experiment_chronology.md` and `research/experiment_166_preregistration.md`; historical mechanism wording in the chronology is superseded for current interpretation by the later adjudication below.
+- Experiment 166 structural-null, downstream-specificity, and matched-control reconciliation: `research/prequadrangulation_claim_reconciliation_2026-08-17.md` and its referenced committed result artifacts.
+- Harmful-expansion event count, performance, feature timing, and leakage adjudication: `research/harmful_expansion_timing_leakage_audit_2026-08-17.md` and the primary result/event/coefficient/fold artifacts listed there.
+- Current publication claim boundaries: `research/publication_claim_matrix_2026-08-17.md`.
+- Closed-evidence external adjudication: the preserved 2026-08-17 Genspark/Luna review record in `research/`.
 
 ## Evidence-governance note
 

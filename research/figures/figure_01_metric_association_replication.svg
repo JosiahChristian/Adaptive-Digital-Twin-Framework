@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="620" viewBox="0 0 1000 620" role="img" aria-labelledby="title desc">
+<title id="title">Metric associations with unsafe-selection change in Experiments 163 and 165</title>
+<desc id="desc">Two-panel bar chart showing Spearman correlations for excluded-unsafe recall, average precision, and ROC AUC. Experiment 163 correlations are -0.9076, -0.7720, and -0.4984. Experiment 165 correlations are -0.5342, 0.1347, and 0.2445.</desc>
+<rect width="1000" height="620" fill="white"/>
+<text x="500" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700">Prospective metric-association result did not reproduce as a stable hierarchy</text>
+<text x="500" y="68" text-anchor="middle" font-family="Arial, sans-serif" font-size="15">Spearman ρ with change in unsafe selections; 40 fresh seeds per experiment</text>
+
+<!-- Panel A -->
+<text x="255" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="700">Experiment 163</text>
+<line x1="75" y1="320" x2="435" y2="320" stroke="black" stroke-width="1.5"/>
+<line x1="255" y1="145" x2="255" y2="500" stroke="black" stroke-width="1" stroke-dasharray="5 5"/>
+<text x="85" y="510" font-family="Arial, sans-serif" font-size="13">−1.0</text><text x="247" y="510" font-family="Arial, sans-serif" font-size="13">0</text><text x="410" y="510" font-family="Arial, sans-serif" font-size="13">+1.0</text>
+<text x="95" y="190" font-family="Arial, sans-serif" font-size="15">Excluded-unsafe recall</text>
+<rect x="91.6" y="205" width="163.4" height="38" fill="#444"/>
+<text x="82" y="230" text-anchor="end" font-family="Arial, sans-serif" font-size="14">−0.908</text>
+<text x="95" y="285" font-family="Arial, sans-serif" font-size="15">Average precision</text>
+<rect x="116.0" y="300" width="139.0" height="38" fill="#777"/>
+<text x="106" y="325" text-anchor="end" font-family="Arial, sans-serif" font-size="14">−0.772</text>
+<text x="95" y="380" font-family="Arial, sans-serif" font-size="15">ROC AUC</text>
+<rect x="165.3" y="395" width="89.7" height="38" fill="#aaa"/>
+<text x="155" y="420" text-anchor="end" font-family="Arial, sans-serif" font-size="14">−0.498</text>
+<text x="255" y="555" text-anchor="middle" font-family="Arial, sans-serif" font-size="14">Recall &gt; AUC supported; recall &gt; AP not bootstrap-confirmed</text>
+
+<!-- Panel B -->
+<text x="745" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="700">Experiment 165 exact replication</text>
+<line x1="565" y1="320" x2="925" y2="320" stroke="black" stroke-width="1.5"/>
+<line x1="745" y1="145" x2="745" y2="500" stroke="black" stroke-width="1" stroke-dasharray="5 5"/>
+<text x="575" y="510" font-family="Arial, sans-serif" font-size="13">−1.0</text><text x="737" y="510" font-family="Arial, sans-serif" font-size="13">0</text><text x="900" y="510" font-family="Arial, sans-serif" font-size="13">+1.0</text>
+<text x="585" y="190" font-family="Arial, sans-serif" font-size="15">Excluded-unsafe recall</text>
+<rect x="648.8" y="205" width="96.2" height="38" fill="#444"/>
+<text x="638" y="230" text-anchor="end" font-family="Arial, sans-serif" font-size="14">−0.534</text>
+<text x="585" y="285" font-family="Arial, sans-serif" font-size="15">Average precision</text>
+<rect x="745" y="300" width="24.2" height="38" fill="#777"/>
+<text x="779" y="325" font-family="Arial, sans-serif" font-size="14">+0.135</text>
+<text x="585" y="380" font-family="Arial, sans-serif" font-size="15">ROC AUC</text>
+<rect x="745" y="395" width="44.0" height="38" fill="#aaa"/>
+<text x="799" y="420" font-family="Arial, sans-serif" font-size="14">+0.245</text>
+<text x="745" y="555" text-anchor="middle" font-family="Arial, sans-serif" font-size="14">Preregistered recall &gt; AP &gt; AUC hierarchy failed</text>
+
+<text x="500" y="595" text-anchor="middle" font-family="Arial, sans-serif" font-size="13">Interpretation: metric usefulness is population-dependent; no universal metric hierarchy is established.</text>
+</svg>

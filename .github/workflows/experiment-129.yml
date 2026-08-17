@@ -1,0 +1,37 @@
+name: Experiment 129 Source-Only Calibration Diagnostic
+on:
+  push:
+    branches: [main]
+    paths:
+      - "experiments/source_only_probability_calibration_diagnostic.py"
+      - ".github/workflows/experiment-129.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  experiment-129:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install --upgrade pip numpy pandas scikit-learn
+      - name: Run source-only calibration diagnostic
+        run: python -m experiments.source_only_probability_calibration_diagnostic 2>&1 | tee results/experiment_129_console_output.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: experiment-129-calibration
+          path: |
+            results/source_only_probability_calibration_diagnostic.csv
+            results/source_only_probability_calibration_bins.csv
+            results/experiment_129_console_output.txt
+      - name: Commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add results/source_only_probability_calibration_diagnostic.csv results/source_only_probability_calibration_bins.csv results/experiment_129_console_output.txt
+          git diff --cached --quiet || git commit -m "Run Experiment 129 source-only calibration diagnostic"
+          git pull --rebase origin main
+          git push

@@ -1,0 +1,37 @@
+name: Experiment 132 Unlabeled Prior Adaptation
+on:
+  push:
+    branches: [main]
+    paths:
+      - "experiments/unlabeled_target_prior_adaptation_diagnostic.py"
+      - ".github/workflows/experiment-132.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  experiment-132:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install --upgrade pip numpy pandas scikit-learn
+      - name: Run unlabeled prior adaptation
+        run: python -m experiments.unlabeled_target_prior_adaptation_diagnostic 2>&1 | tee results/experiment_132_console_output.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: experiment-132-unlabeled-prior
+          path: |
+            results/unlabeled_target_prior_adaptation_diagnostic.csv
+            results/unlabeled_target_prior_adaptation_trace.csv
+            results/experiment_132_console_output.txt
+      - name: Commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add results/unlabeled_target_prior_adaptation_diagnostic.csv results/unlabeled_target_prior_adaptation_trace.csv results/experiment_132_console_output.txt
+          git diff --cached --quiet || git commit -m "Run Experiment 132 unlabeled prior adaptation"
+          git pull --rebase origin main
+          git push

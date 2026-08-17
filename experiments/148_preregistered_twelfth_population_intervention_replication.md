@@ -4,11 +4,11 @@
 
 Experiment 146 produced a large prospective simulator-internal intervention effect on one untouched population. Experiment 148 is an **independent prospective replication**, not a redesigned intervention.
 
-This protocol is committed before twelfth-population seeds 44471–44510 are generated.
+The protocol was committed before twelfth-population seeds 44471–44510 were generated.
 
 ## Frozen replication
 
-The following are unchanged from Experiment 146:
+The following were unchanged from Experiment 146:
 
 - source training population;
 - hazard features (`action_2`, `action_3`, `context_support_distance`);
@@ -21,14 +21,31 @@ The following are unchanged from Experiment 146:
 - co-primary endpoints;
 - requirement that the hazard-filter result beat the 1st percentile of matched random controls on both unsafe selected actions and total realized regret.
 
-Only the untouched target seeds and the random-control RNG seed differ.
+Only the untouched target seeds and random-control RNG seed differed.
 
-## Replication criterion
+## Results
 
-The Experiment 146 intervention effect is considered independently replicated only if **both original preregistered co-primary criteria pass again** on the twelfth population without policy or threshold redesign.
+The untouched twelfth population contained 3,100 decision contexts and 9,300 candidate-action rows. At the unchanged 39.018% candidate exclusion coverage, 3,629 candidate actions were excluded.
 
-Failure will be retained and will prevent describing the intervention result as prospectively replicated.
+| Endpoint | Predicted-loss baseline | Hazard-filter replication | Matched random exclusions |
+|---|---:|---:|---:|
+| Unsafe selected actions | 801 | **403** | mean 727.42; 1st pct 690 |
+| Unsafe selected-action rate | 25.84% | **13.00%** | — |
+| Total realized regret | 51.8658 | **10.5579** | mean 41.3738; 1st pct 38.8799 |
+| Mean realized regret/context | 0.01673 | **0.00341** | — |
+| Selected actions changed vs baseline | — | 1,800 / 3,100 (58.06%) | — |
+
+The unchanged hazard filter reduced unsafe selections by **398** relative to baseline and total realized regret by **41.3079**. None of 5,000 matched random-control trials achieved an unsafe-selection count or total regret as low as the frozen hazard-filter policy.
+
+Both original preregistered co-primary criteria passed again. Experiment 146's simulator-internal intervention effect is therefore **prospectively replicated on an independent untouched population without policy redesign**.
 
 ## Boundaries
 
-Even a successful replication remains simulator-internal evidence. It does not establish real-world causal efficacy, deployment safety, biomedical/clinical applicability, or cross-domain transfer.
+The replication materially strengthens the simulator-specific intervention claim, but it still does not establish real-world causal efficacy, deployment safety, biomedical/clinical applicability, or cross-domain transfer.
+
+## Artifacts
+
+- `results/preregistered_twelfth_population_intervention_replication.csv`
+- `results/preregistered_twelfth_population_intervention_replication_random_trials.csv`
+- `results/preregistered_twelfth_population_intervention_replication_by_seed.csv`
+- `results/experiment_148_console_output.txt`

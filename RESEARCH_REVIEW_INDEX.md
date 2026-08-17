@@ -4,7 +4,7 @@ This file is the **front door for independent review** of the Adaptive-Digital-T
 
 **Review rule:** treat experimental artifacts and preregistrations as primary evidence. Interpretation/synthesis documents are secondary and should be challenged against the primary record.
 
-## Current superseding audit notes — read before adopting older claim wording
+## Current superseding audit and quadrangulation notes — read before adopting older claim wording
 
 The historical claim ledger, Experiment 166 interpretation, and publication-candidate synthesis are preserved for chronology, but later hostile-review adjudications narrow important claims. Reviewers should read these before treating older synthesis language as current:
 
@@ -12,6 +12,8 @@ The historical claim ledger, Experiment 166 interpretation, and publication-cand
 - [`research/harmful_expansion_timing_leakage_audit_2026-08-17.md`](research/harmful_expansion_timing_leakage_audit_2026-08-17.md) — confirms post-outcome feature leakage in the headline `calibration_compact` pre-decision interpretation.
 - [`research/postaudit_claim_supersession_2026-08-17.md`](research/postaudit_claim_supersession_2026-08-17.md) — states the current claim boundary where older ledger wording conflicts with the later audits.
 - [`research/publication_candidate_staleness_audit_2026-08-17.md`](research/publication_candidate_staleness_audit_2026-08-17.md) — records that the historical publication-candidate synthesis can no longer use the leaked headline model as positive pre-decision evidence.
+- [`research/genspark_closed_evidence_quadrangulation_adjudication_2026-08-17.md`](research/genspark_closed_evidence_quadrangulation_adjudication_2026-08-17.md) — preserves the admissible Genspark closed-evidence external review and its convergent verdicts.
+- [`research/publication_claim_matrix_2026-08-17.md`](research/publication_claim_matrix_2026-08-17.md) — current publication-safe claim matrix after audit and quadrangulation.
 
 Historical files are not deleted or silently rewritten; later adjudications govern current claim interpretation while older text remains provenance.
 
@@ -97,7 +99,7 @@ The decision-aware Experiment 166 line should not be mistaken for the only ADT r
 
 ## Manuscript/reproducibility review
 
-A reviewer should compare any manuscript-facing claim to the chronology, preregistrations, tracked results, and superseding audit notes rather than accepting manuscript prose as evidence. Search the repository for the decision-aware manuscript, canonical master results table, manuscript-ready tables/figures, reproducibility package, and publication claim/falsification ledger if a full submission-readiness audit is desired.
+A reviewer should compare any manuscript-facing claim to the chronology, preregistrations, tracked results, superseding audit notes, external quadrangulation adjudication, and current publication claim matrix rather than accepting manuscript prose as evidence.
 
 ## Pre-quadrangulation hostile-review instructions
 

@@ -35,7 +35,11 @@ One current analysis examines whether compact pre-decision loss-surface features
 
 [Inspect the tracked result artifact](results/absolute_loss_floor_harmful_expansion_analysis.csv)
 
-These values apply only to the documented generated population, feature construction, and evaluation procedure. They are evidence for a specific experimental result, not evidence that the broader adaptive-digital-twin problem has been solved. Ongoing experiments test robustness, alternative explanations, held-out populations, action-conditioned effects, calibration, persistence, and failure cases before broader claims are considered.
+These values apply only to the documented generated population, feature construction, and evaluation procedure. They are evidence for a specific experimental result, not evidence that the broader adaptive-digital-twin problem has been solved.
+
+Equally important, not every apparent signal survives stronger inspection. Support-distance models are weak in the action-conditioned analysis, and some high pooled action/proxy discrimination collapses under cross-block transfer. Those failures are retained as constraints on the research story rather than hidden behind the strongest metric.
+
+**[Read the current evidence synthesis, including negative results and next falsification gates](research/evidence_synthesis.md)**
 
 The `results/` directory contains the tracked outputs used to inspect and challenge current claims, while `experiments/` contains the corresponding experimental programs.
 
@@ -110,6 +114,7 @@ When upstream data generation does not provide meaningful seed diversity, that l
     research/
         research questions
         mathematical foundations
+        current evidence synthesis
 
     simulation/
         system and trajectory generation

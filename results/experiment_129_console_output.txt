@@ -1,0 +1,4 @@
+                          model  train_prevalence  test_prevalence  mean_predicted_risk  roc_auc  brier_score  log_loss  ece_10_equal_width  balanced_accuracy_at_0_5
+              balanced_logistic          0.208095         0.195125             0.378439 0.829218     0.161177  0.495875            0.183707                  0.762026
+            unweighted_logistic          0.208095         0.195125             0.183322 0.830720     0.131134  0.406443            0.069602                  0.495358
+balanced_source_prior_corrected          0.208095         0.195125             0.171690 0.829218     0.131106  0.398549            0.062991                  0.497416

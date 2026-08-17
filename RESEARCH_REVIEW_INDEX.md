@@ -6,11 +6,12 @@ This file is the **front door for independent review** of the Adaptive-Digital-T
 
 ## Current superseding audit notes — read before adopting older claim wording
 
-The historical claim ledger and Experiment 166 interpretation files are preserved for chronology, but later hostile-review adjudications narrow important claims. Reviewers should read these before treating older synthesis language as current:
+The historical claim ledger, Experiment 166 interpretation, and publication-candidate synthesis are preserved for chronology, but later hostile-review adjudications narrow important claims. Reviewers should read these before treating older synthesis language as current:
 
 - [`research/prequadrangulation_claim_reconciliation_2026-08-17.md`](research/prequadrangulation_claim_reconciliation_2026-08-17.md) — reconciles Experiment 166 mathematical coupling, downstream specificity, and matched non-poison control evidence.
 - [`research/harmful_expansion_timing_leakage_audit_2026-08-17.md`](research/harmful_expansion_timing_leakage_audit_2026-08-17.md) — confirms post-outcome feature leakage in the headline `calibration_compact` pre-decision interpretation.
 - [`research/postaudit_claim_supersession_2026-08-17.md`](research/postaudit_claim_supersession_2026-08-17.md) — states the current claim boundary where older ledger wording conflicts with the later audits.
+- [`research/publication_candidate_staleness_audit_2026-08-17.md`](research/publication_candidate_staleness_audit_2026-08-17.md) — records that the historical publication-candidate synthesis can no longer use the leaked headline model as positive pre-decision evidence.
 
 Historical files are not deleted or silently rewritten; later adjudications govern current claim interpretation while older text remains provenance.
 
@@ -88,10 +89,10 @@ The decision-aware Experiment 166 line should not be mistaken for the only ADT r
 - [`research/evidence_synthesis.md`](research/evidence_synthesis.md)
 - Raw: https://raw.githubusercontent.com/JosiahChristian/Adaptive-Digital-Twin-Framework/main/research/evidence_synthesis.md
 
-### Problem definition and publication candidate
+### Problem definition and historical publication candidate
 - [`research/problem_definition.md`](research/problem_definition.md)
 - Raw: https://raw.githubusercontent.com/JosiahChristian/Adaptive-Digital-Twin-Framework/main/research/problem_definition.md
-- [`research/publication_candidate.md`](research/publication_candidate.md)
+- [`research/publication_candidate.md`](research/publication_candidate.md) — historical synthesis; consult the staleness audit before adopting its positive pre-decision framing.
 - Raw: https://raw.githubusercontent.com/JosiahChristian/Adaptive-Digital-Twin-Framework/main/research/publication_candidate.md
 
 ## Manuscript/reproducibility review

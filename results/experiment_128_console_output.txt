@@ -1,0 +1,10 @@
+                              model  rows  seeds  roc_auc  balanced_accuracy_at_0_5  brier_score  log_loss  ece_10_bin
+primary_action_plus_context_support  9435     40 0.829218                  0.762026     0.161177  0.495875    0.183707
+    comparator_action_identity_only  9435     40 0.781194                  0.750488     0.200761  0.592887    0.269795
+                 contrast  estimate  cluster_boot_mean   ci_2_5  ci_97_5  probability_positive
+              primary_auc  0.829218           0.829084 0.818477 0.840134                   1.0
+primary_minus_action_only  0.048023           0.047975 0.040925 0.055405                   1.0
+                                        mean       std       min       max  count
+model                                                                            
+comparator_action_identity_only      0.78064  0.040153  0.712191  0.855903     40
+primary_action_plus_context_support  0.83010  0.034618  0.774880  0.886936     40

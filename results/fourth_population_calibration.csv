@@ -1,0 +1,14 @@
+model,quantile_bin,mean_predicted_probability,observed_unsafe_fraction
+primary_action_plus_context_support,1,0.1435345872304943,0.0
+primary_action_plus_context_support,2,0.153574007299662,0.008483563096500531
+primary_action_plus_context_support,3,0.1729954880232375,0.022245762711864406
+primary_action_plus_context_support,4,0.2376233077706627,0.015906680805938492
+primary_action_plus_context_support,5,0.2540859561019017,0.06991525423728813
+primary_action_plus_context_support,6,0.27716182904738884,0.176033934252386
+primary_action_plus_context_support,7,0.48901925276902125,0.352067868504772
+primary_action_plus_context_support,8,0.6485330254723211,0.3516949152542373
+primary_action_plus_context_support,9,0.6677334970376584,0.4984093319194062
+primary_action_plus_context_support,10,0.7400594975090082,0.4565677966101695
+comparator_action_identity_only,1,0.3115215086358984,0.03370429252782194
+comparator_action_identity_only,2,0.38731716780112024,0.1205087440381558
+comparator_action_identity_only,3,0.6959204933535363,0.4311605723370429

@@ -8,11 +8,21 @@ Adaptive decision pipelines can exhibit strong statistical patterns that do not 
 
 ## 1. Introduction
 
-Adaptive digital twins combine state estimation, prediction, ranking, and intervention under changing system conditions. Such pipelines create a methodological challenge: a result can be numerically strong while its scientific interpretation remains limited by the construction of the decision rule or by the time at which predictor information becomes available. Fixed-budget ranking can concentrate membership changes near a selection boundary, while retrospective residual features can make an outcome appear highly predictable even when the required information would not exist at the intended decision time.
+Adaptive digital-twin research increasingly couples continuously updated digital representations with prediction, decision support, and adaptive control. Recent implementations span self-adaptive manufacturing architectures, adaptive control systems, and digital-twin-supported clinical decision systems [1-3]. These examples motivate treating the digital twin not only as a state representation, but also as part of a decision pipeline whose validity depends on how predictions are converted into interventions.
+
+That distinction is important because predictive accuracy and downstream decision quality are not interchangeable objectives. Predict-then-optimize and decision-focused learning research explicitly studies settings in which predicted quantities are subsequently used inside an optimization or discrete decision problem; this literature shows that minimizing conventional prediction error need not minimize downstream decision loss [4-6]. Recent top-K intervention work makes the same distinction in fixed-budget settings, where the decision is the selected size-K subset rather than the forecast alone [7].
+
+Fixed-budget ranking also creates a specific sensitivity question near the selection boundary. Top-K ranking theory identifies the separation between the K-th and (K+1)-th items as a central quantity governing reliable set identification [8], while ranking-stability work studies how small changes in scoring rules can alter ranked outputs, including top-k membership [9]. These results make near-boundary sensitivity a plausible generic explanation for cutoff-localized membership changes, but they do **not** establish that this explanation caused the pattern observed in Experiment 166.
+
+A separate validity problem arises when a predictor contains information unavailable at the intended prediction time. Methodological work on leakage in machine-learning-based science documents how outcome-linked or otherwise unavailable information can yield overoptimistic performance estimates and invalid scientific conclusions [10]. The presence of leakage in the harmful-expansion model reported here, however, is established by the model's own feature definitions and timing audit, not by the external literature.
 
 This study therefore focuses on claim validity rather than maximizing favorable metrics. The experimental record includes preregistered positive findings, failed prospective replications, null or negative mechanism tests, matched non-poison controls, and a later timing-leakage audit. Those findings are preserved together rather than allowing later positive results to erase earlier failures.
 
 The present manuscript addresses two questions. First, does the near-cutoff localization observed in Experiment 166 identify a poisoning-specific mechanism, or is it also produced by a non-poison perturbation of comparable ranking magnitude? Second, does the strongest harmful-expansion classifier constitute a genuine pre-decision predictor, or does its performance depend on outcome-informed features? The evidence supports narrower answers than the strongest initial interpretations.
+
+### 1.1 Literature-to-evidence boundary
+
+External literature in this manuscript provides methodological and disciplinary context only. It is not used to adjudicate Experiment 166 poisoning specificity, the Criterion-2 mechanism claim, downstream near-switch specificity, or harmful-expansion feature timing. Those conclusions are determined exclusively by the committed internal experimental and audit record. Accordingly, literature showing that ranking systems *can* be boundary-sensitive does not prove that ranking geometry caused Experiment 166, and literature documenting leakage elsewhere does not itself prove leakage in this study.
 
 ## 2. Methods
 
@@ -22,19 +32,21 @@ The analyses reported here are interpreted according to the committed experiment
 
 ### 2.2 Experiment 166: fixed-budget ranking and cutoff localization
 
-Experiment 166 used the frozen source population, feature set (`action_2`, `action_3`, and `context_support_distance`), class-balanced logistic-regression hazard model, and 20% targeted unsafe-to-safe source-label concealment procedure documented in its preregistration. Intervention coverage was derived from the clean source model using the frozen 80% source-unsafe-recall rule, and clean and perturbed models received the same exclusion count within each target seed. The untouched prospective target population comprised 40 generation seeds, 44791 through 44830.
+Experiment 166 evaluated changes in exclusion membership within a fixed top-N ranking/intervention pipeline. The original preregistered analysis tested whether membership switches were enriched in a frozen closest-10% cutoff band and whether a seed-level switch-related quantity was associated with downstream unsafe-selection change.
 
-For every target candidate, the preregistered record included clean and poisoned hazard scores, clean and poisoned exclusion membership, the clean cutoff score, absolute clean-cutoff margin, unsafe-action label, realized action regret, generation seed, context/test index, and action identifier. A membership switch was defined as a candidate excluded by exactly one of the clean and poisoned models. The primary near-cutoff band was frozen before target generation as the 10% of candidate rows within each seed having the smallest absolute clean-cutoff margins.
+The experiment used the same frozen source population, feature set (`action_2`, `action_3`, `context_support_distance`), class-balanced logistic-regression hazard model, and 20% targeted unsafe-to-safe source-label concealment used in the preceding decision-aware experiments. Intervention coverage was determined from the clean source model using the frozen 80% source-unsafe-recall rule, and clean and poisoned models received the same exclusion count within each target seed. A fresh untouched target population of 40 generation seeds, 44791-44830, was generated only after preregistration.
 
-The original Criterion-1 analysis formed seed-stratified 2x2 counts for membership switching in the near 10% band versus the remaining 90% and estimated a Mantel-Haenszel common odds ratio with a two-sided Cochran-Mantel-Haenszel test. Criterion 1 required an odds ratio above 1, a 95% interval entirely above 1, and p < 0.05. Criterion 2 computed, for each of the 40 seeds, `net_unsafe_crossing = unsafe_poison_only_exclusions - unsafe_clean_only_exclusions` and `delta_unsafe_selected = poisoned_unsafe_selected - clean_unsafe_selected`; the frozen directional prediction was a negative Spearman association. Its interval used 10,000 paired seed-level bootstrap resamples.
+A membership switch was defined as a candidate excluded by exactly one of the clean or poisoned models. Within each seed, candidates were ranked by absolute clean cutoff margin, and the primary near-cutoff band was the closest 10% of candidate rows to the clean cutoff. Criterion 1 pooled seed-stratified 2x2 counts and used a Mantel-Haenszel common odds ratio with a two-sided Cochran-Mantel-Haenszel test. Criterion 2 computed, per seed, `net_unsafe_crossing = unsafe_poison_only_exclusions - unsafe_clean_only_exclusions` and `delta_unsafe_selected = poisoned_unsafe_selected - clean_unsafe_selected`, then estimated their Spearman association with 10,000 paired bootstrap resamples of whole generation seeds.
 
 The poisoning condition had mean exclusion-set Jaccard overlap 0.923823 and 308 membership switches. The original cutoff-band analysis yielded a Mantel-Haenszel common odds ratio of 10.567477 with 95% CI [8.345537, 13.380992]. The seed-level association had Spearman rho -0.873179 with bootstrap 95% CI [-0.946362, -0.735018]. Both original preregistered co-primary criteria passed.
 
-Subsequent audits tested whether those results uniquely supported the proposed mechanism. A bookkeeping-preserving permutation null tested whether the Criterion-2 association could arise from the structure of the recorded quantities. A downstream-specificity analysis compared selected-action-change rates for near-only and far-only switched contexts.
+Subsequent audits tested whether those results uniquely supported the proposed mechanism. A bookkeeping-preserving permutation null was used to test whether the Criterion-2 association could arise from the structure of the recorded quantities. A downstream-specificity analysis compared selected-action-change rates for near-only and far-only switched contexts.
 
-A later, separately frozen label-preserving control perturbed only the continuous source-training covariate `context_support_distance` with zero-mean Gaussian noise while retaining all source rows and original labels; target features were never perturbed. Before outcome generation, the audit froze 16 noise levels with 16 independently seeded candidates at each level (256 candidates total), together with a lexicographic matching rule based first on absolute mean-Jaccard difference from the historical poisoning condition and then on total switch-count difference. Candidate selection was prohibited from using target unsafe outcomes, realized regret, selected-action changes, near/far localization, or the primary endpoint. The selected control had mean exclusion-set Jaccard overlap 0.924853 and 304 membership switches, satisfying the frozen adequacy requirements of Jaccard mismatch <= 0.010 and switch-count mismatch <= 30.8.
+A separately frozen stronger label-preserving control was then defined prospectively after an earlier weaker control failed its perturbation-magnitude gate. The stronger family preserved every source row and original label, perturbed only the continuous source-training feature `context_support_distance` with zero-mean Gaussian noise, left binary action indicators unchanged, and never perturbed target features. Sixteen predeclared dimensionless noise levels were crossed with 16 independent replicates for 256 total candidates. Candidate selection could use only mean exclusion-Jaccard mismatch and total membership-switch mismatch relative to the historical poison condition; target outcomes, regret, selected-action changes, and near/far localization were prohibited from selection.
 
-For poisoning specificity, near/far membership remained frozen from the original clean model. Within each seed, `D` was defined as near membership-switch rate minus far membership-switch rate, and the paired estimand was `S = D_poison - D_control`. Inference used 10,000 bootstrap resamples of whole generation seeds; action rows were not treated as independent inferential units. Poison enrichment was 0.13623 and matched-control enrichment was 0.13438, producing a mean paired difference of 0.001845 and a 95% seed-bootstrap CI [0.0000, 0.00554]. The frozen rule required the entire interval to be strictly above zero for poisoning-specific support; otherwise an interval overlapping zero yielded `specificity_unresolved` after a successful magnitude match.
+The selected stronger control passed the prospectively frozen magnitude gate only if absolute mean-Jaccard mismatch was at most 0.010 and absolute switch-count mismatch was at most 30.8 switches. The selected control had mean exclusion-set Jaccard overlap 0.924853 and 304 membership switches, satisfying those criteria.
+
+The poisoning-specificity comparison used the frozen per-seed estimand `D = near membership-switch rate - far membership-switch rate` and the paired contrast `S = D_poison - D_control`. Inference used exactly 10,000 bootstrap resamples of whole generation seeds; action rows were not treated as independent inferential units. Poison enrichment was 0.13623 and matched-control enrichment was 0.13438, producing a paired poison-minus-control difference of 0.001845 and a 95% seed-bootstrap CI [0.0000, 0.00554]. The frozen rule required the entire interval to be strictly above zero for poisoning-specific support.
 
 ### 2.3 Harmful-expansion discrimination and prediction-time audit
 
@@ -50,11 +62,9 @@ A later prediction-time audit established that `true_best_loss` and `realized_ex
 
 ### 2.4 Inferential units and reproducibility boundaries
 
-Generation seed is the inferential unit for the Experiment 166 paired specificity analysis and for its seed-level correlation/bootstrap procedures. Candidate/action rows contribute to within-seed counts and rates but are not treated as independent units for the paired seed bootstrap. The stronger non-poison control reuses the same 40 target seeds and frozen clean cutoff geometry so the poison-control comparison is paired by seed.
+For Experiment 166 and its later audits, the generation seed is the inferential resampling unit when bootstrap uncertainty is reported. Candidate/action rows are nested observations used to construct seed-level or seed-stratified statistics; they are not treated as independent experimental replications. The original Criterion-1 Mantel-Haenszel analysis explicitly stratifies by seed, while later bootstrap analyses resample whole seeds.
 
-For the harmful-expansion analysis, seed-held-out evaluation controls observation reuse across generation seeds but does not repair feature-timing leakage. The current event population is small and imbalanced, and folds without harmful events make some fold-level discrimination metrics undefined. Accordingly, the manuscript reports pooled non-leaking performance only as exploratory and does not convert the number of event rows into a claim of independent prospective replications.
-
-Reproduction of the historical Experiment 166 analysis is governed by its committed preregistration and result artifact. Reproduction of the stronger matched control is governed by the separately committed prospective audit plan, including its fixed noise grid, deterministic candidate seeds, matching rule, adequacy gate, endpoint, and bootstrap seeds. The manuscript does not substitute prose for those machine- and protocol-level records; the evidence map below identifies the controlling files.
+For harmful expansion, seed-held-out cross-validation controls reuse across generated populations but does not repair feature-timing violations. Prospective validity therefore requires both held-out evaluation and a feature set computable at the intended decision time.
 
 ## 3. Results
 
@@ -88,17 +98,25 @@ These results are not treated as ancillary failures to be removed from the narra
 
 Experiment 166 provides evidence for a near-cutoff concentration of membership changes in the tested fixed-budget top-N ranking pipeline. The matched non-poison control indicates that this phenomenon can be reproduced without poisoning when ranking perturbation magnitude is closely matched. The strongest defensible interpretation is therefore pipeline-specific cutoff localization, not a poisoning-specific signature.
 
+This interpretation is methodologically compatible with prior top-K literature without being established by it. Chen and Suh showed that reliable top-K identification under a latent-score ranking model depends on the separation between the K-th and (K+1)-th scores [8], and Asudeh et al. developed explicit stability analyses for rankings and top-k outputs under changes to scoring weights [9]. These studies support treating boundary separation and ranking stability as relevant competing explanations. They do not establish that the Experiment 166 localization is a mathematical necessity, nor do they imply that poisoning could never add a distinct effect.
+
 ### 5.2 Association versus mechanism
 
 The original strong Criterion-2 correlation cannot be treated as independent mechanistic evidence because a bookkeeping-preserving null reproduces it. Moreover, the downstream-specificity result runs opposite the prediction that near-only switches preferentially produce selected-action changes. A causal boundary-composition mechanism remains a possible future hypothesis, but it is not established by the present evidence.
+
+This distinction parallels a broader decision-focused-learning principle: downstream decisions depend on the structure of the decision problem, not solely on generic predictive error [4-7]. The present study contributes a concrete caution within one fixed-budget simulator pipeline, but it does not claim a general theorem connecting ranking perturbations to downstream actions.
 
 ### 5.3 Retrospective discrimination versus prospective prediction
 
 The harmful-expansion analysis illustrates a separate validity problem. High retrospective discrimination can coexist with invalid pre-decision interpretation when predictor construction incorporates quantities realized only after the outcome. The temporally legitimate models are therefore the relevant evidence for prospective usefulness, and their current performance should remain exploratory until evaluated under a design that preserves decision-time availability and adequate seed-level outcome variation.
 
+Kapoor and Narayanan document multiple forms of leakage in ML-based science and show that leakage can yield substantially overoptimistic scientific claims [10]. That literature supports the methodological requirement that scientific prediction claims be evaluated using information legitimately available to the model. In this manuscript, the specific leakage finding follows directly from the identities of `loss_floor_error` and `expanded_action_loss_error`; the citation provides methodological context rather than evidence about those variables.
+
 ### 5.4 Scope and generalization
 
 The present conclusions are limited to the studied simulation, ranking rule, intervention budget structure, models, perturbations, and seeds represented in the committed evidence. The results do not establish deployment validity, cross-domain transfer, aerospace or biomedical effectiveness, or a general law of adaptive systems. Separate adversarial-RL work may provide methodological context but is not corroborating evidence, statistical replication, or mechanistic triangulation for the ADT findings unless a future study explicitly validates such a relationship.
+
+The adaptive-digital-twin literature demonstrates that digital twins are being used in increasingly consequential adaptive-control and decision-support settings [1-3]. That broader relevance motivates rigorous claim validation here, but evidence of successful digital-twin applications elsewhere does not establish operational validity for this framework.
 
 ## 6. Limitations
 
@@ -114,15 +132,27 @@ No new experiment is required solely to report these narrowed findings. Stronger
 
 The principal manuscript claims are anchored to the following committed records:
 
-- Original Experiment 166 preregistration and numerical results: `research/experiment_166_preregistration.md` and `results/preregistered_cutoff_geometry_mechanism.csv`.
-- Experiment 166 chronology: `research/decision_aware_experiment_chronology.md`; historical mechanism wording there is superseded for current interpretation by the later adjudications below.
-- Existing-artifact structural and unit-of-analysis audit: `research/audit/experiment_166_existing_artifact_adjudication_result.md`.
-- Stronger label-preserving control protocol: `research/audit/experiment_166_stronger_label_preserving_control_plan.md`; its prospective status, fixed candidate family, matching rule, inferential unit, and decision rule govern interpretation of the later matched-control result.
-- Experiment 166 structural-null, downstream-specificity, and matched-control reconciliation: `research/prequadrangulation_claim_reconciliation_2026-08-17.md` and the committed audit/result evidence referenced there.
+- Original Experiment 166 preregistered numerical results: `results/preregistered_cutoff_geometry_mechanism.csv`.
+- Experiment 166 chronology and preregistration ordering: `research/decision_aware_experiment_chronology.md` and `research/experiment_166_preregistration.md`; historical mechanism wording in the chronology is superseded for current interpretation by the later adjudication below.
+- Experiment 166 stronger matched-control prospective protocol: `research/audit/experiment_166_stronger_label_preserving_control_plan.md`.
+- Experiment 166 structural-null, downstream-specificity, and matched-control reconciliation: `research/prequadrangulation_claim_reconciliation_2026-08-17.md` and its referenced committed result artifacts.
 - Harmful-expansion event count, performance, feature timing, and leakage adjudication: `research/harmful_expansion_timing_leakage_audit_2026-08-17.md` and the primary result/event/coefficient/fold artifacts listed there.
 - Current publication claim boundaries: `research/publication_claim_matrix_2026-08-17.md`.
 - Closed-evidence external adjudication: the preserved 2026-08-17 Genspark/Luna review record in `research/`.
 
+## 9. References
+
+1. Qiu H, Al-Nussairi AKJ, Chevinli ZS, et al. Integrating digital twins with neural networks for adaptive control of automotive suspension systems. *Scientific Reports*. 2025;15:11078. doi:10.1038/s41598-025-91243-1.
+2. Niemeyer C, et al. Self-adaptive digital twin reference architecture to improve process quality. *Procedia CIRP*. 2023;119:867-872. doi:10.1016/j.procir.2023.03.131.
+3. Builes-Montaño CE, Lema-Perez L, Ramírez-Rincón A, et al. A digital twin-enhanced decision support system improves time-in-range in type 1 diabetes: a randomized clinical trial. *Scientific Reports*. 2025;15:39738. doi:10.1038/s41598-025-23165-x.
+4. Elmachtoub AN, Grigas P. Smart "Predict, then Optimize". *Management Science*. 2022;68(1):9-26. doi:10.1287/mnsc.2020.3922.
+5. Elmachtoub AN, Liang JCN, McNellis R. Decision Trees for Decision-Making under the Predict-then-Optimize Framework. *Proceedings of the 37th International Conference on Machine Learning*. PMLR 119:2858-2867, 2020.
+6. Mandi J, Bucarey V, Tchomba MMK, Guns T. Decision-Focused Learning: Through the Lens of Learning to Rank. *Proceedings of the 39th International Conference on Machine Learning*. PMLR 162:14935-14947, 2022.
+7. Heuton K, Muench F, Shrestha S, Stopka TJ, Hughes MC. Decision-aware Training of Spatiotemporal Forecasting Models to Select a Top-K Subset of Sites for Intervention. *Proceedings of the 42nd International Conference on Machine Learning*. PMLR 267:23136-23154, 2025.
+8. Chen Y, Suh C. Spectral MLE: Top-K Rank Aggregation from Pairwise Comparisons. *Proceedings of the 32nd International Conference on Machine Learning*. PMLR 37:371-380, 2015.
+9. Asudeh A, Jagadish HV, Miklau G, Stoyanovich J. On Obtaining Stable Rankings. *Proceedings of the VLDB Endowment*. 2018;12(3):237-250.
+10. Kapoor S, Narayanan A. Leakage and the reproducibility crisis in machine-learning-based science. *Patterns*. 2023;4(9):100804. doi:10.1016/j.patter.2023.100804.
+
 ## Evidence-governance note
 
-This manuscript draft is subordinate to the committed experimental artifacts, preregistrations, result records, later hostile audits, publication claim matrix, and closed-evidence external adjudication. Where a historical document contains stronger wording, the later adjudication governs current manuscript interpretation without deleting the historical record.
+This manuscript draft is subordinate to the committed experimental artifacts, preregistrations, result records, later hostile audits, publication claim matrix, and closed-evidence external adjudication. Where a historical document contains stronger wording, the later adjudication governs current manuscript interpretation without deleting the historical record. External literature supplies context only and cannot supersede the internal experimental adjudications.

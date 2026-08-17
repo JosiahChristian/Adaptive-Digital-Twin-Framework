@@ -1,0 +1,4 @@
+                    model  source_prior  estimated_target_prior  observed_target_prevalence  mean_predicted_risk  absolute_mean_risk_error  roc_auc  brier_score  log_loss  ece_10_equal_width
+       fixed_source_prior      0.208095                0.208095                    0.131681             0.179840                  0.048159 0.759543     0.122397  0.404562            0.079729
+unlabeled_em_target_prior      0.208095                0.098732                    0.131681             0.098732                  0.032949 0.759543     0.122027  0.400866            0.071121
+iterations 82

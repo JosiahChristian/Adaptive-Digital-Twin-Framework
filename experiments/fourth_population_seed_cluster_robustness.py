@@ -19,6 +19,7 @@ SUMMARY=Path("results/fourth_population_seed_cluster_robustness.csv")
 SEEDS=Path("results/fourth_population_seed_level_performance.csv")
 CAL=Path("results/fourth_population_calibration.csv")
 BOOT=Path("results/fourth_population_seed_cluster_bootstrap.csv")
+BOOT_SUMMARY=Path("results/fourth_population_seed_cluster_bootstrap_summary.csv")
 N_BOOT=5000
 RNG_SEED=12844190
 MODELS={
@@ -70,18 +71,17 @@ def main():
         by=y[idx]; pa=roc_auc_score(by,primary[idx]); ca=roc_auc_score(by,comp[idx])
         boot.append({"bootstrap":i+1,"primary_auc":pa,"action_only_auc":ca,"difference":pa-ca})
     bd=pd.DataFrame(boot)
-    summary.extend([
-      {"model":"cluster_bootstrap_primary","rows":len(te),"seeds":len(seed_values),"roc_auc":bd.primary_auc.mean(),
-       "balanced_accuracy_at_0_5":np.percentile(bd.primary_auc,2.5),"brier_score":np.percentile(bd.primary_auc,97.5),
-       "log_loss":np.nan,"ece_10_bin":np.nan},
-      {"model":"cluster_bootstrap_primary_minus_action_only","rows":len(te),"seeds":len(seed_values),"roc_auc":bd.difference.mean(),
-       "balanced_accuracy_at_0_5":np.percentile(bd.difference,2.5),"brier_score":np.percentile(bd.difference,97.5),
-       "log_loss":(bd.difference>0).mean(),"ece_10_bin":np.nan},
-    ])
+    bs=[
+      {"contrast":"primary_auc","estimate":roc_auc_score(y,primary),"cluster_boot_mean":bd.primary_auc.mean(),
+       "ci_2_5":np.percentile(bd.primary_auc,2.5),"ci_97_5":np.percentile(bd.primary_auc,97.5),"probability_positive":1.0},
+      {"contrast":"primary_minus_action_only","estimate":roc_auc_score(y,primary)-roc_auc_score(y,comp),
+       "cluster_boot_mean":bd.difference.mean(),"ci_2_5":np.percentile(bd.difference,2.5),
+       "ci_97_5":np.percentile(bd.difference,97.5),"probability_positive":(bd.difference>0).mean()},
+    ]
     SUMMARY.parent.mkdir(parents=True,exist_ok=True)
     pd.DataFrame(summary).to_csv(SUMMARY,index=False); pd.DataFrame(seed_rows).to_csv(SEEDS,index=False)
-    pd.DataFrame(cal).to_csv(CAL,index=False); bd.to_csv(BOOT,index=False)
-    print(pd.DataFrame(summary).to_string(index=False))
+    pd.DataFrame(cal).to_csv(CAL,index=False); bd.to_csv(BOOT,index=False); pd.DataFrame(bs).to_csv(BOOT_SUMMARY,index=False)
+    print(pd.DataFrame(summary).to_string(index=False)); print(pd.DataFrame(bs).to_string(index=False))
     sd=pd.DataFrame(seed_rows)
     print(sd.groupby("model").roc_auc.agg(["mean","std","min","max","count"]).to_string())
 

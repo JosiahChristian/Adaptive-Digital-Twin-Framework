@@ -1,0 +1,11 @@
+model,feature,folds,mean_coefficient,mean_absolute_coefficient,positive_fraction,negative_fraction,dominant_sign_fraction
+action_support_only,action_support_distance,40,0.3784001426362318,0.3784001426362318,1.0,0.0,1.0
+context_loss_action_support,context_support_distance,40,1.4945841408154765,1.4945841408154765,1.0,0.0,1.0
+context_loss_action_support,action_support_distance,40,-1.124807344199542,1.124807344199542,0.0,1.0,1.0
+context_loss_action_support,predicted_action_loss,40,-0.23036071896458704,0.23036071896458704,0.0,1.0,1.0
+context_plus_action_support,context_support_distance,40,1.3009029981157578,1.3009029981157578,1.0,0.0,1.0
+context_plus_action_support,action_support_distance,40,-0.9204513696518688,0.9204513696518688,0.0,1.0,1.0
+context_plus_loss,context_support_distance,40,0.372731649758987,0.372731649758987,1.0,0.0,1.0
+context_plus_loss,predicted_action_loss,40,-0.22746959838604017,0.22746959838604017,0.0,1.0,1.0
+context_support_only,context_support_distance,40,0.38272527669793915,0.38272527669793915,1.0,0.0,1.0
+predicted_loss_only,predicted_action_loss,40,-0.2575605185229335,0.2575605185229335,0.0,1.0,1.0

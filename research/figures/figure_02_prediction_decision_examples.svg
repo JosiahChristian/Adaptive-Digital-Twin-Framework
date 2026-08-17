@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="660" viewBox="0 0 1000 660" role="img" aria-labelledby="title desc">
+<title id="title">Prediction and decision outcomes in Experiments 156 and 158</title>
+<desc id="desc">Paired clean and poisoned comparisons for predictive metrics and downstream outcomes. Experiment 156 shows nearly unchanged AUC and AP with fewer unsafe selections and lower regret under poisoning. Experiment 158 shows degraded AUC and AP, slightly fewer unsafe selections, but higher regret.</desc>
+<rect width="1000" height="660" fill="white"/>
+<text x="500" y="38" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700">Global prediction changes do not determine a single downstream direction</text>
+<text x="500" y="66" text-anchor="middle" font-family="Arial, sans-serif" font-size="15">Clean vs targeted-label-corruption comparisons on fresh target populations</text>
+
+<text x="250" y="110" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="700">Experiment 156</text>
+<text x="750" y="110" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="700">Experiment 158</text>
+
+<!-- headers -->
+<text x="80" y="155" font-family="Arial, sans-serif" font-size="15" font-weight="700">Metric</text><text x="270" y="155" font-family="Arial, sans-serif" font-size="15" font-weight="700">Clean</text><text x="370" y="155" font-family="Arial, sans-serif" font-size="15" font-weight="700">Poisoned</text>
+<text x="580" y="155" font-family="Arial, sans-serif" font-size="15" font-weight="700">Metric</text><text x="770" y="155" font-family="Arial, sans-serif" font-size="15" font-weight="700">Clean</text><text x="870" y="155" font-family="Arial, sans-serif" font-size="15" font-weight="700">Poisoned</text>
+
+<!-- rows exp156 -->
+<text x="80" y="205" font-family="Arial, sans-serif" font-size="15">ROC AUC</text><text x="270" y="205" font-family="Arial, sans-serif" font-size="15">0.7637</text><text x="370" y="205" font-family="Arial, sans-serif" font-size="15">0.7655</text>
+<text x="80" y="255" font-family="Arial, sans-serif" font-size="15">Average precision</text><text x="270" y="255" font-family="Arial, sans-serif" font-size="15">0.4412</text><text x="370" y="255" font-family="Arial, sans-serif" font-size="15">0.4437</text>
+<text x="80" y="305" font-family="Arial, sans-serif" font-size="15">Unsafe selected</text><text x="270" y="305" font-family="Arial, sans-serif" font-size="15">371</text><text x="370" y="305" font-family="Arial, sans-serif" font-size="15">346</text>
+<text x="80" y="355" font-family="Arial, sans-serif" font-size="15">Total regret</text><text x="270" y="355" font-family="Arial, sans-serif" font-size="15">16.1603</text><text x="370" y="355" font-family="Arial, sans-serif" font-size="15">15.2069</text>
+<line x1="70" y1="375" x2="440" y2="375" stroke="black"/>
+<text x="250" y="410" text-anchor="middle" font-family="Arial, sans-serif" font-size="15">Prediction metrics ≈ unchanged</text>
+<text x="250" y="438" text-anchor="middle" font-family="Arial, sans-serif" font-size="15">Both downstream endpoints improved</text>
+
+<!-- rows exp158 -->
+<text x="580" y="205" font-family="Arial, sans-serif" font-size="15">ROC AUC</text><text x="770" y="205" font-family="Arial, sans-serif" font-size="15">0.7947</text><text x="870" y="205" font-family="Arial, sans-serif" font-size="15">0.7691</text>
+<text x="580" y="255" font-family="Arial, sans-serif" font-size="15">Average precision</text><text x="770" y="255" font-family="Arial, sans-serif" font-size="15">0.4099</text><text x="870" y="255" font-family="Arial, sans-serif" font-size="15">0.3956</text>
+<text x="580" y="305" font-family="Arial, sans-serif" font-size="15">Unsafe selected</text><text x="770" y="305" font-family="Arial, sans-serif" font-size="15">358</text><text x="870" y="305" font-family="Arial, sans-serif" font-size="15">354</text>
+<text x="580" y="355" font-family="Arial, sans-serif" font-size="15">Total regret</text><text x="770" y="355" font-family="Arial, sans-serif" font-size="15">12.8656</text><text x="870" y="355" font-family="Arial, sans-serif" font-size="15">13.3993</text>
+<line x1="570" y1="375" x2="940" y2="375" stroke="black"/>
+<text x="750" y="410" text-anchor="middle" font-family="Arial, sans-serif" font-size="15">Prediction metrics degraded</text>
+<text x="750" y="438" text-anchor="middle" font-family="Arial, sans-serif" font-size="15">Unsafe count improved slightly; regret worsened</text>
+
+<!-- conceptual bridge -->
+<rect x="150" y="500" width="700" height="95" fill="none" stroke="black" stroke-width="1.5"/>
+<text x="500" y="532" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="700">Surviving interpretation</text>
+<text x="500" y="560" text-anchor="middle" font-family="Arial, sans-serif" font-size="15">Prediction-layer summaries and fixed-budget decision endpoints must be evaluated separately.</text>
+<text x="500" y="584" text-anchor="middle" font-family="Arial, sans-serif" font-size="15">These examples do not establish beneficial poisoning or universal prediction–decision decoupling.</text>
+<text x="500" y="630" text-anchor="middle" font-family="Arial, sans-serif" font-size="13">Source: tracked Experiment 156 and 158 result CSVs.</text>
+</svg>

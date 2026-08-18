@@ -1,0 +1,5 @@
+Fixed-budget ranking concentrated membership changes near the selection cutoff.
+A matched non-poison control reproduced the localization pattern.
+Structural tests rejected the original independent mechanism interpretation.
+Post-outcome residuals invalidated a pre-decision prediction claim.
+Prospective controls narrowed conclusions from strong initial results.

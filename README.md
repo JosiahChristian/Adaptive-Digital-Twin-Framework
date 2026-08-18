@@ -2,181 +2,92 @@
 
 Computational research framework for adaptive digital twins in complex evolving systems.
 
-## Research Objective
+## Repository purpose
 
-Adaptive-Digital-Twin-Framework investigates how a digital representation of an evolving dynamical system can remain useful when the underlying system changes over time.
+This repository is maintained as an experimental evidence record. It contains research questions, preregistrations, experiment implementations, generated result artifacts, falsification studies, audit code, negative results, and reproducibility material.
 
-The research focuses on the interaction between:
+No manuscript or publication is represented as complete on `main`. Interpretive papers will be authored separately from this evidence base.
 
-- dynamical systems
-- state-space modeling
-- observation and state estimation
-- adaptive model updating
-- uncertainty quantification
-- machine learning
-- optimization
-- prediction
-- intelligent control
+## Current evidence status
 
-The central question is how a computational twin can reconcile prior models with new observations, detect meaningful changes in system behavior, update its internal representation, and preserve predictive usefulness under nonstationary conditions.
+### Experiment 166: fixed-budget cutoff localization
 
-## Current Experimental Evidence
+The historical poisoning condition produced:
 
-This repository contains executed experiments and tracked result artifacts; the research program is not only a methodological scaffold.
+- mean exclusion-set Jaccard: **0.923823**
+- membership switches: **308**
+- near-cutoff Mantel-Haenszel odds ratio: **10.567477**
+- 95% CI: **[8.345537, 13.380992]**
+- Criterion-2 Spearman rho: **-0.873179**
 
-One current analysis examines whether compact pre-decision loss-surface features distinguish harmful from beneficial action-space expansion events. In the tracked `absolute_loss_floor_harmful_expansion_analysis.csv` result, the compact calibration model was evaluated on 65 events (15 harmful, 50 beneficial) and produced:
+Later falsification and control work changed the interpretation of those original positive criteria:
+
+- a bookkeeping-preserving null reproduced the Criterion-2 correlation;
+- near-only switched contexts did not show preferential downstream selected-action change relative to far-only contexts;
+- a prospectively frozen label-preserving non-poison control adequately matched perturbation magnitude and reproduced essentially the same cutoff localization.
+
+For the stronger matched control:
+
+- poison mean near-minus-far enrichment: **0.13623**
+- control mean near-minus-far enrichment: **0.13438**
+- poison-minus-control difference: **0.001845**
+- 95% seed-bootstrap CI: **[0.0000, 0.00554]**
+- current specificity status: **not established / specificity unresolved**
+
+The evidence supports a near-cutoff localization phenomenon within the tested fixed-budget ranking pipeline. The current evidence does not establish poisoning specificity or an independent causal boundary-composition mechanism.
+
+Relevant internal records include the Experiment 166 preregistration/result chain, `research/audit/`, the experiment chronology, and the current evidence-status records.
+
+### Harmful-expansion discrimination
+
+The tracked compact model result contains **65 events**: 15 harmful and 50 beneficial. Retrospective performance includes:
 
 - balanced accuracy: **0.950**
 - harmful-event recall: **1.000**
 - harmful-event precision: **0.750**
-- ROC AUC: **0.979**
-- mean fold balanced accuracy: **0.939**
-- mean fold ROC AUC: **0.913**
+- ROC AUC: **approximately 0.979**
 
-[Inspect the tracked result artifact](results/absolute_loss_floor_harmful_expansion_analysis.csv)
+The later timing audit established that two residual features require post-outcome information. The headline compact model is therefore evidence of retrospective outcome-informed discrimination, not valid pre-decision prediction.
 
-These values apply only to the documented generated population, feature construction, and evaluation procedure. They are evidence for a specific experimental result, not evidence that the broader adaptive-digital-twin problem has been solved.
+Models restricted to temporally legitimate loss-surface information showed weaker exploratory discrimination, with pooled ROC AUC approximately **0.683–0.711** in the documented analyses.
 
-Equally important, not every apparent signal survives stronger inspection. Support-distance models are weak in the action-conditioned analysis, and some high pooled action/proxy discrimination collapses under cross-block transfer. Those failures are retained as constraints on the research story rather than hidden behind the strongest metric.
+[Tracked compact-model result](results/absolute_loss_floor_harmful_expansion_analysis.csv)
 
-**[Read the current evidence synthesis, including negative results and next falsification gates](research/evidence_synthesis.md)**
+### Preserved negative and failed results
 
-The `results/` directory contains the tracked outputs used to inspect and challenge current claims, while `experiments/` contains the corresponding experimental programs.
+The evidence record retains findings that constrain favorable results, including:
 
-## Research Philosophy
+- Experiment 165 did not prospectively replicate the earlier recall > AP > AUC hierarchy;
+- Experiment 158 did not satisfy its preregistered prediction-decision divergence criteria;
+- simple support-distance representations were weak as standalone unsafe-behavior detectors;
+- pooled discrimination did not consistently survive conditioned transfer;
+- Experiment 166 Criterion 2 did not survive the structural-null challenge;
+- preferential downstream near-switch specificity failed;
+- poisoning specificity was unresolved under the stronger matched non-poison control;
+- the strongest harmful-expansion model contains confirmed prediction-time leakage.
 
-The repository is developed as a research program rather than as a single demonstration.
+## Evidence organization
 
-Claims are treated as provisional until they survive appropriate attempts at falsification, including:
+```text
+research/       preregistrations, chronology, audits, evidence-status records
+experiments/    executable experimental programs
+results/        tracked generated outputs
+simulation/     simulated system and trajectory generation
+models/         adaptive and predictive model code
+tests/          implementation checks
+.github/        reproducibility and CI workflows
+```
 
-- held-out evaluation
-- multi-seed robustness analysis
-- negative controls
-- alternative explanations
-- sensitivity analysis
-- persistence testing
-- generalization checks
-- failure-case inspection
+## Evidence standard
 
-Experiment count is not treated as a stopping criterion. Additional experiments are added when they are necessary to support or challenge a claim.
+Experimental claims remain conditional on the exact population, seed structure, model, feature construction, intervention rule, and outcome definition recorded for each experiment. Candidate/action rows are not automatically treated as independent experimental replications. Later falsification results do not delete earlier positive results; they constrain their interpretation.
 
-## Conceptual Framework
+## Reproducibility
 
-    Dynamical System
-          |
-          v
-    State Representation
-          |
-          v
-    Observation / Sensing
-          |
-          v
-    State Estimation
-          |
-          v
-    Model Adaptation
-          |
-          v
-    Uncertainty Quantification
-          |
-          v
-    Prediction / Control
+Experiment code, workflow definitions, generated summaries, and audit scripts are retained so reported findings can be checked against the producing source revision. Where a result is preserved as a CI artifact rather than a tracked result file, provenance information is retained separately.
 
-The long-term architecture treats adaptation as part of the twin itself rather than as an offline retraining step disconnected from the evolving system.
+## Current status
 
-## Current Research Themes
+**Active research evidence base.**
 
-### Persistence of Adaptive Effects
-
-A major experimental thread studies whether learned or induced changes remain detectable beyond the immediate period in which they occur.
-
-This includes questions such as:
-
-- whether effects persist after an intervention ends
-- whether persistence is distinguishable from transient correlation
-- whether pre-entry variables predict later persistence
-- whether results remain stable across seeds and held-out populations
-
-### Pre-Entry Influence and Predictability
-
-Current experiments examine whether measurable conditions before a persistence event contain information about later system behavior.
-
-The goal is not merely to fit a predictor, but to determine whether the apparent signal survives held-out evaluation, robustness checks, and competing explanations.
-
-### Generalization and Robustness
-
-Experiments are evaluated across multiple generated populations and random seeds where appropriate.
-
-When upstream data generation does not provide meaningful seed diversity, that limitation is treated as an experimental finding rather than hidden by downstream analysis.
-
-## Repository Structure
-
-    research/
-        research questions
-        mathematical foundations
-        current evidence synthesis
-
-    simulation/
-        system and trajectory generation
-
-    models/
-        adaptive and predictive models
-
-    experiments/
-        falsification and validation studies
-
-    data/
-        experiment inputs
-
-    results/
-        generated experiment outputs
-
-    tests/
-        implementation validation
-
-    docs/
-        supporting technical documentation
-
-## Mathematical Foundation
-
-The theoretical development connects:
-
-1. dynamical systems
-2. state-space representation
-3. observation and state estimation
-4. machine learning as adaptive dynamics
-5. uncertainty quantification
-6. optimization and intelligent control
-7. computational architecture
-
-These foundations are used to constrain later experimental claims and implementation choices.
-
-## Experimental Standard
-
-A result is not considered sufficient merely because a single run appears favorable.
-
-Evidence should distinguish among:
-
-- genuine adaptive behavior
-- transient effects
-- data-generation artifacts
-- seed-specific behavior
-- leakage
-- overfitting
-- model misspecification
-- alternative causal explanations
-
-Where possible, experiments are designed so that a hypothesis can fail.
-
-## Current Status
-
-Active research.
-
-The framework is still under development, and individual experiments should be interpreted according to their documented assumptions, controls, and limitations rather than as evidence that the broader adaptive-digital-twin problem has been solved.
-
-## Related Software
-
-- **AeroCPSSimulation** — C++ cyber-physical flight simulation
-- **BiomedicalSystemsSolver** — numerical cardiovascular and neural system modeling
-
-These repositories provide supporting computational contexts, while the Adaptive-Digital-Twin-Framework remains the primary research environment for the broader adaptive-systems questions.
+The repository does not claim that the general adaptive-digital-twin problem has been solved, that Experiment 166 identifies a poisoning-specific mechanism, or that the retrospective harmful-expansion classifier is a validated pre-decision predictor.

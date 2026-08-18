@@ -1,0 +1,71 @@
+% Venue-specific submission shell for Simulation Modelling Practice and Theory.
+% The venue-neutral scientific master remains research/manuscript/manuscript.md.
+% Do not broaden claims during template migration.
+\documentclass[preprint,12pt]{elsarticle}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{url}
+
+\journal{Simulation Modelling Practice and Theory}
+
+\begin{document}
+
+\begin{frontmatter}
+
+\title{Decision-Time Validity and Cutoff Geometry in a Fixed-Budget Adaptive Digital-Twin Pipeline}
+
+% AUTHOR METADATA GATE: insert verified author name, affiliation, postal address,
+% e-mail, and corresponding-author designation before submission.
+\author[aff1]{AUTHOR NAME}
+\affiliation[aff1]{organization={AFFILIATION}, addressline={ADDRESS}, city={CITY}, state={STATE}, postcode={POSTCODE}, country={COUNTRY}}
+
+\begin{abstract}
+Adaptive decision pipelines can exhibit strong statistical patterns that do not necessarily identify the mechanism that produced them or provide information available at decision time. We examine two such problems in a simulated adaptive digital-twin pipeline: localization of ranking changes near a fixed top-N cutoff and prediction of harmful action-space expansion. In Experiment 166, exclusion-membership changes were strongly concentrated near the cutoff in the poisoning condition, but a prospectively frozen label-preserving non-poison perturbation matched the ranking perturbation magnitude and reproduced essentially the same localization pattern. The poison-minus-control localization difference was 0.001845 with a 95\% seed-bootstrap interval of [0.0000, 0.00554], so the frozen poisoning-specificity criterion was not met. A separate compact harmful-expansion model achieved approximately 0.979 ROC AUC retrospectively, but two of its three features incorporate post-outcome quantities and therefore cannot support a pre-decision prediction claim. Models restricted to temporally legitimate loss-surface information showed weaker exploratory discrimination. Together, the results support a pipeline-specific cutoff-localization phenomenon and motivate strict separation of observed association, perturbation specificity, causal mechanism, and prediction-time validity.
+\end{abstract}
+
+\begin{keyword}
+simulation validation \sep digital twin \sep decision-time validity \sep top-k selection \sep ranking stability \sep data leakage \sep falsification
+\end{keyword}
+
+\end{frontmatter}
+
+% IMPORTANT: migrate body text from manuscript.md without changing scientific wording.
+% Keep the historical preregistered positives and later falsification evidence together.
+\section{Introduction}
+% Migrate Section 1 from manuscript.md.
+
+\section{Methods}
+% Migrate Section 2 from manuscript.md, retaining inferential-unit details.
+
+\section{Results}
+% Migrate Section 3 from manuscript.md.
+
+\section{Negative and Failed Results}
+% Preserve all documented negative/failed findings.
+
+\section{Discussion}
+% Maintain phenomenon/specificity/mechanism/generalization separation.
+
+\section{Limitations}
+% Preserve simulation, scope, seed, and prediction-time limitations.
+
+\section{Conclusion}
+% Use only the quadrangulation-constrained conclusion.
+
+\section*{Declaration of generative AI and AI-assisted technologies in the manuscript preparation process}
+During preparation of this work, the author used OpenAI ChatGPT to assist with research-document organization, manuscript drafting/editing, literature-search support, and adversarial claim auditing. All numerical results, methodological descriptions, citations, and scientific interpretations retained in the manuscript were subsequently checked against the cited primary literature or committed experimental artifacts, and the author takes full responsibility for the content of the article.
+
+\section*{Data and code availability}
+Experiment code, preregistrations, tracked result summaries, audit records, manuscript source maps, and reproducible figure-generation code are maintained in the project repository. The stronger Experiment 166 matched-control output used for the specificity adjudication was preserved as a GitHub Actions artifact; its workflow run, head commit, artifact identifier, and SHA-256 digest are recorded in the manuscript provenance audit. Figure-generation code verifies the archived artifact digest before rendering. Historical weaker-control results remain preserved separately and are not substituted for the stronger-control output.
+
+% TODO before submission: replace mutable repository wording with a stable release/archive citation.
+% TODO before submission: insert Table 1 and provenance-checked Figures 1--2.
+% TODO before submission: mechanically verify highlights and provide them as a separate file.
+
+\bibliographystyle{elsarticle-num}
+\bibliography{references}
+
+\end{document}

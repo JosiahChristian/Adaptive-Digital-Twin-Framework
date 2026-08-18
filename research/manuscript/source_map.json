@@ -1,0 +1,68 @@
+{
+  "schema": "manuscript-source-map-v1",
+  "generated_for": "review/manuscript-claim-reconciliation-2026-08-17",
+  "experiment_166_original": {
+    "source": "results/preregistered_cutoff_geometry_mechanism.csv",
+    "uses": [
+      "original cutoff-band MH odds ratio and confidence interval",
+      "original Criterion-2 Spearman association and bootstrap interval"
+    ]
+  },
+  "experiment_166_stronger_control": {
+    "provenance_record": "research/manuscript/experiment_166_stronger_control_artifact_verification_2026-08-17.md",
+    "workflow_run_id": 32074736542,
+    "artifact_id": 9303122672,
+    "artifact_name": "experiment166-stronger-label-preserving-control",
+    "producing_head_sha": "2a099bcfe339da876a7c5f0fb018c56f3776ecd9",
+    "artifact_sha256": "ced924c850aa5f6b5dd2923bcd6e761f00a3a15bbae620c639c4084fa876c904",
+    "artifact_files": {
+      "summary.json": {
+        "uses": [
+          "poison and control exclusion Jaccard",
+          "membership-switch counts",
+          "match adequacy",
+          "poison and control near-minus-far enrichment",
+          "paired poison-minus-control contrast",
+          "seed-bootstrap confidence interval",
+          "specificity decision",
+          "selected-action-change counts",
+          "near-cutoff switch fractions"
+        ]
+      },
+      "paired_seed_results.csv": {
+        "uses": [
+          "paired seed-level plotting",
+          "seed-structured uncertainty verification",
+          "future manuscript figure reconstruction"
+        ]
+      }
+    },
+    "do_not_substitute": "results/audit/experiment_166_matched_nonpoison_control_result.json"
+  },
+  "experiment_166_structural_adjudication": {
+    "source": "research/prequadrangulation_claim_reconciliation_2026-08-17.md",
+    "uses": [
+      "bookkeeping-preserving null adjudication",
+      "downstream near-only versus far-only specificity adjudication"
+    ],
+    "note": "Use the primary artifacts referenced by the reconciliation record when final venue packaging requires direct supplemental provenance."
+  },
+  "harmful_expansion": {
+    "source": "research/harmful_expansion_timing_leakage_audit_2026-08-17.md",
+    "uses": [
+      "event population",
+      "headline outcome-informed performance",
+      "feature timing definitions",
+      "non-leaking model performance range"
+    ],
+    "rule": "Final figure generation must use the primary result/event/coefficient/fold artifacts enumerated in the audit rather than treating the audit prose as a new result file."
+  },
+  "plot_sources": {
+    "experiment_166_stronger_control": "research/manuscript/plot_experiment166_stronger_control.py"
+  },
+  "claim_governance": {
+    "publication_claim_matrix": "research/publication_claim_matrix_2026-08-17.md",
+    "manuscript": "research/manuscript/manuscript.md",
+    "submission_readiness_audit": "research/manuscript/submission_readiness_audit_2026-08-17.md"
+  }
+}

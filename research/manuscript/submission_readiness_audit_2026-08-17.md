@@ -1,12 +1,12 @@
 # ADT Manuscript Submission-Readiness Audit — 2026-08-17
 
-**Scope:** end-to-end audit of `research/manuscript/manuscript.md` on the review branch after claim reconciliation, sentence-level evidence checking, methods/reproducibility expansion, and literature positioning. No experimental machinery or historical artifacts are modified by this record.
+**Scope:** end-to-end audit of `research/manuscript/manuscript.md` on the review branch after claim reconciliation, sentence-level evidence checking, methods/reproducibility expansion, literature positioning, and publication-provenance verification. No experimental machinery or historical artifacts are modified by this record.
 
 ## Verdict
 
 **REVIEW-READY MANUSCRIPT CANDIDATE; NOT YET FINAL-SUBMISSION-READY.**
 
-The narrowed scientific claims are internally consistent with the current committed evidence and closed-evidence adjudication. No new ADT experiment is required solely to support the claims currently made in the manuscript. Final submission packaging still requires venue formatting and resolution/documentation of the stronger-control result discoverability issue described below.
+The narrowed scientific claims are internally consistent with the current committed evidence and closed-evidence adjudication. No new ADT experiment is required solely to support the claims currently made in the manuscript. The stronger-control CI artifact has now been recovered and digest-verified without rerunning the experiment, so the earlier discoverability blocker is resolved. Final submission packaging still requires final figure/table rendering, source-map completion checks, and venue-specific formatting.
 
 ## Gate checks
 
@@ -55,11 +55,11 @@ No external citation is permitted to establish Experiment 166 poisoning specific
 
 ### 7. Visual/reporting balance — PASS FOR REVIEW DRAFT
 
-A balanced claim-adjudication table now places original favorable evidence beside later discriminating/falsifying evidence. This reduces the risk that the preregistered positive Experiment 166 statistics or approximately 0.979 retrospective AUC receive disproportionate visual emphasis.
+A balanced claim-adjudication table places original favorable evidence beside later discriminating/falsifying evidence. This reduces the risk that the preregistered positive Experiment 166 statistics or approximately 0.979 retrospective AUC receive disproportionate visual emphasis.
 
-Publication-quality figures are not yet required for scientific review readiness. If figures are added later, they must preserve the same balance and must not plot superseded headline metrics without timing/claim labels.
+Publication-quality figures are not yet required for scientific review readiness. The review branch now contains a digest-gated plotting source for the stronger-control comparison and a publication packaging plan that requires captions to preserve the narrowed interpretation.
 
-### 8. Reproducibility paths and artifact discoverability — PARTIAL
+### 8. Reproducibility paths and artifact discoverability — PASS WITH FINAL-PACKAGING REQUIREMENT
 
 The following are directly discoverable on `main`:
 
@@ -71,7 +71,19 @@ The following are directly discoverable on `main`:
 - harmful-expansion primary artifacts and leakage audit;
 - current claim matrix and reconciliations.
 
-**Outstanding documentation issue:** the final stronger matched-control numerical adjudication is preserved in the committed pre-quadrangulation reconciliation and CI provenance, but there is no standalone stronger-control result file on `main` at the analogous audit result path. This should not be repaired by fabricating or rerunning the experiment. If the original CI artifact/result output is recoverable, it should be preserved as a directly discoverable evidence artifact before final submission. If it is not recoverable, the manuscript and repository must continue to disclose that provenance limitation explicitly.
+The final stronger-control output is not committed as a standalone result file on `main`, but the original CI artifact has now been directly recovered and verified:
+
+- run ID `32074736542`;
+- artifact ID `9303122672`;
+- artifact name `experiment166-stronger-label-preserving-control`;
+- producing head SHA `2a099bcfe339da876a7c5f0fb018c56f3776ecd9`;
+- artifact SHA-256 `ced924c850aa5f6b5dd2923bcd6e761f00a3a15bbae620c639c4084fa876c904`;
+- downloaded ZIP digest exactly matched GitHub's recorded digest;
+- archive contains aggregate `summary.json`, `summary.csv`, candidate diagnostics, and paired seed-level results.
+
+See `research/manuscript/experiment_166_stronger_control_artifact_verification_2026-08-17.md` and `research/manuscript/source_map.json`.
+
+This resolves the scientific provenance/discoverability ambiguity for manuscript preparation. Final packaging should preserve a durable source pointer or archival copy consistent with repository policy before the temporary Actions artifact expires; doing so is documentation/reproducibility work, not a new experiment.
 
 ### 9. Cross-repository non-conflation — PASS
 
@@ -79,23 +91,12 @@ The manuscript explicitly prevents the adversarial-RL repository from being trea
 
 ## Citation verification notes
 
-The following manuscript entries were directly rechecked against primary publisher/proceedings records during this gate:
-
-- Elmachtoub & Grigas, *Smart Predict, then Optimize*, Management Science 68(1):9-26.
-- Elmachtoub, Liang & McNellis, ICML/PMLR 119:2858-2867.
-- Mandi et al., ICML/PMLR 162:14935-14947.
-- Heuton et al., ICML/PMLR 267:23136-23154.
-- Chen & Suh, ICML/PMLR 37:371-380.
-- Asudeh et al., *On Obtaining Stable Rankings*.
-- Kapoor & Narayanan, Patterns 4(9):100804.
-- Qiu et al., Scientific Reports 15:11078.
-- Splettstößer, Ellwein & Wortmann, Procedia CIRP 119:867-872.
-- Builes-Montaño et al., Scientific Reports 15:39738.
+The manuscript literature entries were checked against their primary publisher/proceedings records during the literature-positioning gate. The external literature remains contextual and cannot supersede the internal experimental adjudications.
 
 ## Current publication boundary
 
-The manuscript is ready to be treated as a **review-ready publication candidate** for the current narrow claims. It is not yet a final submission package because journal/conference formatting, final figures/tables, metadata, and the stronger-control result-artifact discoverability issue remain outside this gate.
+The manuscript is ready to be treated as a **review-ready publication candidate** for the current narrow claims. It is not yet a final submission package because target-venue formatting, final rendered figures/tables, metadata, and durable packaging of the verified stronger-control artifact/source pointer remain outside this gate.
 
 ## Next gate
 
-Proceed to the adversarial-RL evidence-completion/manuscript gate in parallel. For ADT, do not launch a new experiment unless a stronger causal, poisoning-specific, prospective-prediction, or broader-generalization claim is intentionally reintroduced.
+Finalize provenance-safe figures/tables and choose a target venue/format. Do not launch a new experiment unless a stronger causal, poisoning-specific, prospective-prediction, or broader-generalization claim is intentionally reintroduced.

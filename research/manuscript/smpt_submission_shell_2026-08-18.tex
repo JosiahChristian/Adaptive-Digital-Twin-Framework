@@ -6,8 +6,10 @@
 \begin{document}
 \begin{frontmatter}
 \title{Decision-Time Validity and Cutoff Geometry in a Fixed-Budget Adaptive Digital-Twin Pipeline}
-\author[aff1]{AUTHOR NAME}
-\affiliation[aff1]{organization={AFFILIATION},addressline={ADDRESS},city={CITY},state={STATE},postcode={POSTCODE},country={COUNTRY}}
+\author[aff1]{Josiah Christian\corref{cor1}}
+\ead{christianjosiah2484@gmail.com}
+\cortext[cor1]{Corresponding author.}
+\affiliation[aff1]{organization={Laurel Ridge Community College, Computer Science},addressline={173 Skirmisher Lane},city={Middletown},state={VA},postcode={22645},country={USA}}
 \begin{abstract}
 Adaptive decision pipelines can exhibit strong statistical patterns that do not necessarily identify the mechanism that produced them or provide information available at decision time. We examine two such problems in a simulated adaptive digital-twin pipeline: localization of ranking changes near a fixed top-N cutoff and discrimination of harmful action-space expansion outcomes. In Experiment 166, exclusion-membership changes were strongly concentrated near the cutoff in the poisoning condition, but a prospectively frozen label-preserving non-poison perturbation matched the ranking perturbation magnitude and reproduced essentially the same localization pattern. The poison-minus-control localization difference was 0.001845 with a 95\% seed-bootstrap interval of [0.0000, 0.00554], so the frozen poisoning-specificity criterion was not met. A separate compact harmful-expansion model achieved approximately 0.979 ROC AUC retrospectively, but two of its three features incorporate post-outcome quantities and therefore cannot support a pre-decision prediction claim. Models restricted to temporally legitimate loss-surface information showed weaker exploratory discrimination. Together, the results support a pipeline-specific cutoff-localization phenomenon and motivate strict separation of observed association, perturbation specificity, causal mechanism, and prediction-time validity.
 \end{abstract}
